@@ -72,7 +72,7 @@ class Library extends Component{
             }
           </ScrollView>
         </View>
-        <Footer/>
+        <Footer screenName={'Library'} navigation={this.props.navigation}/>
       </View>
     )
   }
