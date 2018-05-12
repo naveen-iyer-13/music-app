@@ -6,9 +6,10 @@ import {
   View
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import Trending from './src/screen/trending/Trending.js'
-const GocoolSolutions = StackNavigator ({
+import Trending from './src/screens/trending/Trending.js'
+
+const bibimpop = StackNavigator ({
   Trending: { screen: Trending},
 },{navigationOptions: {title: 'Welcome', header: null}});
 
-AppRegistry.registerComponent('GocoolSolutions', () => GocoolSolutions);
+AppRegistry.registerComponent('bibimpop', () => bibimpop);
