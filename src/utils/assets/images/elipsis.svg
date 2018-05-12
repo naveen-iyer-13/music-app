@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="4px" viewBox="0 0 22 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>Elipsis</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Details" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.4">
+        <g id="Liked" transform="translate(-333.000000, -366.000000)" fill="#000000">
+            <g id="Group" transform="translate(20.000000, 143.000000)">
+                <g id="Track-Item" transform="translate(0.000000, 198.000000)">
+                    <g id="Elipsis" transform="translate(313.000000, 25.000000)">
+                        <circle id="Oval" cx="2" cy="2" r="2"></circle>
+                        <circle id="Oval" cx="20" cy="2" r="2"></circle>
+                        <circle id="Oval" cx="11" cy="2" r="2"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

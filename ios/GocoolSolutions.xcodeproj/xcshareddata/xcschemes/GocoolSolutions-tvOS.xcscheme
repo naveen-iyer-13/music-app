@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "GocoolSolutions-tvOS.app"
-               BlueprintName = "GocoolSolutions-tvOS"
-               ReferencedContainer = "container:GocoolSolutions.xcodeproj">
+               BuildableName = "bibimpop-tvOS.app"
+               BlueprintName = "bibimpop-tvOS"
+               ReferencedContainer = "container:bibimpop.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "GocoolSolutions-tvOSTests.xctest"
-               BlueprintName = "GocoolSolutions-tvOSTests"
-               ReferencedContainer = "container:GocoolSolutions.xcodeproj">
+               BuildableName = "bibimpop-tvOSTests.xctest"
+               BlueprintName = "bibimpop-tvOSTests"
+               ReferencedContainer = "container:bibimpop.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "GocoolSolutions-tvOSTests.xctest"
-               BlueprintName = "GocoolSolutions-tvOSTests"
-               ReferencedContainer = "container:GocoolSolutions.xcodeproj">
+               BuildableName = "bibimpop-tvOSTests.xctest"
+               BlueprintName = "bibimpop-tvOSTests"
+               ReferencedContainer = "container:bibimpop.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "GocoolSolutions-tvOS.app"
-            BlueprintName = "GocoolSolutions-tvOS"
-            ReferencedContainer = "container:GocoolSolutions.xcodeproj">
+            BuildableName = "bibimpop-tvOS.app"
+            BlueprintName = "bibimpop-tvOS"
+            ReferencedContainer = "container:bibimpop.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "GocoolSolutions-tvOS.app"
-            BlueprintName = "GocoolSolutions-tvOS"
-            ReferencedContainer = "container:GocoolSolutions.xcodeproj">
+            BuildableName = "bibimpop-tvOS.app"
+            BlueprintName = "bibimpop-tvOS"
+            ReferencedContainer = "container:bibimpop.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "GocoolSolutions-tvOS.app"
-            BlueprintName = "GocoolSolutions-tvOS"
-            ReferencedContainer = "container:GocoolSolutions.xcodeproj">
+            BuildableName = "bibimpop-tvOS.app"
+            BlueprintName = "bibimpop-tvOS"
+            ReferencedContainer = "container:bibimpop.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
