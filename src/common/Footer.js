@@ -38,7 +38,7 @@ class Footer extends Component{
       <View style={styles.container}>
         {
           SCREENS.map(screen => (
-            <TouchableOpacity key={screen} onPress={() => selectedScreen === screen ? {} : handleKeyPress(screen)}>
+            <TouchableOpacity key={screen} onPress={() => selectedScreen === screen ? {} : this.handleKeyPress(screen)}>
               <Text>{screen}</Text>
             </TouchableOpacity>
           ))
