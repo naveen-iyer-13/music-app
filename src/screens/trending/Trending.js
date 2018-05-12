@@ -9,10 +9,12 @@ import {
   Platform,
   StyleSheet,
   ScrollView,
+  ImageBackground
 } from 'react-native'
 import { getTrending } from './../../common/helpers'
 import Footer from '../../common/Footer'
 import {ListView} from '../../common/ListView'
+import PopupModal from '../../common/PopupModal'
 import SplashScreen from '../../common/SplashScreen'
 
 class Trending extends Component {
@@ -22,7 +24,8 @@ class Trending extends Component {
     this.state = {
       trendingSongs: [],
       randomArray: [],
-      loading: true
+      loading: true,
+      popupModal: false,
     }
   }
 
@@ -49,23 +52,31 @@ class Trending extends Component {
       random = Math.floor(Math.random()*101);
       array.push(random)
     }
-    this.setState({randomArray: array})
+    var sortedArray = array.sort();
+    this.setState({randomArray: sortedArray})
   }
-
+  openModal(){
+    this.setState({popupModal: true})
+  }
+  closeModal(){
+    this.setState({popupModal: false})
+  }
   render () {
     var trending = this.state.trendingSongs
     var List = <View />
     var artistView = <View />
+
+    var randomIndex = this.state.randomArray[0]
     if(trending.length > 0){
       List = trending.map((item, index)=> {
         return (
-           <ListView title={item.title} artist={item.artist} thumbnail={item.cover}  key={index}/>
+           <ListView title={item.title} artist={item.artist} thumbnail={item.thumbnail} openModal = {this.openModal.bind(this)}  key={index}/>
         );
       })
        artistView= trending.map((item, index)=> {
         if(this.state.randomArray.includes(index)){
           return(
-            <View key={index} style={{paddingLeft: 15, paddingTop: 25, width: 100}}>
+            <View key={index} style={{paddingLeft: 15, paddingTop: 15, width: 100}}>
               <Image
                 style={{resizeMode: 'contain',height: 80, width: 80, borderRadius: 80}}
                 source={{uri: item.cover}}
@@ -84,17 +95,23 @@ class Trending extends Component {
     else {
       return (
         <View style={styles.container}>
-         <View style={{height: 190, alignItems: 'center'}}>
-          <Text style={{paddingTop: 20, fontFamily: 'Proxima-Nova'}}>Trending artist</Text>
+          <ImageBackground
+            source={{uri: trending[randomIndex].cover}}
+            style={{width: '100%', height: 180}}
+          >
+         <View style={{height: 180, alignItems: 'center'}}>
+          <Text style={{fontFamily: 'Proxima-Nova', color: '#fff', fontSize: 20, paddingTop: 15}}>Trending artist</Text>
            <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
             {artistView}
            </ScrollView>
          </View>
-         <Text style={{textAlign: 'center', width: '100%', marginBottom: 10, fontFamily: 'Proxima-Nova'}}>TODAY{"'"}S TOP 100 SONGS</Text>
+         </ImageBackground>
+         <Text style={styles.heading}>TODAY{"'"}S TOP 100 SONGS</Text>
          <ScrollView>
           {List}
          </ScrollView>
          <Footer screenName={'Trending'} navigation={this.props.navigation} />
+         <PopupModal active={this.state.popupModal} closeModal={this.closeModal.bind(this)}/>
         </View>
       )
     }
@@ -114,5 +131,12 @@ const styles = StyleSheet.create({
     height: 175,
     borderTopWidth: 4,
     borderBottomWidth: 1
+  },
+  heading: {
+    textAlign: 'center',
+    width: '100%',
+    marginBottom: 10,
+    marginTop: 10,
+    fontFamily: 'Proxima-Nova'
   },
 });
