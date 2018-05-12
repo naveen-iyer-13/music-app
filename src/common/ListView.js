@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 const ListView = props => {
-  const {thumnail, title, artist} = props
+  const {thumnail, title, artist, openModal} = props
 	return(
 		<View style={{borderBottomWidth: 2, height: 70, width: Dimensions.get('window').width, flexDirection: 'row', borderColor: '#D8D8D8', alignItems: 'center'}}>
      <TouchableOpacity>
@@ -22,7 +22,7 @@ const ListView = props => {
        <Text>{title}</Text>
        <Text>{artist}</Text>
      </View>
-     <TouchableOpacity style={{flexDirection: 'row'}}>
+     <TouchableOpacity style={{flexDirection: 'row', height: 70, alignItems: 'center'}} onPress = {()=> openModal()}>
       <View style={{width: 5, height: 5, backgroundColor: '#000',marginRight: 3, borderRadius: 5}}/>
       <View style={{width: 5, height: 5, backgroundColor: '#000',marginRight: 3, borderRadius: 5}}/>
       <View style={{width: 5, height: 5, backgroundColor: '#000',marginRight: 3, borderRadius: 5}}/>
