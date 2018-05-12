@@ -43,7 +43,7 @@ export default class Trending extends Component {
     }
     this.setState({randomArray: array})
   }
-
+  
   render () {
     var trending = this.state.trendingSongs
     var List = <View />
@@ -51,7 +51,7 @@ export default class Trending extends Component {
     if(trending.length > 0){
       List = trending.map((item, index)=> {
         return (
-           <ListView title={item.title} artist={item.artist} picture={item.cover} key={index}/>
+           <ListView title={item.title} artist={item.artist} thumnail={item.cover}  key={index}/>
         );
       })
        artistView= trending.map((item, index)=> {
