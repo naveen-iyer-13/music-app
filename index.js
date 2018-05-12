@@ -6,10 +6,15 @@ import {
   View
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import Trending from './src/screens/trending/Trending.js'
-import SplashScreen from './src/common/SplashScreen.js'
+import Trending from './src/screens/trending'
+import Library from './src/screens/library'
+import Footer from './src/common/Footer'
+
 const bibimpop = StackNavigator ({
   Trending: { screen: Trending},
-},{navigationOptions: {title: 'Welcome', header: null}});
+  Library: { screen: Library},
+},{
+  navigationOptions: {title: 'Welcome', header: null}
+});
 
 AppRegistry.registerComponent('bibimpop', () => bibimpop);
