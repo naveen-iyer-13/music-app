@@ -11,8 +11,8 @@ import Library from './src/screens/library'
 import Footer from './src/common/Footer'
 
 const bibimpop = StackNavigator ({
-  Library: { screen: Library},
   Trending: { screen: Trending},
+  Library: { screen: Library},
 },{
   navigationOptions: {title: 'Welcome', header: null}
 });
