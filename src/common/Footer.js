@@ -27,22 +27,32 @@ class Footer extends Component{
       selectedScreen: 'Trending'
     }
   }
-
-  handleKeyPress = (screen) => {
-    this.setState({selectedScreen: screen})
+  navigate(screenName){
+    console.log('navigate', screenName, this.props);
+    this.props.navigation.navigate(screenName)
   }
 
   render() {
-    const { selectedScreen } = this.state
+    const { screenName } = this.props
+    var trending = screenName == 'Trending' ? require('.././images/library-active.png') : require('.././images/library.png')
+    var library = screenName == 'Library' ? require('.././images/top100-active.png') :require('.././images/top100.png')
+    var search = screenName == 'Search' ? require('.././images/search-active.png') :require('.././images/search.png')
+    var playing = screenName == 'Playing' ? require('.././images/playing-active.png') :require('.././images/playing.png')
+
     return(
       <View style={styles.container}>
-        {
-          SCREENS.map(screen => (
-            <TouchableOpacity key={screen} onPress={() => selectedScreen === screen ? {} : this.handleKeyPress(screen)}>
-              <Text>{screen}</Text>
-            </TouchableOpacity>
-          ))
-        }
+      <TouchableOpacity onPress={()=> screenName == 'Trending' ?  console.log('cant go'):this.navigate('Trending')}>
+       <Image source={trending} style={{width: 30, height: 25}} resizeMode='contain'/>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=> screenName == 'Library' ?  console.log('cant go'):this.navigate('Library')}>
+       <Image source={library} style={{width: 30, height: 25}} resizeMode='contain'/>
+      </TouchableOpacity>
+      <TouchableOpacity>
+       <Image source={search} style={{width: 30, height: 25}} resizeMode='contain'/>
+      </TouchableOpacity>
+      <TouchableOpacity >
+       <Image source={playing} style={{width: 30, height: 25}} resizeMode='contain'/>
+      </TouchableOpacity>
       </View>
     )
   }
