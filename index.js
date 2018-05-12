@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Trending from './src/screens/trending/Trending.js'
-
+import SplashScreen from './src/common/SplashScreen.js'
 const bibimpop = StackNavigator ({
   Trending: { screen: Trending},
 },{navigationOptions: {title: 'Welcome', header: null}});
