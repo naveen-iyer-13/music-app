@@ -2,46 +2,33 @@ import React from 'react'
 import {
   View,
   StyleSheet,
+  Dimensions,
+  Text,
   Image,
-  Text
+  TouchableOpacity
 } from 'react-native'
 
-export const ListView = ({thumbnail, title}) => (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.thumbnail} source={{uri: thumbnail}}/>
-      </View>
-      <View style={styles.songInfo}>
-        <Text>
-          {title}
-        </Text>
-      </View>
-      <View style={styles.actionBtn}></View>
+const ListView = props => {
+  const {thumnail, title, artist} = props
+	return(
+		<View style={{borderBottomWidth: 2, height: 70, width: Dimensions.get('window').width, flexDirection: 'row', borderColor: '#D8D8D8', alignItems: 'center'}}>
+     <TouchableOpacity>
+       <Image
+         style={{resizeMode: 'contain',height: 50, width: 50, marginLeft: 15, marginRight: 10}}
+         source={{uri: thumnail}}
+       />
+     </TouchableOpacity>
+     <View style={{width: '70%'}}>
+       <Text>{title}</Text>
+       <Text>{artist}</Text>
+     </View>
+     <TouchableOpacity style={{flexDirection: 'row'}}>
+      <View style={{width: 5, height: 5, backgroundColor: '#000',marginRight: 3, borderRadius: 5}}/>
+      <View style={{width: 5, height: 5, backgroundColor: '#000',marginRight: 3, borderRadius: 5}}/>
+      <View style={{width: 5, height: 5, backgroundColor: '#000',marginRight: 3, borderRadius: 5}}/>
+     </TouchableOpacity>
     </View>
-)
-
-const styles = StyleSheet.create({
-  container:{
-    display: 'flex',
-    flexDirection: 'row',
-    marginTop: 5,
-    marginBottom: 5
-  },
-  imageContainer:{
-    width: 50,
-    height: 50
-  },
-  thumbnail:{
-    width: '100%',
-    height: '100%'
-  },
-  actionBtn:{
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  songInfo: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
+	)
+}
+export default ListView
+const styles = StyleSheet.create({})
