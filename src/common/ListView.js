@@ -8,21 +8,21 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-const ListView = props => {
-  const {thumnail, title, artist} = props
+export const ListView = props => {
+  const {thumbnail, title, artist, handleActions, song} = props
 	return(
 		<View style={{borderBottomWidth: 2, height: 70, width: Dimensions.get('window').width, flexDirection: 'row', borderColor: '#D8D8D8', alignItems: 'center'}}>
      <TouchableOpacity>
        <Image
          style={{resizeMode: 'contain',height: 50, width: 50, marginLeft: 15, marginRight: 10}}
-         source={{uri: thumnail}}
+         source={{uri: thumbnail ? thumbnail : ''}}
        />
      </TouchableOpacity>
      <View style={{width: '70%'}}>
-       <Text>{title}</Text>
-       <Text>{artist}</Text>
+       <Text>{title ? title : ''}</Text>
+       <Text>{artist ? artist : ''}</Text>
      </View>
-     <TouchableOpacity style={{flexDirection: 'row'}}>
+     <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => handleActions(song)}>
       <View style={{width: 5, height: 5, backgroundColor: '#000',marginRight: 3, borderRadius: 5}}/>
       <View style={{width: 5, height: 5, backgroundColor: '#000',marginRight: 3, borderRadius: 5}}/>
       <View style={{width: 5, height: 5, backgroundColor: '#000',marginRight: 3, borderRadius: 5}}/>
@@ -30,5 +30,5 @@ const ListView = props => {
     </View>
 	)
 }
-export default ListView
+
 const styles = StyleSheet.create({})
