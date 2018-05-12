@@ -4,6 +4,7 @@ import {
 } from 'react-native'
 
 export const getTrending = (cb) => {
+  // console.log('getTrending');
   instance.get('/top100').then(res => {
     AsyncStorage.setItem('trendingSongs', JSON.stringify(res.data))
     cb(res.data)

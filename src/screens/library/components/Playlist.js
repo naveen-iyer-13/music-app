@@ -5,6 +5,7 @@ import {
   Text,
   AsyncStorage
 } from 'react-native'
+import { ListView } from './../../../common/ListView'
 
 class Playlists extends Component{
   constructor(props){
@@ -18,19 +19,31 @@ class Playlists extends Component{
     this.getData()
   }
 
-  getData = async() => {
-    let playlists = await AsyncStorage.getItem('playlists')
-    if(playlists){
-      this.setState({playlists})
-    }
+  getData = () => {
+    AsyncStorage.getItem('playlists', (err, res) => {
+      let playlists = JSON.parse(res)
+      console.log(playlists);
+      if(playlists){
+        this.setState({playlists})
+      }
+    })
   }
 
   render() {
     const { playlists } = this.state
+    console.log(this.state);
     return(
       <View>
         {
-          playlists && playlists.length > 0 ? <ListView thumbnail={thumbnail} title={title}/> : <View/>
+          playlists && Object.keys(playlists).map(key => (
+            <View>
+              {
+                playlists[key].map(song => (
+                  <ListView thumbnail={song.thumbnail} title={song.title}/>
+                ))
+              }
+            </View>
+          ))
         }
       </View>
     )

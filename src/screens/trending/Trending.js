@@ -12,9 +12,10 @@ import {
 } from 'react-native'
 import { getTrending } from './../../common/helpers'
 import Footer from '../../common/Footer'
-import ListView from '../../common/ListView'
+import {ListView} from '../../common/ListView'
 import SplashScreen from '../../common/SplashScreen'
-export default class Trending extends Component {
+
+class Trending extends Component {
 
   constructor (props) {
     super(props);
@@ -58,7 +59,7 @@ export default class Trending extends Component {
     if(trending.length > 0){
       List = trending.map((item, index)=> {
         return (
-           <ListView title={item.title} artist={item.artist} thumnail={item.cover}  key={index}/>
+           <ListView title={item.title} artist={item.artist} thumbnail={item.cover}  key={index}/>
         );
       })
        artistView= trending.map((item, index)=> {
@@ -99,6 +100,9 @@ export default class Trending extends Component {
     }
   }
 }
+
+export default Trending;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
