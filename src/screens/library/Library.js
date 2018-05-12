@@ -12,7 +12,6 @@ import { Search } from './../../common/Search'
 import Footer from './../../common/Footer'
 import Songs from './components/Songs'
 import { searchSong } from './../../common/helpers'
-import {Trending} from './../../utils/assets/icons/top-100'
 
 let { height, width } = Dimensions.get('window')
 

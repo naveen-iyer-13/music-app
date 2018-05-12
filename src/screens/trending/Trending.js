@@ -12,13 +12,16 @@ import {
 } from 'react-native'
 import {getTrendingSongs} from './Helpers/TrendingHelpers'
 import Footer from '../../common/Footer'
+import ListView from '../../common/ListView'
+import SplashScreen from '../../common/SplashScreen'
 export default class Trending extends Component {
 
   constructor (props) {
     super(props);
     this.state = {
       trendingSongs: [],
-      randomArray: []
+      randomArray: [],
+      loading: true
     }
   }
 
@@ -28,7 +31,7 @@ export default class Trending extends Component {
   }
 
   getSongs(){
-    getTrendingSongs((trendingSongs) => {this.setState({trendingSongs: trendingSongs})})
+    getTrendingSongs((trendingSongs) => {this.setState({trendingSongs: trendingSongs, loading: false})})
   }
 
   randomNumber(){
@@ -40,45 +43,53 @@ export default class Trending extends Component {
     }
     this.setState({randomArray: array})
   }
-
+  
   render () {
     var trending = this.state.trendingSongs
-    var ListView = <View />
+    var List = <View />
     var artistView = <View />
     if(trending.length > 0){
-      ListView = trending.map((item, index)=> {
+      List = trending.map((item, index)=> {
         return (
-          <View key={index}>
-           <Text>{item.title}</Text>
-           <Text>{item.title}</Text>
-          </View>
+           <ListView title={item.title} artist={item.artist} thumnail={item.cover}  key={index}/>
         );
       })
-      artistView = this.state.randomArray.map((item, index)=>{
-        trending.map((itemChild , indexChild)=> {
-         if(indexChild == item){
-           return (
-             <View key={indexChild}>
-              <Text>{itemChild.title}</Text>
-             </View>
-           );
-         }
-        })
+       artistView= trending.map((item, index)=> {
+        if(this.state.randomArray.includes(index)){
+          return(
+            <View key={index} style={{paddingLeft: 15, paddingTop: 25, width: 100}}>
+              <Image
+                style={{resizeMode: 'contain',height: 80, width: 80, borderRadius: 80}}
+                source={{uri: item.cover}}
+              />
+              <Text style={{textAlign: 'center'}}>{item.artist}</Text>
+            </View>
+          )
+        }
       })
     }
-
-    return (
-      <View style={styles.container}>
-       <View style={styles.topView}>
-         
-       </View>
-       <ScrollView>
-        <Text>TODAY{"'"}S TOP 100 SONGS</Text>
-        {ListView}
-       </ScrollView>
-       <Footer />
-      </View>
-    )
+    if(this.state.loading){
+      return (
+        <SplashScreen />
+      )
+    }
+    else {
+      return (
+        <View style={styles.container}>
+         <View style={{height: 190, alignItems: 'center'}}>
+          <Text style={{paddingTop: 20, fontFamily: 'Proxima-Nova'}}>Trending artist</Text>
+           <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
+            {artistView}
+           </ScrollView>
+         </View>
+         <Text style={{textAlign: 'center', width: '100%', marginBottom: 10, fontFamily: 'Proxima-Nova'}}>TODAY{"'"}S TOP 100 SONGS</Text>
+         <ScrollView>
+          {List}
+         </ScrollView>
+         <Footer />
+        </View>
+      )
+    }
   }
 }
 const styles = StyleSheet.create({
