@@ -1,4 +1,4 @@
-package com.gocoolsolutions;
+package com.bibimpop;
 
 import android.app.Application;
 
