@@ -93,7 +93,7 @@ export default class Trending extends Component {
          <ScrollView>
           {List}
          </ScrollView>
-         <Footer />
+         <Footer screenName={'Trending'} navigation={this.props.navigation} />
         </View>
       )
     }
