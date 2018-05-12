@@ -20,6 +20,26 @@ const SCREENS = [
   'Player'
 ]
 
+const SCREENICON = {
+  Trending: {
+    active: require('.././images/top100-active.png'),
+    inactive: require('.././images/top100.png')
+  },
+  Library: {
+    active: require('.././images/library-active.png'),
+    inactive: require('.././images/library.png')
+  },
+  Search: {
+    active: require('.././images/search-active.png'),
+    inactive: require('.././images/search.png')
+  },
+  Player: {
+    active: require('.././images/playing-active.png'),
+    inactive: require('.././images/playing.png')
+  }
+
+}
+
 class Footer extends Component{
   constructor(props){
     super(props)
@@ -27,32 +47,27 @@ class Footer extends Component{
       selectedScreen: 'Trending'
     }
   }
+
   navigate(screenName){
-    console.log('navigate', screenName, this.props);
     this.props.navigation.navigate(screenName)
   }
 
   render() {
     const { screenName } = this.props
-    var trending = screenName == 'Trending' ? require('.././images/library-active.png') : require('.././images/library.png')
-    var library = screenName == 'Library' ? require('.././images/top100-active.png') :require('.././images/top100.png')
-    var search = screenName == 'Search' ? require('.././images/search-active.png') :require('.././images/search.png')
-    var playing = screenName == 'Playing' ? require('.././images/playing-active.png') :require('.././images/playing.png')
 
     return(
       <View style={styles.container}>
-      <TouchableOpacity onPress={()=> screenName == 'Trending' ?  console.log('cant go'):this.navigate('Trending')}>
-       <Image source={trending} style={{width: 30, height: 25}} resizeMode='contain'/>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={()=> screenName == 'Library' ?  console.log('cant go'):this.navigate('Library')}>
-       <Image source={library} style={{width: 30, height: 25}} resizeMode='contain'/>
-      </TouchableOpacity>
-      <TouchableOpacity>
-       <Image source={search} style={{width: 30, height: 25}} resizeMode='contain'/>
-      </TouchableOpacity>
-      <TouchableOpacity >
-       <Image source={playing} style={{width: 30, height: 25}} resizeMode='contain'/>
-      </TouchableOpacity>
+        {
+          SCREENS.map(screen => (
+            <TouchableOpacity onPress={()=> screenName === screen ?  {} : this.navigate(screen)}>
+              <Image
+                source={screenName === screen ? SCREENICON[screen].active : SCREENICON[screen].inactive}
+                style={{width: 30, height: 25}}
+                resizeMode='contain'
+              />
+            </TouchableOpacity>
+          ))
+        }
       </View>
     )
   }
