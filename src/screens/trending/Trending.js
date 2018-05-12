@@ -43,7 +43,7 @@ export default class Trending extends Component {
     }
     this.setState({randomArray: array})
   }
-  
+
   render () {
     var trending = this.state.trendingSongs
     var List = <View />
@@ -86,7 +86,7 @@ export default class Trending extends Component {
          <ScrollView>
           {List}
          </ScrollView>
-         <Footer />
+         <Footer screenName={'Trending'} navigation={this.props.navigation} />
         </View>
       )
     }
