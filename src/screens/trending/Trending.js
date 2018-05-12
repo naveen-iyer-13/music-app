@@ -8,9 +8,9 @@ import {
   Dimensions,
   Platform,
   StyleSheet,
-  ScrollView
+  ScrollView,
 } from 'react-native'
-import {getTrendingSongs} from './Helpers/TrendingHelpers'
+import { getTrending } from './../../common/helpers'
 import Footer from '../../common/Footer'
 import ListView from '../../common/ListView'
 import SplashScreen from '../../common/SplashScreen'
@@ -31,7 +31,14 @@ export default class Trending extends Component {
   }
 
   getSongs(){
-    getTrendingSongs((trendingSongs) => {this.setState({trendingSongs: trendingSongs, loading: false})})
+    AsyncStorage.getItem('trendingSongs', (err, res) => {
+      if(res)
+        this.setState({trendingSongs: JSON.parse(res), loading: false})
+      else
+        getTrending((trendingSongs) => {
+          this.setState({trendingSongs, loading: false})
+        })
+    })
   }
 
   randomNumber(){
@@ -43,7 +50,7 @@ export default class Trending extends Component {
     }
     this.setState({randomArray: array})
   }
-  
+
   render () {
     var trending = this.state.trendingSongs
     var List = <View />

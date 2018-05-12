@@ -1,9 +1,13 @@
 import { instance } from './../utils/config/ApiConf'
+import {
+  AsyncStorage
+} from 'react-native'
 
 export const getTrending = (cb) => {
-  instance.get('/top100').then(res => (
+  instance.get('/top100').then(res => {
+    AsyncStorage.setItem('trendingSongs', JSON.stringify(res.data))
     cb(res.data)
-  ))
+  })
   .catch(err => {
     cb(false)
   })
