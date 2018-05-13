@@ -11,7 +11,9 @@ import {
   AlertIOS,
 } from 'react-native'
 import Modal from "react-native-modal";
+import { removeFromPlaylist } from './helpers'
 let { width, height } = Dimensions.get('window')
+
 
 class PlayerModal extends Component{
   constructor(props){
@@ -22,37 +24,56 @@ class PlayerModal extends Component{
   }
 
   render() {
-    const { active, closeModal, song } = this.props
+    const { active, closeModal, song, navigation, navigateToScreen, viewPlaylists, playlistNames, showPlaylists } = this.props
     return(
       <Modal
         isVisible={active}
         onBackButtonPress={() => closeModal()}>
         <View style={styles.modalOverlay}>
          <View style={styles.modalView}>
+        {
+          viewPlaylists
+          ?
+          <View>  
+               {
+                 playlistNames && playlistNames.map(name => {
+                   return(
+                     <TouchableOpacity style={styles.selectView} onPress={() => removeFromPlaylist(name, song, (res) => closeModal())}>
+                       <Text style={styles.TextStyle}>{name}</Text>
+                     </TouchableOpacity>
+                   )
+                 })
+               }
+          </View>
+          :
+          <View>
            <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Library', song)}>
-             <Image source={require('.././images/white-close.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
-             <Text style={styles.TextStyle}>Add to Library</Text>
+             <Image source={require('../images/cancel.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+             <Text style={styles.TextStyle}>Remove from Library</Text>
+           </TouchableOpacity>
+           <TouchableOpacity style={styles.selectView} onPress={() => showPlaylists()}>
+           <Image source={require('../images/remove-from-playlist.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+           <Text style={styles.TextStyle}>Remove from playlist</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.selectView}>
-           <Image source={require('.././images/top100.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
-           <Text style={styles.TextStyle}>Add to playlist</Text>
+           <Image source={require('../images/wrong-song.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+           <Text style={styles.TextStyle}>Wrong song?</Text>
            </TouchableOpacity>
-           <TouchableOpacity style={styles.selectView}>
-           <Image source={require('.././images/top100.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
-           <Text style={styles.TextStyle}>Play Next</Text>
-           </TouchableOpacity>
-           <TouchableOpacity style={styles.selectView}>
-           <Image source={require('.././images/top100.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
-           <Text style={styles.TextStyle}>Add to Queue</Text>
-           </TouchableOpacity>
-           <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Search', song)}>
-           <Image source={require('.././images/top100.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+           <TouchableOpacity style={styles.selectView} onPress={() => navigateToScreen('Search')} >
+           <Image source={require('../images/search-artist.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
            <Text style={styles.TextStyle}>Search Artist</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.cancelView} onPress={() => closeModal()}>
-           <Image source={require('.././images/top100.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+           <Image source={require('../images/cancel.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
            <Text style={styles.TextStyle}>Cancel</Text>
            </TouchableOpacity>
+
+         </View>
+        }
+         <TouchableOpacity style={styles.cancelView} onPress={() => closeModal()}>
+             <Image source={require('.././images/cancel.png')} style={{resizeMode: 'contain', height: 12, width: 12, marginLeft: 20}}/>
+             <Text style={styles.TextStyle}>Cancel</Text>
+             </TouchableOpacity>
          </View>
         </View>
        </Modal>
@@ -69,7 +90,7 @@ const styles = StyleSheet.create({
   modalView: {
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
-    height: 300
+    height: 250
   },
   selectView: {
     height: 50,

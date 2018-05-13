@@ -1,6 +1,7 @@
 import { instance } from './../utils/config/ApiConf'
 import {
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native'
 import axios from 'axios'
 
@@ -16,6 +17,35 @@ export const getTrending = (cb) => {
   .catch(err => {
     cb(false)
   })
+}
+
+export const removeFromPlaylist = async(name, song, cb) => {
+    AsyncStorage.getItem('playlists', (err, res) => {
+      if (res) {
+        let playlist = JSON.parse(res)[name]
+      let track = playlist.filter(obj => obj.bp_id === song.id)
+      let index = 0
+      for(let i=0;i<playlist.length;i++) {
+        if (track === playlist[i]) {
+          index = i
+          break;
+        }
+      }
+      playlist.splice(index, 1)
+      AsyncStorage.setItem('playlists', playlist)
+      Alert.alert(
+      'Success',
+      'Song has been removed from the playlist '+name,
+      [
+        {text: 'OK', onPress: () =>  cb(true)}
+      ],
+      { cancelable: false }
+    )
+      }
+      
+    })
+      
+
 }
 
 export const searchSong = (q, cb) => {

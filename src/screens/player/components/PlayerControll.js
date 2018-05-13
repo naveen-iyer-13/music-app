@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
-import { Image, StyleSheet, Text, TouchableOpacity, View, ViewPropTypes, Dimensions } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View, ViewPropTypes, Dimensions, AsyncStorage, Modal } from 'react-native';
 import PlayerModal from '../../../common/PlayerModal'
+import QueueList from './QueueList'
 
 class ProgressBar extends ProgressComponent {
   render() {
@@ -117,8 +118,21 @@ export default class PlayerControll extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      popupModal: false
+      popupModal: false,
+      showPlaylists: false,
+      playlistNames:[],
+      showQueue: false
     }
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('playlists', (err, res) =>{
+      if (res) {
+        this.setState({
+          playlistNames: Object.keys(JSON.parse(res))
+        })
+      }
+    })
   }
 
   static propTypes = {
@@ -135,17 +149,41 @@ export default class PlayerControll extends Component {
   toggleModal = () => {
     let { popupModal } = this.state
     this.setState({
-      popupModal: !popupModal 
+      popupModal: !popupModal ,
+      showPlaylists: false
     })
+  }
+
+  navigateToScreen = (screen) => {
+    this.setState({
+      popupModal: false
+    }, () => this.props.navigation.navigate(screen))
+
+  }
+
+  showPlaylists = () => {
+    this.setState({
+      showPlaylists: true
+    })
+  }
+
+  toggleQueueModal = () => {
+    let { showQueue } = this.state
+    this.setState({
+      showQueue: !showQueue
+    })
+  }
+
+  chooseTrackFromQueue = (index) => {
+    this.toggleQueueModal()
+    this.handleQueue(index)
   }
 
 
   render() {
-    const { style, onNext, onPrevious, onTogglePlayback } = this.props;
-    const { playbackState, track } = this.props
+    const { style, onNext, onPrevious, onTogglePlayback, navigation, playlistNames, handleQueue } = this.props;
+    const { playbackState, track, } = this.props
     var middleButtonText = 'Play'
-
-
     if (playbackState === TrackPlayer.STATE_PLAYING
       || playbackState === TrackPlayer.STATE_BUFFERING) {
       middleButtonText = 'Pause'
@@ -155,9 +193,23 @@ export default class PlayerControll extends Component {
        <PlayerModal
            active={this.state.popupModal}
            closeModal={this.toggleModal}
-           navigation={this.props.navigation}
-           //song={this.state.selectedSong}
+           navigateToScreen={this.navigateToScreen}
+           song={track}
+           showPlaylists={this.showPlaylists}
+           viewPlaylists = {this.state.showPlaylists}
+           playlistNames={this.state.playlistNames}
           />
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={this.state.showQueue}
+            onRequestClose={() => this.toggleQueueModal}
+          >
+            <QueueList 
+              trackList={this.state.trackList}
+              handleQueue={this.chooseTrackFromQueue}
+            />
+          </Modal>
         <Text style={styles.songTitle}>{track.title}</Text>
         <Text style={styles.songArtist}>{track.artist}</Text>
 
@@ -178,7 +230,7 @@ export default class PlayerControll extends Component {
           <ControlButton type={'back'} onPress={onPrevious}  />
           <ControlButton type={playbackState === 3 ? 'pause' : (playbackState === TrackPlayer.STATE_BUFFERING) ? 'load' : 'play'} onPress={onTogglePlayback} />
           <ControlButton type={'skip'} onPress={onNext}/>
-           <TouchableOpacity style={styles.sideSectionRight}>
+           <TouchableOpacity style={styles.sideSectionRight} onPress={this.toggleQueueModal}>
             <Image source={require('../../../images/queue.png')} style={styles.skipTrack}/>
           </TouchableOpacity>
         </View>

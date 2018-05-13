@@ -20,11 +20,15 @@ export default class Player extends Component {
 	}
 
 	componentWillMount() {
-		const { index, storageKey } = this.props.navigation.state.params
+		const { index, storageKey, name } = this.props.navigation.state.params
 		AsyncStorage.getItem(storageKey, (err,res) => {
-			trackList = JSON.parse(res)
+			if (name)
+				trackList = JSON.parse(res)[name]
+			else
+				trackList = JSON.parse(res)
+
 			trackList.unshift(trackList[index])
-			trackList = trackList.slice(index+1, index+3)
+			trackList = trackList.splice(index+1, index+3)
 			let obj, list = []
 			trackList.forEach(track => {
 				obj = {}
@@ -37,25 +41,24 @@ export default class Player extends Component {
 				list.push(obj)
 			})
 			trackList = list
+
 			this.setState({
-				track: trackList[0]
+				track: trackList[0],
+				trackList: trackList
 			})
 		})
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		let trackNext = {}
 	    TrackPlayer.setupPlayer();
+			
 		TrackPlayer.registerEventHandler(async (data) => {
 		  if (data.type === 'playback-track-changed') {
 		    if (data.nextTrack) {
 		      const track = await TrackPlayer.getTrack(data.nextTrack);
-		      trackNext.title = track.title
-		      trackNext.artist = track.artist;
-		      trackNext.artwork = track.artwork;
-		      trackNext.thumbnail = track.thumbnail;
 		      this.setState({
-			  	track: trackNext
+			  	track: track
 			  })
 		    }
 		  } else if(data.type == 'remote-play') {
@@ -73,6 +76,7 @@ export default class Player extends Component {
 		  }
 		  
 		});
+		this.togglePlayback()
 	    TrackPlayer.updateOptions({
 	      stopWithApp: true,
 	      capabilities: [
@@ -115,16 +119,24 @@ export default class Player extends Component {
 	    } catch (_) {}
 	  }
 
+	  handleQueue = async(index) => {
+	  	trackList.unshift(trackList[index])
+	  	trackList = trackList.splice(index+1, 1)
+	  	TrackPlayer.reset()
+	  	this.togglePlayback()
+	  }
+
 	render() {
 		const { playbackState, track } = this.state
 		const { song, index } = this.props.navigation.state.params
+		//console.log('first', (playbackState === TrackPlayer.STATE_BUFFERING || playbackState === TrackPlayer.STATE_NONE || playbackState === TrackPlayer.STATE_STOPPED))
 		return (
 
 			<View style={styles.container}>
 		        <View style={styles.backgroundContainer}>
 					<Image 
 						style={styles.backgroundImage}
-		            	source={{ uri: playbackState === TrackPlayer.STATE_BUFFERING ? track.artwork : track.artwork }}
+		            	source={{ uri: (playbackState === TrackPlayer.STATE_BUFFERING) ? track.thumbnail : track.artwork }}
 		          	/>
 		        </View>
 		        <View style={styles.playerContainer}>
@@ -134,6 +146,9 @@ export default class Player extends Component {
 				          onTogglePlayback={() => this.togglePlayback()}
 				          playbackState={playbackState}
 				          track={track}
+				          navigation={this.props.navigation}
+				          trackList={trackList}
+				          handleQueue={this.handleQueue}
 				    />
 		        </View>
 				<Footer screenName={'Search'} navigation={this.props.navigation}/>
