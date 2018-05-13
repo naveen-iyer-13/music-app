@@ -25,6 +25,9 @@ class Songs extends Component{
   }
 
   componentWillMount() {
+    if(this.props.list)
+      this.setState({list: this.props.list})
+    else
       this.getSongs()
   }
 
@@ -50,7 +53,8 @@ class Songs extends Component{
         }
         else{
           Alert.alert(
-            'Song already exists',
+          'Alert',
+          'Song already exists'
           )
         }
       })
@@ -58,7 +62,7 @@ class Songs extends Component{
     else if (action === 'Playlists') {
       this.setState({openPlaylist: true, songToBeAdded: data})
       AsyncStorage.getItem('playlists', (err, res) => {
-        this.setState({playlistName: Object.keys(JSON.parse(res))})
+        this.setState({playlistName: res ? Object.keys(JSON.parse(res)) : []})
       })
     }
     else if (action === 'Cancel Create') {
@@ -124,6 +128,7 @@ class Songs extends Component{
     AsyncStorage.getItem('library', (err, res) => {
       if(res)
         this.setState({list: JSON.parse(res), loading: false})
+      this.setState({loading: false})
     })
   }
 
@@ -158,7 +163,7 @@ class Songs extends Component{
              ?
             <Text>Loading</Text>
              :
-            <ScrollView>
+            <ScrollView style={{ paddingTop: 20}}>
               {
                 list.length > 0 ? list.map((song,index) => (
                   <ListView

@@ -30,6 +30,7 @@ class SearchScreen extends Component{
 
   componentWillMount() {
     const { params } = this.props.navigation.state
+    console.log(this.props);
     if(params && params.song.artist){
       this.handleSearch(params.song.artist)
       this.setState({searchTerm: params.song.artist})
@@ -199,7 +200,7 @@ const styles = StyleSheet.create({
     height
   },
   screenContainer:{
-    height: height - 140,
+    height: height - 125,
     paddingRight: 12,
     paddingLeft: 12
   },
