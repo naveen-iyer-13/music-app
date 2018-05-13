@@ -56,23 +56,23 @@ class PopupModal extends Component{
              {
                !openPlaylist ? <View>
                  <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Library', song)}>
-                   <Image source={require('.././images/top100.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+                   <Image source={require('.././images/library.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
                    <Text style={styles.TextStyle}>Add to Library</Text>
                  </TouchableOpacity>
                  <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Playlists', song)}>
-                 <Image source={require('.././images/top100.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}} />
+                 <Image source={require('.././images/add-to-playlist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}} />
                  <Text style={styles.TextStyle}>Add to playlist</Text>
                  </TouchableOpacity>
                  <TouchableOpacity style={styles.selectView}>
-                 <Image source={require('.././images/top100.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+                 <Image source={require('.././images/add-to-queue.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
                  <Text style={styles.TextStyle}>Play Next</Text>
                  </TouchableOpacity>
                  <TouchableOpacity style={styles.selectView}>
-                 <Image source={require('.././images/top100.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+                 <Image source={require('.././images/add-to-queue.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
                  <Text style={styles.TextStyle}>Add to Queue</Text>
                  </TouchableOpacity>
                  <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Search', song)}>
-                 <Image source={require('.././images/top100.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+                 <Image source={require('.././images/search.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
                  <Text style={styles.TextStyle}>Search Artist</Text>
                  </TouchableOpacity>
                </View>
@@ -95,7 +95,7 @@ class PopupModal extends Component{
                </View>
              }
              <TouchableOpacity style={styles.cancelView} onPress={() => closeModal()}>
-             <Image source={require('.././images/top100.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+             <Image source={require('.././images/cancel.png')} style={{resizeMode: 'contain', height: 12, width: 12, marginLeft: 20}}/>
              <Text style={styles.TextStyle}>Cancel</Text>
              </TouchableOpacity>
            </View>
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   TextStyle: {
-    paddingLeft: 10,
+    paddingLeft: 15,
     color: '#4B4B4B',
     fontFamily: 'Proxima-Nova-Bold',
     fontSize: 14

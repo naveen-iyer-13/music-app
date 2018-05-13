@@ -93,7 +93,7 @@ class Trending extends Component {
     else if (action === 'Playlists') {
       this.setState({openPlaylist: true, songToBeAdded: data})
       AsyncStorage.getItem('playlists', (err, res) => {
-        this.setState({playlistName: Object.keys(JSON.parse(res))})
+        this.setState({playlistName: res ? Object.keys(JSON.parse(res)) : []})
       })
     }
     else if (action === 'Cancel Create') {
