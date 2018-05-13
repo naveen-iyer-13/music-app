@@ -10,6 +10,7 @@ import {
 
 export const ListView = props => {
   const { thumbnail, title, artist, song, openModal, openPlaylist, playSong, len } = props
+  // console.log(props, 'hfuyft');
 	return(
 		<View style={styles.container}>
      <TouchableOpacity>
@@ -18,7 +19,7 @@ export const ListView = props => {
          source={{uri: thumbnail ? thumbnail : ''}}
        />
      </TouchableOpacity>
-     <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song) : openPlaylist(title)}>
+     <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song) : openPlaylist(song)}>
        <Text style={styles.titleText}>{title ? title : ''}</Text>
        <Text style={styles.artistText}>{artist ? artist : ''}</Text>
        <Text style={styles.artistText}>{len ? `${len} songs` : ''}</Text>

@@ -28,6 +28,7 @@ class Trending extends Component {
       randomArray: [],
       loading: true,
       popupModal: false,
+      openPlaylist: false,
     }
   }
 
@@ -63,11 +64,12 @@ class Trending extends Component {
   }
 
   closeModal = (action, data) => {
-    this.setState({popupModal: false})
     if(action === 'Search'){
+      this.setState({popupModal: false})
       this.navigateTo('Search', data)
     }
     else if (action === 'Library') {
+      this.setState({popupModal: false})
       AsyncStorage.getItem('library', (err, res) => {
         let library = res ? JSON.parse(res) : []
         let flag = false
@@ -82,7 +84,6 @@ class Trending extends Component {
           AsyncStorage.setItem('library', JSON.stringify(library))
         }
         else{
-          console.log('song already exists');
           Alert.alert(
             'Song already exists',
           )
@@ -90,20 +91,67 @@ class Trending extends Component {
       })
     }
     else if (action === 'Playlists') {
-      this.addToPlaylist(data)
+      this.setState({openPlaylist: true, songToBeAdded: data})
+      AsyncStorage.getItem('playlists', (err, res) => {
+        this.setState({playlistName: Object.keys(JSON.parse(res))})
+      })
+    }
+    else if (action === 'Cancel Create') {
+      this.setState({openPlaylist: true, addPlaylistModal: false})
+    }
+    else if(action === 'Create'){
+      AsyncStorage.getItem('playlists', (err, res) => {
+        let playlists = res ? JSON.parse(res) : {}
+        if(!Object.keys(playlists).includes(data)){
+          playlists[data] = []
+          let { playlistName } = this.state
+          playlistName.push(data)
+          this.setState({playlistName, addPlaylistModal: false}, () => console.log(this.state))
+          AsyncStorage.setItem('playlists', JSON.stringify(playlists))
+        }
+        else{
+          Alert.alert(
+            'Playlist already exists',
+          )
+        }
+      })
+      console.log('creating palylist');
+    }
+    else{
+      this.setState({popupModal: false, openPlaylist: false})
     }
   }
 
-  addToPlaylist = (song) => {
+  addToPlaylist = (playlistName) => {
+    const { songToBeAdded } = this.state
+    this.setState({popupModal: false})
     AsyncStorage.getItem('playlists', (err, res) => {
       let playlists = res ? JSON.parse(res) : {}
-      playlists['test'].push(song)
-      AsyncStorage.setItem('playlists', JSON.stringify(playlists))
+      let flag = false
+      for(let i = 0; i < playlists[playlistName].length; i++){
+        if(playlists[playlistName][i].title === songToBeAdded.title){
+          flag = true
+          break
+        }
+      }
+      if(!flag){
+        playlists[playlistName].push(songToBeAdded)
+        AsyncStorage.setItem('playlists', JSON.stringify(playlists))
+      }
+      else{
+        Alert.alert(
+          'Song already exists',
+        )
+      }
     })
   }
 
+  createPlaylist = () => {
+    this.setState({addPlaylistModal: true})
+  }
+
   navigateTo = (screen, song) => {
-    this.props.navigation.navigate(screen, {artist: song.artist})
+    this.props.navigation.navigate(screen, {song})
   }
 
   playSong = (song) => {
@@ -173,6 +221,11 @@ class Trending extends Component {
            closeModal={this.closeModal}
            navigation={this.props.navigation}
            song={this.state.selectedSong}
+           openPlaylist={this.state.openPlaylist}
+           playlistName={this.state.playlistName}
+           addToPlaylist={this.addToPlaylist}
+           createPlaylist={this.createPlaylist}
+           addPlaylistModal={this.state.addPlaylistModal}
           />
         </View>
       )
