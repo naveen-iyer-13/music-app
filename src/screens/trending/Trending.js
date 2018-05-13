@@ -186,7 +186,7 @@ class Trending extends Component {
             <View key={index} style={styles.trendingView}>
               <Image
                 style={styles.trendingImage}
-                source={item.thumbnail ? {uri: item.thumbnail} : defaultIcon}
+                source={item.cover ? {uri: item.cover} : defaultIcon}
               />
               <Text style={styles.trendingTitle}>{item.artist}</Text>
             </View>
@@ -203,7 +203,7 @@ class Trending extends Component {
       return (
         <View style={styles.container}>
           <ImageBackground
-            source={trending[randomIndex].thumbnail ? {uri: trending[randomIndex].thumbnail} : defaultIcon}
+            source={{uri: trending[randomIndex].cover}}
             style={styles.backgroundImage}
           >
          <View style={styles.topView}>
