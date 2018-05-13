@@ -178,9 +178,7 @@ class Songs extends Component{
                   />
                 ))
                 :
-                <View style={{height: Dimensions.get('window').height, justifyContent:'center', alignItems: 'center'}}>
                  <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold',textAlign: 'center'}}>You don{"'"}t have songs in your library</Text>
-                </View>
               }
             </ScrollView>
         }
