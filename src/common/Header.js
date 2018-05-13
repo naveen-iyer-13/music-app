@@ -13,11 +13,11 @@ class Header extends Component{
   }
 
   render() {
-    const { navigation, handleKeyPress, header, path } = this.props
+    const { handleBackButton, handleKeyPress, header } = this.props
     // console.log(this.props);
     return(
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => handleBackButton()}>
           <Text style={styles.backArrow}>{'<'}</Text>
         </TouchableOpacity>
         <Text style={styles.heading}>{header}</Text>

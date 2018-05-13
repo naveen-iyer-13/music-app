@@ -23,21 +23,27 @@ class Playlists extends Component{
       this.getData()
   }
 
-  componentWillReceiveProps() {
-    this.setState({playlistOpen: false})
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.closePlaylist)
+      this.setState({playlistOpen: false})
   }
 
   getData = () => {
+    this.setState({loading: true})
     AsyncStorage.getItem('playlists', (err, res) => {
       let playlists = JSON.parse(res)
       if(playlists){
-        this.setState({playlists})
+        this.setState({playlists, loading: false})
+      }
+      else{
+        this.setState({loading: false})
       }
     })
   }
 
-  openPlaylist = (list) => {
+  openPlaylist = (list, title) => {
     this.setState({list, playlistOpen: true})
+    this.props.handlePlaylistOpen(list, title)
   }
 
   playSong = (song) => {
@@ -46,18 +52,35 @@ class Playlists extends Component{
   }
 
   render() {
-    const { playlists, playlistOpen, searchList, list } = this.state
+    const { playlists, playlistOpen, searchList, list, loading } = this.state
     // console.log(this.state);
     return(
       <View>
         {
-          !playlistOpen && playlists && Object.keys(playlists).map(key => (
+          loading
+          ?
+          <Text>Loading</Text>
+          :
+          !playlistOpen ?
+          playlists
+          ?
+          Object.keys(playlists).map(key => (
             <View>
               {
-                  <ListView thumbnail={''} title={key} len={playlists[key].length} song={playlists[key]} openPlaylist={this.openPlaylist}/>
+                  <ListView
+                    thumbnail={playlists[key][0] ? playlists[key][0].thumbnail : '' }
+                    title={key}
+                    len={playlists[key].length}
+                    song={playlists[key]}
+                    openPlaylist={this.openPlaylist}
+                  />
               }
             </View>
           ))
+          :
+          <Text>You don't have any playlist in your library</Text>
+          :
+          <View/>
         }
         {
           playlistOpen && <Songs list={list} navigation={this.props.navigation} />

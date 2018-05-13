@@ -62,7 +62,7 @@ class Songs extends Component{
     else if (action === 'Playlists') {
       this.setState({openPlaylist: true, songToBeAdded: data})
       AsyncStorage.getItem('playlists', (err, res) => {
-        this.setState({playlistName: Object.keys(JSON.parse(res))})
+        this.setState({playlistName: res ? Object.keys(JSON.parse(res)) : []})
       })
     }
     else if (action === 'Cancel Create') {
@@ -124,9 +124,11 @@ class Songs extends Component{
   }
 
   getSongs(){
+    this.setState({loading: true})
     AsyncStorage.getItem('library', (err, res) => {
       if(res)
         this.setState({list: JSON.parse(res), loading: false})
+      this.setState({loading: false})
     })
   }
 
@@ -147,7 +149,8 @@ class Songs extends Component{
   }
 
   render() {
-    let { list, searchList, popupModal, selectedSong, searchTerm } = this.state
+    let { list, searchList, popupModal, selectedSong, searchTerm, loading } = this.state
+    console.log(this.state);
     list = searchTerm? searchList : list
     return(
       <View>
@@ -155,20 +158,28 @@ class Songs extends Component{
           searchTerm={searchTerm}
           handleSearch={this.handleSearch}
         />
-        <ScrollView style={{ paddingTop: 20}}>
-          {
-            list && list.map((song,index) => (
-              <ListView
-                key={song.title + index}
-                thumbnail={song.thumbnail}
-                title={song.title}
-                song={song}
-                openModal={this.openModal}
-                playSong={this.playSong}
-              />
-            ))
-          }
-        </ScrollView>
+        {
+            loading
+             ?
+            <Text>Loading</Text>
+             :
+            <ScrollView style={{ paddingTop: 20}}>
+              {
+                list.length > 0 ? list.map((song,index) => (
+                  <ListView
+                    key={song.title + index}
+                    thumbnail={song.thumbnail}
+                    title={song.title}
+                    song={song}
+                    openModal={this.openModal}
+                    playSong={this.playSong}
+                  />
+                ))
+                :
+                <Text>You don't have songs in your library</Text>
+              }
+            </ScrollView>
+        }
         <PopupModal
           active={popupModal}
           closeModal={this.closeModal}
