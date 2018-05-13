@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
 import { StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
 import PlayerControll from './components/PlayerControll'
+import Footer from './../../common/Footer'
 import data from '../../common/data.json'
 let { height, width } = Dimensions.get('window')
 
@@ -96,10 +97,11 @@ export default class Player extends Component {
 		          onTogglePlayback={() => this.togglePlayback()}
 		          playbackState={playbackState}
 		          track={track}
-		        />
+		    />
+				<Footer screenName={'Search'} navigation={this.props.navigation}/>
 			</View>
 		)
-	}	
+	}
 }
 
 const styles = StyleSheet.create({

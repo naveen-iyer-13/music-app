@@ -42,6 +42,10 @@ class SearchScreen extends Component{
     })
   }
 
+  playSong = (song) => {
+    this.props.navigation.navigate('Player', {song})
+  }
+
   render(){
     const { list, searchTerm } = this.state
     console.log(this.state);
@@ -55,7 +59,12 @@ class SearchScreen extends Component{
           <ScrollView>
             {
               list && list.length > 0 && list.map((song,index) => (
-                <ListView key={song.title + index} thumbnail={song.thumbnail} title={song.title}/>
+                <ListView
+                  key={song.title + index}
+                  thumbnail={song.thumbnail}
+                  title={song.title}
+                  playSong={this.playSong}
+                />
               ))
             }
           </ScrollView>
