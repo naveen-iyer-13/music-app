@@ -22,7 +22,16 @@ class SearchScreen extends Component{
     }
   }
 
+  componentWillMount() {
+    const { artist } = this.props.navigation.state.params
+    if(artist){
+      this.handleSearch(artist)
+      this.setState({searchTerm: artist})
+    }
+  }
+
   handleSearch = (text) => {
+    this.setState({searchTerm: text})
     searchSong(text, res => {
       if(res)
         this.setState({list: res})
@@ -33,6 +42,7 @@ class SearchScreen extends Component{
 
   render(){
     const { list, searchTerm } = this.state
+    console.log(this.state);
     return(
       <View style={styles.container}>
         <View style={styles.screenContainer}>
@@ -42,7 +52,7 @@ class SearchScreen extends Component{
           />
           <ScrollView>
             {
-              list && list.map((song,index) => (
+              list && list.length > 0 && list.map((song,index) => (
                 <ListView key={song.title + index} thumbnail={song.thumbnail} title={song.title}/>
               ))
             }
