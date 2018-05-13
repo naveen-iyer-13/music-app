@@ -20,6 +20,26 @@ const SCREENS = [
   'Player'
 ]
 
+const SCREENICON = {
+  Trending: {
+    active: require('.././images/top100-active.png'),
+    inactive: require('.././images/top100.png')
+  },
+  Library: {
+    active: require('.././images/library-active.png'),
+    inactive: require('.././images/library.png')
+  },
+  Search: {
+    active: require('.././images/search-active.png'),
+    inactive: require('.././images/search.png')
+  },
+  Player: {
+    active: require('.././images/playing-active.png'),
+    inactive: require('.././images/playing.png')
+  }
+
+}
+
 class Footer extends Component{
   constructor(props){
     super(props)
@@ -28,18 +48,23 @@ class Footer extends Component{
     }
   }
 
-  handleKeyPress = (screen) => {
-    this.setState({selectedScreen: screen})
+  navigate(screenName){
+    this.props.navigation.navigate(screenName)
   }
 
   render() {
-    const { selectedScreen } = this.state
+    const { screenName } = this.props
+
     return(
       <View style={styles.container}>
         {
           SCREENS.map(screen => (
-            <TouchableOpacity key={screen} onPress={() => selectedScreen === screen ? {} : this.handleKeyPress(screen)}>
-              <Text>{screen}</Text>
+            <TouchableOpacity onPress={()=> screenName === screen ?  {} : this.navigate(screen)}>
+              <Image
+                source={screenName === screen ? SCREENICON[screen].active : SCREENICON[screen].inactive}
+                style={{width: 30, height: 25}}
+                resizeMode='contain'
+              />
             </TouchableOpacity>
           ))
         }

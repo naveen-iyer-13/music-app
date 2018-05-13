@@ -8,8 +8,9 @@ import {
 export const Search = ({handleSearch, searchTerm}) => (
   <View style={styles.searchBox}>
     <TextInput
-      onChange={(text) => handleSearch(text)}
+      onChangeText={(text) => handleSearch(text)}
       placeholder={"Search"}
+      value={searchTerm}
       underlineColorAndroid={'transparent'}
       placeholderColor={'#000000'}
       style={styles.searchBox}
