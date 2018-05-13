@@ -49,14 +49,15 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontFamily: 'Proxima-Nova-Bold',
-    fontSize: 14,
-    color: '#4A4A4A',
+    fontSize: 12,
+    color: '#252525',
     paddingBottom: 5
   },
   artistText: {
     fontFamily: 'Proxima-Nova',
-    fontSize: 14,
-    color: '#D8D8D8'
+    fontSize: 12,
+    color: '#252525',
+    opacity: 0.5
   },
   breadCumsLayout: {
     flexDirection: 'row',
@@ -66,8 +67,9 @@ const styles = StyleSheet.create({
   breadCums:{
     width: 5,
     height: 5,
-    backgroundColor: '#000',
+    backgroundColor: '#252525',
     marginRight: 3,
-    borderRadius: 5
+    borderRadius: 5,
+    opacity: 0.6
   }
 })
