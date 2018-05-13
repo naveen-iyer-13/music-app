@@ -7,6 +7,8 @@ import {
 } from 'react-native'
 import { ListView } from './../../../common/ListView'
 import Songs from './Songs'
+import PopupModal from './../../../common/PopupModal'
+
 
 class Playlists extends Component{
   constructor(props){
@@ -24,8 +26,11 @@ class Playlists extends Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.closePlaylist)
+    if(nextProps.closePlaylist){
       this.setState({playlistOpen: false})
+      this.props.reset()
+    }
+    this.setState({openCreatePlaylistModal: nextProps.openCreatePlaylistModal})
   }
 
   getData = () => {
@@ -39,6 +44,28 @@ class Playlists extends Component{
         this.setState({loading: false})
       }
     })
+  }
+
+  closeModal = (action, data) => {
+    if (action === 'Cancel Create') {
+      this.props.handleModalClose()
+    }
+    else if(action === 'Create'){
+      AsyncStorage.getItem('playlists', (err, res) => {
+        let playlists = res ? JSON.parse(res) : {}
+        if(!Object.keys(playlists).includes(data)){
+          playlists[data] = []
+          this.setState({playlists}, () => this.props.handleModalClose())
+          AsyncStorage.setItem('playlists', JSON.stringify(playlists))
+        }
+        else{
+          Alert.alert(
+            'Playlist already exists',
+          )
+        }
+      })
+      console.log('creating palylist');
+    }
   }
 
   openPlaylist = (list, title) => {
@@ -85,6 +112,13 @@ class Playlists extends Component{
         {
           playlistOpen && <Songs list={list} navigation={this.props.navigation} />
         }
+        <PopupModal
+          active={this.state.openCreatePlaylistModal}
+          closeModal={this.closeModal}
+          navigation={this.props.navigation}
+          addPlaylistModal={this.state.openCreatePlaylistModal}
+          onlyModal={true}
+        />
       </View>
     )
   }
