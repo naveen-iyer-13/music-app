@@ -38,9 +38,7 @@ class Playlists extends Component{
           playlists && Object.keys(playlists).map(key => (
             <View>
               {
-                playlists[key].map(song => (
-                  <ListView thumbnail={song.thumbnail} title={song.title}/>
-                ))
+                  <ListView thumbnail={''} title={key} len={playlists[key].length}/>
               }
             </View>
           ))

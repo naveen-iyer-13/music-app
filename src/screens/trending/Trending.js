@@ -9,7 +9,9 @@ import {
   Platform,
   StyleSheet,
   ScrollView,
-  ImageBackground
+  ImageBackground,
+  Alert,
+  AlertIOS
 } from 'react-native'
 import { getTrending } from './../../common/helpers'
 import Footer from '../../common/Footer'
@@ -81,9 +83,23 @@ class Trending extends Component {
         }
         else{
           console.log('song already exists');
+          Alert.alert(
+            'Song already exists',
+          )
         }
       })
     }
+    else if (action === 'Playlists') {
+      this.addToPlaylist(data)
+    }
+  }
+
+  addToPlaylist = (song) => {
+    AsyncStorage.getItem('playlists', (err, res) => {
+      let playlists = res ? JSON.parse(res) : {}
+      playlists['test'].push(song)
+      AsyncStorage.setItem('playlists', JSON.stringify(playlists))
+    })
   }
 
   navigateTo = (screen, song) => {
