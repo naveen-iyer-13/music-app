@@ -14,12 +14,13 @@ class Playlists extends Component{
     this.state = {
       playlists: null,
       list: [],
-      playlistOpen: false
+      playlistOpen: false,
+      searchList: ''
     }
   }
 
   componentWillMount() {
-    this.getData()
+      this.getData()
   }
 
   componentWillReceiveProps() {
@@ -36,7 +37,6 @@ class Playlists extends Component{
   }
 
   openPlaylist = (list) => {
-    console.log('here');
     this.setState({list, playlistOpen: true})
   }
 
@@ -46,7 +46,7 @@ class Playlists extends Component{
   }
 
   render() {
-    const { playlists, playlistOpen, list } = this.state
+    const { playlists, playlistOpen, searchList, list } = this.state
     // console.log(this.state);
     return(
       <View>
@@ -60,7 +60,7 @@ class Playlists extends Component{
           ))
         }
         {
-          playlistOpen && <Songs searchList={list} navigation={this.props.navigation} />
+          playlistOpen && <Songs list={list} navigation={this.props.navigation} />
         }
       </View>
     )
