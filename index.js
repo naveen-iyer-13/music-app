@@ -16,7 +16,7 @@ const StackNavigation = StackNavigator ({
   Trending: { screen: Trending},
   Library: { screen: Library},
   Search: { screen: Search},
-  Player: { screen: Player }                          
+  Player: { screen: Player }
 },{
   navigationOptions: {title: 'Welcome', header: null}
 });

@@ -40,10 +40,10 @@ class Duration extends ProgressComponent {
 
   render() {
    let duration = this.getDuration()
-   let secDur = Math.floor(duration % 60) 
+   let secDur = Math.floor(duration % 60)
    let minDur = Math.floor(duration / 60)
    const { currentSecond } = this.state
-   let secCur = Math.floor(currentSecond % 60) 
+   let secCur = Math.floor(currentSecond % 60)
    let minCur = Math.floor(currentSecond / 60)
    secCur = secCur < 10 ? `0${secCur}` : secCur
    secDur = secDur < 10 ? `0${secDur}` : secDur
@@ -88,23 +88,23 @@ function ControlButton({ type, onPress }) {
         type === 'load'
         ?
         <View style={styles.loaderCircle} onPress={onPress}>
-          <Image 
-            source={buttonTypePath} 
+          <Image
+            source={buttonTypePath}
             style={styles.loadTrack}
           />
         </View>
 
         :
         <TouchableOpacity onPress={onPress}>
-          <Image 
-            source={buttonTypePath} 
+          <Image
+            source={buttonTypePath}
             style={ type !== 'back' && type !== 'skip' ? styles.playButton : styles.skipTrack}
           />
         </TouchableOpacity>
       }
     </View>
 
-    
+
   );
 }
 
@@ -146,7 +146,6 @@ export default class PlayerControll extends Component {
           </TouchableOpacity>
         </View>
         <ProgressBar />
-        <Duration playbackState={playbackState}/>
 
         <View style={styles.controls}>
           <TouchableOpacity style={styles.sideSectionLeft}>
