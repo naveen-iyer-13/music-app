@@ -32,7 +32,7 @@ class Library extends Component{
     return (
       <View style={styles.container}>
         <View style={styles.screenContainer} navigation={this.props.navigation}>
-          <Header header={'Library'} navigation={this.props.navigation}/>
+          <Header header={'Library'} navigation={this.props.navigation} path={tab}/>
           <View style={styles.containerItem}>
             <View style={styles.headerItem}>
               <TouchableOpacity onPress={() => this.handleTabPress('songs')}>
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
   container:{
     display: 'flex',
     backgroundColor: '#FFFFFF',
-    width,
-    height
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').heights
   },
   screenContainer:{
     height: height - 75 ,
