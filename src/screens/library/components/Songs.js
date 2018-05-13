@@ -53,7 +53,8 @@ class Songs extends Component{
         }
         else{
           Alert.alert(
-            'Song already exists',
+          'Alert',
+          'Song already exists'
           )
         }
       })
