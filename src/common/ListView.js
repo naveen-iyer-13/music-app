@@ -18,7 +18,7 @@ export const ListView = props => {
          source={thumbnail ? {uri: thumbnail} : require('./../images/default-icon.png')}
        />
      </TouchableOpacity>
-     <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song) : openPlaylist(song)}>
+     <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song) : openPlaylist(song, title)}>
        <Text style={styles.titleText}>{title ? title : ''}</Text>
        <Text style={styles.artistText}>{artist ? artist : ''}</Text>
        <Text style={styles.artistText}>{len ? `${len} songs` : ''}</Text>
@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontFamily: 'Proxima-Nova-Bold',
-    fontSize: 12,
+    fontSize: 14,
     color: '#4A4A4A',
     paddingBottom: 5
   },
   artistText: {
     fontFamily: 'Proxima-Nova',
-    fontSize: 12,
+    fontSize: 14,
     color: '#D8D8D8'
   },
   breadCumsLayout: {
