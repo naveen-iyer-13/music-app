@@ -6,9 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  ScrollView
 } from 'react-native'
-import { Search } from './../../common/Search'
 import Footer from './../../common/Footer'
 import Songs from './components/Songs'
 import Playlists from './components/Playlist'
@@ -20,19 +18,8 @@ class Library extends Component{
   constructor(props){
     super(props)
     this.state = {
-      searchTerm: '',
       tab: 'songs',
-      searchList: [],
     }
-  }
-
-  handleSearch = (text) => {
-    searchSong(text, res => {
-      if(res)
-        this.setState({searchList: res})
-      else
-        this.setState({searchList: []})
-    })
   }
 
   handleTabPress = (tab) => {
@@ -56,11 +43,8 @@ class Library extends Component{
               </TouchableOpacity>
             </View>
           </View>
-          <Search
-            searchTerm={searchTerm}
-            handleSearch={this.handleSearch}
-          />
-          <ScrollView>
+
+
             {
               tab === 'songs'
               ?
@@ -70,7 +54,6 @@ class Library extends Component{
                 <Playlists/>
               </View>
             }
-          </ScrollView>
         </View>
         <Footer screenName={'Library'} navigation={this.props.navigation}/>
       </View>
