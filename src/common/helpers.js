@@ -22,3 +22,7 @@ export const searchSong = (q, cb) => {
     cb(false)
   })
 }
+
+// export const closeApp = () =>{
+//   AsyncStorage.removeItem('mountInfo')
+// }
