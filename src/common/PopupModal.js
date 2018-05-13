@@ -48,7 +48,7 @@ class PopupModal extends Component{
                  <Text style={styles.optionButton}>Cancel</Text>
                </TouchableOpacity>
                <TouchableOpacity style={styles.optionOverview} onPress={() => newPlaylistName ? closeModal('Create', newPlaylistName) : {}}>
-                 <Text style={styles.optionButton}>Create</Text>
+                 <Text style={styles.optionButtonCreate}>Create</Text>
                </TouchableOpacity>
              </View>
            </View>
@@ -87,7 +87,7 @@ class PopupModal extends Component{
                      playlistName && playlistName.map(name => {
                        return(
                          <TouchableOpacity style={styles.selectView} onPress={() => addToPlaylist(name)} style={{marginLeft: 10}}>
-                           <Text style={styles.TextStyle}>{name}</Text>
+                           <Text style={styles.PlayTextStyle}>{name}</Text>
                          </TouchableOpacity>
                        )
                      })
@@ -118,27 +118,33 @@ const styles = StyleSheet.create({
     fontFamily: 'Proxima-Nova',
     fontSize: 16,
     marginBottom: 10,
-    color: '#4A4A4A'
+    color: '#919191'
   },
   optionButton: {
     fontFamily: 'Proxima-Nova-Bold',
-    fontSize: 14,
-    color: '#000'
+    fontSize: 16,
+    color: '#F8001E'
+  },
+  optionButtonCreate: {
+    fontFamily: 'Proxima-Nova-Bold',
+    fontSize: 16,
+    color: '#6DEAD3',
   },
   playlistInput: {
     width: 300,
     height: 40,
-    backgroundColor: '#FFFFFF',
-    borderColor: '#D8D8D8',
+    backgroundColor: '#F7F7F7',
+    borderColor: '#EBEBEB',
     borderWidth: 1,
     borderRadius: 10,
-    marginBottom: 15
+    marginBottom: 15,
+    fontFamily: 'Proxima-Nova'
   },
   playlistHeading: {
     fontFamily: 'Proxima-Nova-Bold',
     fontSize: 18,
     marginBottom: 10,
-    color: '#000'
+    color: '#1C1C1C'
   },
   addPlaylist: {
     backgroundColor: 'white',
@@ -189,8 +195,15 @@ const styles = StyleSheet.create({
   },
   TextStyle: {
     paddingLeft: 15,
-    color: '#4B4B4B',
+    color: '#2B2B2B',
     fontFamily: 'Proxima-Nova-Bold',
-    fontSize: 14
+    fontSize: 15,
+  },
+  PlayTextStyle:{
+    paddingLeft: 15,
+    color: '#2B2B2B',
+    fontFamily: 'Proxima-Nova-Bold',
+    fontSize: 15,
+    margin: 5
   }
 })

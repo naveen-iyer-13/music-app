@@ -260,7 +260,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 12,
     fontFamily :'Proxima-Nova-Bold',
-    color: '#4A4A4A'
+    color: '#797979',
+    paddingTop: 5
   },
   trendingImage: {
     resizeMode: 'contain',
