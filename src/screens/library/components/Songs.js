@@ -48,9 +48,14 @@ class Songs extends Component{
     this.setState({searchList})
   }
 
+  playSong = (song) => {
+    console.log(this.props);
+    this.props.navigation.navigate('Player', {song})
+  }
+
   render() {
     let { list, searchList, popupModal, selectedSong, searchTerm } = this.state
-    // console.log(searchList);
+    console.log(this.props);
     list = searchTerm? searchList : list
     return(
       <View>
@@ -67,6 +72,7 @@ class Songs extends Component{
               title={song.title}
               song={song}
               openModal={this.openModal}
+              playSong={this.playSong}
             />
           ))
         }

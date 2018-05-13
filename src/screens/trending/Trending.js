@@ -77,7 +77,7 @@ class Trending extends Component {
             break
           }
         }
-        if(flag){
+        if(!flag){
           library.push(data)
           AsyncStorage.setItem('library', JSON.stringify(library))
         }
@@ -106,6 +106,10 @@ class Trending extends Component {
     this.props.navigation.navigate(screen, {artist: song.artist})
   }
 
+  playSong = (song) => {
+    this.props.navigation.navigate('Player', {song})
+  }
+
   render () {
     var trending = this.state.trendingSongs
     var List = <View />
@@ -122,6 +126,7 @@ class Trending extends Component {
              song={item}
              openModal={this.openModal.bind(this)}
              key={index}
+             playSong={this.playSong}
           />
         );
       })
@@ -180,8 +185,6 @@ export default Trending;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height:undefined,
-    width: undefined,
     backgroundColor: '#FFFFFF',
   },
   topView: {
