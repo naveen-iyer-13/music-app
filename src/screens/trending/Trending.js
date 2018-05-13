@@ -91,7 +91,6 @@ class Trending extends Component {
   }
 
   render () {
-    console.log(this.state);
     var trending = this.state.trendingSongs
     var List = <View />
     var artistView = <View />
