@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 export const ListView = props => {
-  const { thumbnail, title, artist, song, openModal, openPlaylist, playSong, len } = props
+  const { thumbnail, title, artist, song, openModal, openPlaylist, playSong, len, index } = props
 	return(
 		<View style={styles.container}>
      <TouchableOpacity>
@@ -18,7 +18,7 @@ export const ListView = props => {
          source={{uri: thumbnail ? thumbnail : ''}}
        />
      </TouchableOpacity>
-     <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song) : openPlaylist(title)}>
+     <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song, index) : openPlaylist(title)}>
        <Text style={styles.titleText}>{title ? title : ''}</Text>
        <Text style={styles.artistText}>{artist ? artist : ''}</Text>
        <Text style={styles.artistText}>{len ? `${len} songs` : ''}</Text>

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
 import { Image, StyleSheet, Text, TouchableOpacity, View, ViewPropTypes, Dimensions } from 'react-native';
+import PlayerModal from '../../../common/PlayerModal'
 
 class ProgressBar extends ProgressComponent {
   render() {
@@ -20,8 +21,7 @@ class Duration extends ProgressComponent {
   constructor(props) {
     super(props)
     this.state = {
-      currentSecond: 0,
-
+      currentSecond: 0
     }
   }
 
@@ -31,7 +31,7 @@ class Duration extends ProgressComponent {
         this.setState({
           currentSecond : this.state.currentSecond + 1
         })
-      if (this.getProgress() === 0)
+      else if (this.getProgress() === 0)
         this.setState({
           currentSecond: 0
         })
@@ -109,11 +109,18 @@ function ControlButton({ type, onPress }) {
 }
 
 ControlButton.propTypes = {
-  title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
 };
 
 export default class PlayerControll extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      popupModal: false
+    }
+  }
+
   static propTypes = {
     style: ViewPropTypes.style,
     onNext: PropTypes.func.isRequired,
@@ -125,28 +132,45 @@ export default class PlayerControll extends Component {
     style: {}
   };
 
+  toggleModal = () => {
+    let { popupModal } = this.state
+    this.setState({
+      popupModal: !popupModal 
+    })
+  }
+
+
   render() {
     const { style, onNext, onPrevious, onTogglePlayback } = this.props;
     const { playbackState, track } = this.props
     var middleButtonText = 'Play'
 
+
     if (playbackState === TrackPlayer.STATE_PLAYING
       || playbackState === TrackPlayer.STATE_BUFFERING) {
       middleButtonText = 'Pause'
     }
-
     return (
       <View style={styles.controller}>
+       <PlayerModal
+           active={this.state.popupModal}
+           closeModal={this.toggleModal}
+           navigation={this.props.navigation}
+           //song={this.state.selectedSong}
+          />
+        <Text style={styles.songTitle}>{track.title}</Text>
+        <Text style={styles.songArtist}>{track.artist}</Text>
+
         <View style={styles.controls}>
           <TouchableOpacity style={styles.sideSectionTopLeft}>
             <Image source={require('../../../images/library-active.png')} style={styles.skipTrack}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.sideSectionTopRight}>
-            <Image source={require('../../../images/elipsis.png')} style={styles.skipTrack}/>
+          <TouchableOpacity style={styles.sideSectionTopRight} onPress={this.toggleModal}>
+            <Image source={require('../../../images/elipsis.png')} style={styles.skipTrack} />
           </TouchableOpacity>
         </View>
         <ProgressBar />
-
+        <Duration playbackState={playbackState}/>
         <View style={styles.controls}>
           <TouchableOpacity style={styles.sideSectionLeft}>
             <Image source={require('../../../images/shuffle.png')} style={styles.skipTrack}/>
@@ -158,6 +182,7 @@ export default class PlayerControll extends Component {
             <Image source={require('../../../images/queue.png')} style={styles.skipTrack}/>
           </TouchableOpacity>
         </View>
+        
       </View>
     );
   }
@@ -168,7 +193,7 @@ const styles = StyleSheet.create({
   controller: {
     height: 150,
     width: 350,
-    marginTop: Dimensions.get('window').height * 0.60,
+    marginTop: Dimensions.get('window').height * 0.50,
     alignItems: 'center'
   },
   skipTrack: {
@@ -184,16 +209,14 @@ const styles = StyleSheet.create({
     marginTop: 15
 
   },
-  card: {
-    width: '80%',
-    elevation: 1,
-    borderRadius: 4,
-    shadowRadius: 2,
-    shadowOpacity: 0.1,
-    alignItems: 'center',
-    shadowColor: 'black',
-    backgroundColor: 'white',
-    shadowOffset: { width: 0, height: 1},
+  songTitle: {
+    fontSize: 14,
+    color: '#FFFFFF'
+  },
+  songArtist: {
+    paddingTop: 5,
+    fontSize: 14,
+    color: 'grey'
   },
   sideSectionLeft: {
     flex:1,
@@ -259,7 +282,7 @@ const styles = StyleSheet.create({
     color: '#FFF'
   },
   controls: {
-    marginVertical: 10,
+    marginVertical: 5,
     width: Dimensions.get('window').width * 1,
     flexDirection: 'row',
     alignItems: 'center',
@@ -274,8 +297,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   playButton: {
-    width: 60,
-    height: 60
+    width: 50,
+    height: 50
   },
   loaderCircle: {
     width: 60,

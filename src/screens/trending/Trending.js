@@ -106,8 +106,8 @@ class Trending extends Component {
     this.props.navigation.navigate(screen, {artist: song.artist})
   }
 
-  playSong = (song) => {
-    this.props.navigation.navigate('Player', {song})
+  playSong = (song, index) => {
+    this.props.navigation.navigate('Player', {index, storageKey:'trendingSongs'})
   }
 
   render () {
@@ -127,6 +127,8 @@ class Trending extends Component {
              openModal={this.openModal.bind(this)}
              key={index}
              playSong={this.playSong}
+             index={index}
+
           />
         );
       })
