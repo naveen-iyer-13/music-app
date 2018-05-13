@@ -11,6 +11,7 @@ import Footer from './../../common/Footer'
 import Songs from './components/Songs'
 import Playlists from './components/Playlist'
 import { searchSong } from './../../common/helpers'
+import Header from './../../common/Header'
 
 let { height, width } = Dimensions.get('window')
 
@@ -30,8 +31,8 @@ class Library extends Component{
     const { searchTerm, tab, searchList } = this.state
     return (
       <View style={styles.container}>
-        <View style={styles.screenContainer}>
-
+        <View style={styles.screenContainer} navigation={this.props.navigation}>
+          <Header header={'Library'} navigation={this.props.navigation}/>
           <View style={styles.containerItem}>
             <View style={styles.headerItem}>
               <TouchableOpacity onPress={() => this.handleTabPress('songs')}>

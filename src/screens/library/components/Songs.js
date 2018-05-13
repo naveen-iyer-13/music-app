@@ -25,7 +25,10 @@ class Songs extends Component{
   }
 
   componentWillMount() {
-    this.getSongs()
+    if(this.props.list)
+      this.setState({list: this.props.list})
+    else
+      this.getSongs()
   }
 
   closeModal = (action, data) => {
