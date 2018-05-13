@@ -47,15 +47,16 @@ class Library extends Component{
           <View style={styles.containerItem}>
             <View style={styles.headerItem}>
               <TouchableOpacity onPress={() => this.handleTabPress('songs')}>
-                <Text>Songs</Text>
+                <Text style={{fontSize: 16, color: tab == 'songs' ? '#000' : '#D8D8D8', fontFamily: 'Proxima-Nova-Bold'}}>Songs</Text>
               </TouchableOpacity>
             </View>
-            <View style={styles.headerItem}>
+            <View style={styles.headerItem2}>
               <TouchableOpacity onPress={() => this.handleTabPress('playlists')}>
-                <Text>Playlists</Text>
+                <Text style={{fontSize: 16, color: tab == 'songs' ? '#D8D8D8' : '#000', fontFamily: 'Proxima-Nova-Bold'}}>Playlists</Text>
               </TouchableOpacity>
             </View>
           </View>
+
             {
               tab === 'songs'
               ?
@@ -82,11 +83,11 @@ const styles = StyleSheet.create({
   container:{
     display: 'flex',
     backgroundColor: '#FFFFFF',
-    width,
-    height
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').heights
   },
   screenContainer:{
-    height: height - 80 ,
+    height: height - 75 ,
     paddingRight: 12,
     paddingLeft: 12
   },
@@ -94,9 +95,20 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
-    height: '10%'
+    height: 30,
+    marginTop: 10,
+    marginBottom: 15
   },
   headerItem: {
+    display: 'flex',
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRightWidth: 2,
+    borderColor: '#D8D8D8'
+  },
+  headerItem2: {
     display: 'flex',
     flexDirection: 'row',
     flex: 1,

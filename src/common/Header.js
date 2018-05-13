@@ -16,13 +16,13 @@ class Header extends Component{
     const { handleBackButton, handleKeyPress, header } = this.props
     // console.log(this.props);
     return(
-      <View style={{display: 'flex', flexDirection: 'row'}}>
+      <View style={styles.container}>
         <TouchableOpacity onPress={() => handleBackButton()}>
-          <Text>go back</Text>
+          <Text style={styles.backArrow}>{'<'}</Text>
         </TouchableOpacity>
-        <Text>{header}</Text>
+        <Text style={styles.heading}>{header}</Text>
         <TouchableOpacity onPress={() => handleKeyPress()}>
-          <Text>Add</Text>
+          <Text style={styles.plus}>+</Text>
         </TouchableOpacity>
       </View>
     )
@@ -33,6 +33,26 @@ export default Header
 
 const styles = StyleSheet.create({
   container:{
-
+    display: 'flex',
+    flexDirection: 'row',
+    height: 45,
+    alignItems:'center'
+  },
+  backArrow: {
+    fontSize: 25,
+    fontFamily: 'Proxima-Nova-Bold',
+    color: '#4A4A4A',
+  },
+  plus: {
+    fontSize: 25,
+    fontFamily: 'Proxima-Nova-Bold',
+    color: '#4A4A4A',
+  },
+  heading: {
+    fontSize: 18,
+    fontFamily: 'Proxima-Nova-Bold',
+    color: '#4A4A4A',
+    width: '90%',
+    textAlign: 'center'
   }
 })

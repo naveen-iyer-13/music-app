@@ -61,7 +61,10 @@ class Playlists extends Component{
           ?
           <Text>Loading</Text>
           :
-          !playlistOpen && playlists ? Object.keys(playlists).map(key => (
+          !playlistOpen ?
+          playlists
+          ?
+          Object.keys(playlists).map(key => (
             <View>
               {
                   <ListView
@@ -76,6 +79,8 @@ class Playlists extends Component{
           ))
           :
           <Text>You don't have any playlist in your library</Text>
+          :
+          <View/>
         }
         {
           playlistOpen && <Songs list={list} navigation={this.props.navigation} />
