@@ -55,13 +55,43 @@ class Trending extends Component {
     var sortedArray = array.sort();
     this.setState({randomArray: sortedArray})
   }
-  openModal(){
-    this.setState({popupModal: true})
+
+  openModal(song){
+    this.setState({popupModal: true, selectedSong: song})
   }
-  closeModal(){
+
+  closeModal = (action, data) => {
     this.setState({popupModal: false})
+    if(action === 'Search'){
+      this.navigateTo('Search', data)
+    }
+    else if (action === 'Library') {
+      AsyncStorage.getItem('library', (err, res) => {
+        let library = res ? JSON.parse(res) : []
+        let flag = false
+        for(let i = 0; i < library.length; i++){
+          if(library[i].title === data.title){
+            flag = true
+            break
+          }
+        }
+        if(!flag){
+          library.push(data)
+          AsyncStorage.setItem('library', JSON.stringify(library))
+        }
+        else{
+          console.log('song already exists');
+        }
+      })
+    }
   }
+
+  navigateTo = (screen, song) => {
+    this.props.navigation.navigate(screen, {artist: song.artist})
+  }
+
   render () {
+    console.log(this.state);
     var trending = this.state.trendingSongs
     var List = <View />
     var artistView = <View />
@@ -70,7 +100,14 @@ class Trending extends Component {
     if(trending.length > 0){
       List = trending.map((item, index)=> {
         return (
-           <ListView title={item.title} artist={item.artist} thumbnail={item.thumbnail} openModal = {this.openModal.bind(this)}  key={index}/>
+           <ListView
+             title={item.title}
+             artist={item.artist}
+             thumbnail={item.thumbnail}
+             song={item}
+             openModal={this.openModal.bind(this)}
+             key={index}
+          />
         );
       })
        artistView= trending.map((item, index)=> {
@@ -111,7 +148,12 @@ class Trending extends Component {
           {List}
          </ScrollView>
          <Footer screenName={'Trending'} navigation={this.props.navigation} />
-         <PopupModal active={this.state.popupModal} closeModal={this.closeModal.bind(this)}/>
+         <PopupModal
+           active={this.state.popupModal}
+           closeModal={this.closeModal}
+           navigation={this.props.navigation}
+           song={this.state.selectedSong}
+          />
         </View>
       )
     }
