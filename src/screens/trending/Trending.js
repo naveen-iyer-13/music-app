@@ -76,12 +76,12 @@ class Trending extends Component {
        artistView= trending.map((item, index)=> {
         if(this.state.randomArray.includes(index)){
           return(
-            <View key={index} style={{paddingLeft: 15, paddingTop: 15, width: 100}}>
+            <View key={index} style={styles.trendingView}>
               <Image
-                style={{resizeMode: 'contain',height: 80, width: 80, borderRadius: 80}}
+                style={styles.trendingImage}
                 source={{uri: item.cover}}
               />
-              <Text style={{textAlign: 'center'}}>{item.artist}</Text>
+              <Text style={styles.trendingTitle}>{item.artist}</Text>
             </View>
           )
         }
@@ -97,10 +97,10 @@ class Trending extends Component {
         <View style={styles.container}>
           <ImageBackground
             source={{uri: trending[randomIndex].cover}}
-            style={{width: '100%', height: 180}}
+            style={styles.backgroundImage}
           >
-         <View style={{height: 180, alignItems: 'center'}}>
-          <Text style={{fontFamily: 'Proxima-Nova', color: '#fff', fontSize: 20, paddingTop: 15}}>Trending artist</Text>
+         <View style={styles.topView}>
+          <Text style={styles.trendingArtist}>Trending artist</Text>
            <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
             {artistView}
            </ScrollView>
@@ -137,6 +137,39 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     marginTop: 10,
-    fontFamily: 'Proxima-Nova'
+    fontFamily: 'Proxima-Nova-Bold',
+    color: '#4A4A4A',
+    fontSize: 14
   },
+  trendingTitle: {
+    textAlign: 'center',
+    fontSize: 12,
+    fontFamily :'Proxima-Nova-Bold',
+    color: '#4A4A4A'
+  },
+  trendingImage: {
+    resizeMode: 'contain',
+    height: 80,
+    width: 80,
+    borderRadius: 80
+  },
+  trendingView: {
+    paddingLeft: 15,
+    paddingTop: 15,
+    width: 100
+  },
+  backgroundImage: {
+    width: '100%',
+    height: 180
+  },
+  topView:{
+    height: 180,
+    alignItems: 'center'
+  },
+  trendingArtist: {
+    fontFamily: 'Proxima-Nova-Bold',
+    color: '#fff',
+    fontSize: 22,
+    paddingTop: 15,
+  }
 });
