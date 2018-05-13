@@ -6,14 +6,17 @@ import {
   Dimensions,
   AsyncStorage,
   Alert,
-  Text
+  Text,
+  Image
 } from 'react-native'
 import { Search } from './../../common/Search'
 import Footer from './../../common/Footer'
 import { ListView } from './../../common/ListView'
 import PopupModal from './../../common/PopupModal'
 import { searchSong } from './../../common/helpers'
-
+import {
+  BarIndicator,
+} from 'react-native-indicators';
 let { height, width } = Dimensions.get('window')
 
 
@@ -25,11 +28,13 @@ class SearchScreen extends Component{
       searchTerm: '',
       popupModal: false,
       openPlaylist: false,
+      loading: false
     }
   }
 
   componentWillMount() {
     const { params } = this.props.navigation.state
+    // console.log(this.props);
     if(params && params.song.artist){
       this.handleSearch(params.song.artist)
       this.setState({searchTerm: params.song.artist})
@@ -37,10 +42,10 @@ class SearchScreen extends Component{
   }
 
   handleSearch = (text) => {
-    this.setState({searchTerm: text})
+    this.setState({searchTerm: text, loading: true})
     searchSong(text, res => {
       if(res)
-        this.setState({list: res})
+        this.setState({list: res, loading: false})
       else
         this.setState({list: []})
     })
@@ -146,7 +151,8 @@ class SearchScreen extends Component{
   }
 
   render(){
-    const { list, searchTerm, selectedSong, popupModal } = this.state
+    const { list, searchTerm, selectedSong, popupModal, loading } = this.state
+    console.log(this.state);
     return(
       <View style={styles.container}>
         <View style={{display: 'flex', alignItems: 'center', height: 50, justifyContent: 'center'}}>
@@ -156,21 +162,49 @@ class SearchScreen extends Component{
           <Search
             searchTerm={searchTerm}
             handleSearch={this.handleSearch}
+            clearText={() => this.setState({searchTerm: ''})}
           />
-          <ScrollView>
-            {
-              list && list.length > 0 && list.map((song,index) => (
-                <ListView
-                  key={song.title + index}
-                  thumbnail={song.thumbnail}
-                  title={song.title}
-                  song={song}
-                  playSong={this.playSong}
-                  openModal={this.openModal}
-                />
-              ))
-            }
-          </ScrollView>
+          {
+            searchTerm
+            ?
+            <ScrollView>
+              {
+                loading
+                ?
+                <ScrollView>
+                 <View style={{height: Dimensions.get('window').height-170, justifyContent:'center', alignItems: 'center'}}>
+                  <BarIndicator color='#6DEAD3' count = {5}/>
+                 </View>
+                </ScrollView>
+                :
+                list && list.length > 0
+                ?
+                list.map((song,index) => (
+                  <ListView
+                    key={song.title + index}
+                    thumbnail={song.thumbnail}
+                    title={song.title}
+                    song={song}
+                    playSong={this.playSong}
+                    openModal={this.openModal}
+                  />
+                ))
+                :
+                <ScrollView>
+                 <View style={{height: Dimensions.get('window').height-170, justifyContent:'center', alignItems: 'center'}}>
+                  <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', marginTop: 20, width: 150, textAlign: 'center'}}>No results found</Text>
+                 </View>
+                </ScrollView>
+              }
+            </ScrollView>
+            :
+            <ScrollView>
+             <View style={{height: Dimensions.get('window').height-170, justifyContent:'center', alignItems: 'center'}}>
+              <Image source={require('./../../images/search.png')} style={{width: 30, height: 30, resizeMode: 'contain'}}/>
+              <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', marginTop: 20, width: 150, textAlign: 'center'}}>Search for any song or artist</Text>
+             </View>
+            </ScrollView>
+          }
         </View>
         <PopupModal
           active={popupModal}
