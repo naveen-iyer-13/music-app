@@ -17,6 +17,7 @@ import { searchSong } from './../../common/helpers'
 import {
   BarIndicator,
 } from 'react-native-indicators';
+import LinearGradient from 'react-native-linear-gradient';
 let { height, width } = Dimensions.get('window')
 
 
@@ -155,6 +156,7 @@ class SearchScreen extends Component{
     console.log(this.state);
     return(
       <View style={styles.container}>
+      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
         <View style={{display: 'flex', alignItems: 'center', height: 50, justifyContent: 'center'}}>
           <Text style={{fontSize: 18, fontFamily: 'Proxima-Nova-Bold', color: '#000'}}>Search</Text>
         </View>
@@ -233,7 +235,7 @@ const styles = StyleSheet.create({
     height
   },
   screenContainer:{
-    height: height - 125,
+    height: height - 135,
     paddingRight: 12,
     paddingLeft: 12
   },
