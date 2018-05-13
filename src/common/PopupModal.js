@@ -10,7 +10,8 @@ import {
   ToastAndroid,
   Platform,
   AlertIOS,
-  TextInput
+  TextInput,
+  ScrollView
 } from 'react-native'
 import Modal from "react-native-modal";
 let { width, height } = Dimensions.get('window')
@@ -33,21 +34,21 @@ class PopupModal extends Component{
         <View style={styles.modalOverlay}>
          {
           addPlaylistModal  ?
-           <View style={{backgroundColor: 'white', height: 150, marginBottom: (height*40)/100, borderRadius: 8, display: 'flex', justifyContent: 'center'}}>
-             <View style={{display: 'flex', alignItems: 'center', borderBottomWidth: 1}}>
-               <Text>Create a new Playlist</Text>
-               <Text>Enter the name for this Playlist</Text>
-               <TextInput style={{width: (width*60)/100, backgroundColor: '#F1F1F1', borderWidth: 1, height: 24}}
+           <View style={{backgroundColor: 'white', height: 200, marginBottom: height / 3, borderRadius: 8, display: 'flex', justifyContent: 'center'}}>
+             <View style={{alignItems: 'center'}}>
+               <Text style={{fontFamily: 'Proxima-Nova-Bold', fontSize: 18, marginBottom: 10, color: '#000'}}>Create a new Playlist</Text>
+               <Text style={{fontFamily: 'Proxima-Nova', fontSize: 16, marginBottom: 10, color: '#4A4A4A'}}>Enter the name for this Playlist</Text>
+               <TextInput style={{width: 300, height: 40, backgroundColor: '#FFFFFF', borderColor: '#D8D8D8', borderWidth: 1, borderRadius: 10, marginBottom: 15}}
                  underlineColorAndroid={'transparent'}
                  onChangeText={(text) => this.setState({newPlaylistName: text})}
               />
              </View>
              <View style={{display: 'flex', flexDirection: 'row'}}>
                <TouchableOpacity style={{display: 'flex', flex: 1, alignItems: 'center'}} onPress={() => closeModal('Cancel Create')}>
-                 <Text>Cancel</Text>
+                 <Text style={{fontFamily: 'Proxima-Nova-Bold', fontSize: 14, color: '#000'}}>Cancel</Text>
                </TouchableOpacity>
                <TouchableOpacity style={{display: 'flex', flex: 1, alignItems: 'center'}} onPress={() => newPlaylistName ? closeModal('Create', newPlaylistName) : {}}>
-                 <Text>Create</Text>
+                 <Text style={{fontFamily: 'Proxima-Nova-Bold', fontSize: 14, color: '#000'}}>Create</Text>
                </TouchableOpacity>
              </View>
            </View>
@@ -77,21 +78,22 @@ class PopupModal extends Component{
                  </TouchableOpacity>
                </View>
                :
-               <View>
-                 <TouchableOpacity onPress={() => createPlaylist()}>
-                   <Text>New Playlist</Text>
+               <View style={{height: 250}}>
+                 <TouchableOpacity onPress={() => createPlaylist()} style={{width: '50%', height: 35,alignItems:'center',
+                    marginLeft: '25%',marginTop: 15, justifyContent: 'center', borderRadius: 10, backgroundColor: '#f4f4f4', marginBottom: 15}}>
+                   <Text style={{fontFamily: 'Proxima-Nova', fontSize: 14, color: '#4A4A4A'}}>New Playlist</Text>
                  </TouchableOpacity>
-                 <View>
+                 <ScrollView>
                    {
                      playlistName && playlistName.map(name => {
                        return(
-                         <TouchableOpacity style={styles.selectView} onPress={() => addToPlaylist(name)}>
+                         <TouchableOpacity style={styles.selectView} onPress={() => addToPlaylist(name)} style={{marginLeft: 10}}>
                            <Text style={styles.TextStyle}>{name}</Text>
                          </TouchableOpacity>
                        )
                      })
                    }
-                 </View>
+                 </ScrollView>
                </View>
              }
              <TouchableOpacity style={styles.cancelView} onPress={() => closeModal()}>
