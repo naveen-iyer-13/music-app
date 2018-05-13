@@ -20,6 +20,7 @@ class Library extends Component{
     super(props)
     this.state = {
       tab: 'songs',
+      header: 'Library'
     }
   }
 
@@ -27,12 +28,22 @@ class Library extends Component{
     this.setState({tab})
   }
 
+  handlePlaylistOpen = (list, title) => {
+    // console.log(title, list);
+    if(title){
+      this.setState({header: title})
+    }
+  }
+
   render() {
-    const { searchTerm, tab, searchList } = this.state
+    const { searchTerm, tab, header, closePlaylist } = this.state
     return (
       <View style={styles.container}>
         <View style={styles.screenContainer} navigation={this.props.navigation}>
-          <Header header={'Library'} navigation={this.props.navigation}/>
+          <Header
+            header={header}
+            handleBackButton={() => this.setState({closePlaylist: true, header: "Library"})}
+          />
           <View style={styles.containerItem}>
             <View style={styles.headerItem}>
               <TouchableOpacity onPress={() => this.handleTabPress('songs')}>
@@ -48,10 +59,14 @@ class Library extends Component{
             {
               tab === 'songs'
               ?
-                <Songs searchList={searchList} navigation={this.props.navigation}/>
+                <Songs navigation={this.props.navigation}/>
               :
               <View>
-                <Playlists navigation={this.props.navigation}/>
+                <Playlists
+                  navigation={this.props.navigation}
+                  closePlaylist={closePlaylist}
+                  handlePlaylistOpen={this.handlePlaylistOpen}
+                />
               </View>
             }
         </View>
