@@ -10,13 +10,12 @@ import {
 
 export const ListView = props => {
   const { thumbnail, title, artist, song, openModal, openPlaylist, playSong, len } = props
-  // console.log(props, 'hfuyft');
 	return(
 		<View style={styles.container}>
      <TouchableOpacity>
        <Image
          style={styles.imageView}
-         source={{uri: thumbnail ? thumbnail : ''}}
+         source={thumbnail ? {uri: thumbnail} : require('./../images/default-icon.png')}
        />
      </TouchableOpacity>
      <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song) : openPlaylist(song)}>

@@ -19,6 +19,8 @@ import {ListView} from '../../common/ListView'
 import PopupModal from '../../common/PopupModal'
 import SplashScreen from '../../common/SplashScreen'
 
+let defaultIcon = require('./../../images/default-icon.png')
+
 class Trending extends Component {
 
   constructor (props) {
@@ -184,7 +186,7 @@ class Trending extends Component {
             <View key={index} style={styles.trendingView}>
               <Image
                 style={styles.trendingImage}
-                source={{uri: item.cover}}
+                source={item.thumbnail ? {uri: item.thumbnail} : defaultIcon}
               />
               <Text style={styles.trendingTitle}>{item.artist}</Text>
             </View>
@@ -201,7 +203,7 @@ class Trending extends Component {
       return (
         <View style={styles.container}>
           <ImageBackground
-            source={{uri: trending[randomIndex].cover}}
+            source={trending[randomIndex].thumbnail ? {uri: trending[randomIndex].thumbnail} : defaultIcon}
             style={styles.backgroundImage}
           >
          <View style={styles.topView}>
