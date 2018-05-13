@@ -11,6 +11,7 @@ import Footer from './../../common/Footer'
 import Songs from './components/Songs'
 import Playlists from './components/Playlist'
 import { searchSong } from './../../common/helpers'
+import Header from './../../common/Header'
 
 let { height, width } = Dimensions.get('window')
 
@@ -30,7 +31,8 @@ class Library extends Component{
     const { searchTerm, tab, searchList } = this.state
     return (
       <View style={styles.container}>
-        <View style={styles.screenContainer}>
+        <View style={styles.screenContainer} navigation={this.props.navigation}>
+          <Header header={'Library'} navigation={this.props.navigation}/>
           <View style={styles.containerItem}>
             <View style={styles.headerItem}>
               <TouchableOpacity onPress={() => this.handleTabPress('songs')}>
@@ -43,15 +45,13 @@ class Library extends Component{
               </TouchableOpacity>
             </View>
           </View>
-
-
             {
               tab === 'songs'
               ?
                 <Songs searchList={searchList} navigation={this.props.navigation}/>
               :
               <View>
-                <Playlists/>
+                <Playlists navigation={this.props.navigation}/>
               </View>
             }
         </View>
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     height
   },
   screenContainer:{
-    height: height - 80,
+    height: height - 80 ,
     paddingRight: 12,
     paddingLeft: 12
   },

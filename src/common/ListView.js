@@ -15,7 +15,7 @@ export const ListView = props => {
      <TouchableOpacity>
        <Image
          style={styles.imageView}
-         source={{uri: thumbnail ? thumbnail : ''}}
+         source={thumbnail ? {uri: thumbnail} : require('./../images/default-icon.png')}
        />
      </TouchableOpacity>
      <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song, index) : openPlaylist(title)}>

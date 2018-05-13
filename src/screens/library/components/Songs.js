@@ -3,7 +3,8 @@ import {
   View,
   Text,
   AsyncStorage,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native'
 // import { getTrending } from './../../../common/helpers'
 import { ListView } from './../../../common/ListView'
@@ -19,19 +20,106 @@ class Songs extends Component{
       searchList: [],
       popupModal: false,
       searchTerm: '',
+      openPlaylist: false,
     }
   }
 
   componentWillMount() {
-    this.getSongs()
+    if(this.props.list)
+      this.setState({list: this.props.list})
+    else
+      this.getSongs()
+  }
+
+  closeModal = (action, data) => {
+    if(action === 'Search'){
+      this.setState({popupModal: false})
+      this.navigateTo('Search', data)
+    }
+    else if (action === 'Library') {
+      this.setState({popupModal: false})
+      AsyncStorage.getItem('library', (err, res) => {
+        let library = res ? JSON.parse(res) : []
+        let flag = false
+        for(let i = 0; i < library.length; i++){
+          if(library[i].title === data.title){
+            flag = true
+            break
+          }
+        }
+        if(!flag){
+          library.push(data)
+          AsyncStorage.setItem('library', JSON.stringify(library))
+        }
+        else{
+          Alert.alert(
+            'Song already exists',
+          )
+        }
+      })
+    }
+    else if (action === 'Playlists') {
+      this.setState({openPlaylist: true, songToBeAdded: data})
+      AsyncStorage.getItem('playlists', (err, res) => {
+        this.setState({playlistName: Object.keys(JSON.parse(res))})
+      })
+    }
+    else if (action === 'Cancel Create') {
+      this.setState({openPlaylist: true, addPlaylistModal: false})
+    }
+    else if(action === 'Create'){
+      AsyncStorage.getItem('playlists', (err, res) => {
+        let playlists = res ? JSON.parse(res) : {}
+        if(!Object.keys(playlists).includes(data)){
+          playlists[data] = []
+          let { playlistName } = this.state
+          playlistName.push(data)
+          this.setState({playlistName, addPlaylistModal: false}, () => console.log(this.state))
+          AsyncStorage.setItem('playlists', JSON.stringify(playlists))
+        }
+        else{
+          Alert.alert(
+            'Playlist already exists',
+          )
+        }
+      })
+      console.log('creating palylist');
+    }
+    else{
+      this.setState({popupModal: false, openPlaylist: false})
+    }
+  }
+
+  addToPlaylist = (playlistName) => {
+    const { songToBeAdded } = this.state
+    this.setState({popupModal: false})
+    AsyncStorage.getItem('playlists', (err, res) => {
+      let playlists = res ? JSON.parse(res) : {}
+      let flag = false
+      for(let i = 0; i < playlists[playlistName].length; i++){
+        if(playlists[playlistName][i].title === songToBeAdded.title){
+          flag = true
+          break
+        }
+      }
+      if(!flag){
+        playlists[playlistName].push(songToBeAdded)
+        AsyncStorage.setItem('playlists', JSON.stringify(playlists))
+      }
+      else{
+        Alert.alert(
+          'Song already exists',
+        )
+      }
+    })
+  }
+
+  createPlaylist = () => {
+    this.setState({addPlaylistModal: true})
   }
 
   openModal = (song) => {
     this.setState({popupModal: true, selectedSong: song})
-  }
-
-  closeModal = () => {
-    this.setState({popupModal: false})
   }
 
   getSongs(){
@@ -39,6 +127,10 @@ class Songs extends Component{
       if(res)
         this.setState({list: JSON.parse(res), loading: false})
     })
+  }
+
+  navigateTo = (screen, song) => {
+    this.props.navigation.navigate(screen, {song})
   }
 
   handleSearch = (text) => {
@@ -49,7 +141,7 @@ class Songs extends Component{
   }
 
   playSong = (song) => {
-    console.log(this.props);
+    // console.log(this.props);
     this.props.navigation.navigate('Player', {song})
   }
 
@@ -63,22 +155,31 @@ class Songs extends Component{
           searchTerm={searchTerm}
           handleSearch={this.handleSearch}
         />
-      <ScrollView>
-        {
-          list && list.map((song,index) => (
-            <ListView
-              key={song.title + index}
-              thumbnail={song.thumbnail}
-              title={song.title}
-              song={song}
-              openModal={this.openModal}
-              playSong={this.playSong}
-            />
-          ))
-        }
-      </ScrollView>
-
-        <PopupModal active={popupModal} closeModal={this.closeModal} song={selectedSong}/>
+        <ScrollView>
+          {
+            list && list.map((song,index) => (
+              <ListView
+                key={song.title + index}
+                thumbnail={song.thumbnail}
+                title={song.title}
+                song={song}
+                openModal={this.openModal}
+                playSong={this.playSong}
+              />
+            ))
+          }
+        </ScrollView>
+        <PopupModal
+          active={popupModal}
+          closeModal={this.closeModal}
+          navigation={this.props.navigation}
+          song={selectedSong}
+          openPlaylist={this.state.openPlaylist}
+          playlistName={this.state.playlistName}
+          addToPlaylist={this.addToPlaylist}
+          createPlaylist={this.createPlaylist}
+          addPlaylistModal={this.state.addPlaylistModal}
+        />
       </View>
     )
   }
