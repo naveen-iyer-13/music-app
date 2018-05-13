@@ -8,13 +8,15 @@ import {
 import { StackNavigator } from 'react-navigation';
 import Trending from './src/screens/trending'
 import Library from './src/screens/library'
-// import Footer from './src/common/Footer'
+import Footer from './src/common/Footer'
+import Player from './src/screens/player'
 import Search from './src/screens/search'
 
 const StackNavigation = StackNavigator ({
   Trending: { screen: Trending},
   Library: { screen: Library},
-  Search: { screen: Search}
+  Search: { screen: Search},
+  Player: { screen: Player }                          
 },{
   navigationOptions: {title: 'Welcome', header: null}
 });
