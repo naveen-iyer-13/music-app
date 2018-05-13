@@ -48,7 +48,7 @@ class Library extends Component{
             {
               tab === 'songs'
               ?
-                <Songs searchList={searchList}/>
+                <Songs searchList={searchList} navigation={...this.props.navigation}/>
               :
               <View>
                 <Playlists/>
