@@ -25,7 +25,7 @@ class PopupModal extends Component{
   }
 
   render() {
-    const { active, closeModal, song, openPlaylist, playlistName, addToPlaylist, createPlaylist, addPlaylistModal } = this.props
+    const { active, closeModal, song, openPlaylist, playlistName, addToPlaylist, createPlaylist, addPlaylistModal, onlyModal } = this.props
     const { newPlaylistName } = this.state
     return(
       <Modal
@@ -53,48 +53,51 @@ class PopupModal extends Component{
              </View>
            </View>
             :
-           <View style={styles.modalView}>
-             {
-               !openPlaylist ? <View>
-                 <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Library', song)}>
-                   <Image source={require('.././images/library.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
-                   <Text style={styles.TextStyle}>Add to Library</Text>
-                 </TouchableOpacity>
-                 <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Playlists', song)}>
-                 <Image source={require('.././images/add-to-playlist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}} />
-                 <Text style={styles.TextStyle}>Add to playlist</Text>
-                 </TouchableOpacity>
-                 <TouchableOpacity style={styles.selectView}>
-                 <Image source={require('.././images/add-to-queue.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
-                 <Text style={styles.TextStyle}>Play Next</Text>
-                 </TouchableOpacity>
-                 <TouchableOpacity style={styles.selectView}>
-                 <Image source={require('.././images/add-to-queue.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
-                 <Text style={styles.TextStyle}>Add to Queue</Text>
-                 </TouchableOpacity>
-                 <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Search', song)}>
-                 <Image source={require('.././images/search.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
-                 <Text style={styles.TextStyle}>Search Artist</Text>
-                 </TouchableOpacity>
-               </View>
+            onlyModal ?
+               <View />
                :
-               <View style={{height: 250}}>
-                 <TouchableOpacity onPress={() => createPlaylist()} style={{width: '50%', height: 35,alignItems:'center',
-                    marginLeft: '25%',marginTop: 15, justifyContent: 'center', borderRadius: 10, backgroundColor: '#f4f4f4', marginBottom: 15}}>
-                   <Text style={{fontFamily: 'Proxima-Nova', fontSize: 14, color: '#4A4A4A'}}>New Playlist</Text>
-                 </TouchableOpacity>
-                 <ScrollView>
-                   {
-                     playlistName && playlistName.map(name => {
-                       return(
-                         <TouchableOpacity style={styles.selectView} onPress={() => addToPlaylist(name)} style={{marginLeft: 10}}>
-                           <Text style={styles.TextStyle}>{name}</Text>
-                         </TouchableOpacity>
-                       )
-                     })
-                   }
-                 </ScrollView>
-               </View>
+               <View style={styles.modalView}>
+                 {
+                   !openPlaylist ? <View>
+                     <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Library', song)}>
+                       <Image source={require('.././images/library.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
+                       <Text style={styles.TextStyle}>Add to Library</Text>
+                     </TouchableOpacity>
+                     <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Playlists', song)}>
+                     <Image source={require('.././images/add-to-playlist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}} />
+                     <Text style={styles.TextStyle}>Add to playlist</Text>
+                     </TouchableOpacity>
+                     <TouchableOpacity style={styles.selectView}>
+                     <Image source={require('.././images/add-to-queue.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
+                     <Text style={styles.TextStyle}>Play Next</Text>
+                     </TouchableOpacity>
+                     <TouchableOpacity style={styles.selectView}>
+                     <Image source={require('.././images/add-to-queue.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
+                     <Text style={styles.TextStyle}>Add to Queue</Text>
+                     </TouchableOpacity>
+                     <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Search', song)}>
+                     <Image source={require('.././images/search.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
+                     <Text style={styles.TextStyle}>Search Artist</Text>
+                     </TouchableOpacity>
+                   </View>
+                   :
+                   <View style={{height: 250}}>
+                     <TouchableOpacity onPress={() => createPlaylist()} style={{width: '50%', height: 35,alignItems:'center',
+                        marginLeft: '25%',marginTop: 15, justifyContent: 'center', borderRadius: 10, backgroundColor: '#f4f4f4', marginBottom: 15}}>
+                       <Text style={{fontFamily: 'Proxima-Nova', fontSize: 14, color: '#4A4A4A'}}>New Playlist</Text>
+                     </TouchableOpacity>
+                     <ScrollView>
+                       {
+                         playlistName && playlistName.map(name => {
+                           return(
+                             <TouchableOpacity style={styles.selectView} onPress={() => addToPlaylist(name)} style={{marginLeft: 10}}>
+                               <Text style={styles.TextStyle}>{name}</Text>
+                             </TouchableOpacity>
+                           )
+                         })
+                       }
+                     </ScrollView>
+                   </View>
              }
              <TouchableOpacity style={styles.cancelView} onPress={() => closeModal()}>
              <Image source={require('.././images/cancel.png')} style={{resizeMode: 'contain', height: 12, width: 12, marginLeft: 20}}/>
