@@ -33,7 +33,7 @@ class PopupModal extends Component{
         <View style={{height: Dimensions.get('window').height, width: Dimensions.get('window').width, backgroundColor: '#000', opacity: 0.8, justifyContent: 'center'}}>
           <View style={{height: 150, width: Dimensions.get('window').width, backgroundColor: '#F2F2F2'}}>
             <View>
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={() => closeModal('Playlists', song)}>
                 <Text>Add to playlist</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => closeModal('Library', song)}>

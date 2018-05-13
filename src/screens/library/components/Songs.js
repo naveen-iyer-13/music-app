@@ -48,21 +48,6 @@ class Songs extends Component{
     this.setState({searchList})
   }
 
-  handleActions = (song) => {
-    console.log('action');
-    AsyncStorage.getItem('playlists', (err, res) => {
-      let playlists = null
-      playlists = JSON.parse(playlists)
-      if(!playlists){
-        playlists = {}
-        playlists['test'] = []
-      }
-      playlists['test'].push(song)
-      console.log(playlists);
-      AsyncStorage.setItem('playlists', JSON.stringify(playlists))
-    })
-  }
-
   render() {
     let { list, searchList, popupModal, selectedSong, searchTerm } = this.state
     // console.log(searchList);
