@@ -150,7 +150,7 @@ class SearchScreen extends Component{
     return(
       <View style={styles.container}>
         <View style={{display: 'flex', alignItems: 'center', height: 50, justifyContent: 'center'}}>
-          <Text style={{fontSize: 24}}>Search</Text>
+          <Text style={{fontSize: 18, fontFamily: 'Proxima-Nova-Bold', color: '#000'}}>Search</Text>
         </View>
         <View style={styles.screenContainer}>
           <Search
