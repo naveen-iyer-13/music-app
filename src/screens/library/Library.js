@@ -12,7 +12,7 @@ import Songs from './components/Songs'
 import Playlists from './components/Playlist'
 import { searchSong } from './../../common/helpers'
 import Header from './../../common/Header'
-
+import LinearGradient from 'react-native-linear-gradient';
 let { height, width } = Dimensions.get('window')
 
 class Library extends Component{
@@ -39,6 +39,7 @@ class Library extends Component{
     const { searchTerm, tab, header, closePlaylist } = this.state
     return (
       <View style={styles.container}>
+      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
         <View style={styles.screenContainer} navigation={this.props.navigation}>
           <Header
             header={header}
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').heights
   },
   screenContainer:{
-    height: height - 75 ,
+    height: height - 85 ,
     paddingRight: 12,
     paddingLeft: 12
   },
