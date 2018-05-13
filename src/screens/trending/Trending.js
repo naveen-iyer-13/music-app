@@ -40,6 +40,7 @@ class Trending extends Component {
   }
 
   getSongs(){
+    this.setState({loading: true})
     AsyncStorage.getItem('trendingSongs', (err, res) => {
       if(res)
         this.setState({trendingSongs: JSON.parse(res), loading: false})
@@ -108,7 +109,7 @@ class Trending extends Component {
           playlists[data] = []
           let { playlistName } = this.state
           playlistName.push(data)
-          this.setState({playlistName, addPlaylistModal: false}, () => console.log(this.state))
+          this.setState({playlistName, addPlaylistModal: false})
           AsyncStorage.setItem('playlists', JSON.stringify(playlists))
         }
         else{
