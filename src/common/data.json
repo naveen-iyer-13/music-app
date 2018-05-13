@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1111",
+    "url": "http://s3.amazonaws.com/bibimpop-tracks/rj7zaor.mp3",
+    "title": "Longing",
+    "artist": "David Chavez",
+    "artwork": "https://picsum.photos/200"
+  },
+  {
+    "id": "2222",
+    "url": "http://s3.amazonaws.com/bibimpop-tracks/rj7zaor.mp3",
+    "title": "Soul Searching (Demo)",
+    "artist": "David Chavez",
+    "artwork": "https://picsum.photos/200"
+  },
+  {
+    "id": "3333",
+    "url": "http://s3.amazonaws.com/bibimpop-tracks/rj7zaor.mp3",
+    "title": "Lullaby (Demo)",
+    "artist": "David Chavez",
+    "artwork": "https://picsum.photos/200"
+  },
+  {
+    "id": "4444",
+    "url": "http://s3.amazonaws.com/bibimpop-tracks/rj7zaor.mp3",
+    "title": "Rhythm City (Demo)",
+    "artist": "David Chavez",
+    "artwork": "https://picsum.photos/200"
+  }
+]
