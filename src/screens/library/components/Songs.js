@@ -157,6 +157,7 @@ class Songs extends Component{
         <Search
           searchTerm={searchTerm}
           handleSearch={this.handleSearch}
+          clearText={() => this.setState({searchTerm: ''})}
         />
         {
             loading
