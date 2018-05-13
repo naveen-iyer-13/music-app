@@ -6,6 +6,7 @@ import {
   AsyncStorage
 } from 'react-native'
 import { ListView } from './../../../common/ListView'
+import Songs from './Songs'
 
 class Playlists extends Component{
   constructor(props){
@@ -46,7 +47,7 @@ class Playlists extends Component{
 
   render() {
     const { playlists, playlistOpen, list } = this.state
-    console.log(this.state);
+    // console.log(this.state);
     return(
       <View>
         {
@@ -59,9 +60,7 @@ class Playlists extends Component{
           ))
         }
         {
-          playlistOpen && list.map(song => (
-            <ListView thumbnail={song.thumbnail} title={song.title} song={song.title} playSong={this.playSong}/>
-          ))
+          playlistOpen && <Songs searchList={list} navigation={this.props.navigation} />
         }
       </View>
     )
