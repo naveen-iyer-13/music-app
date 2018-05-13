@@ -23,7 +23,7 @@ const StackNavigation = StackNavigator ({
 
 class bibimpop extends Component{
   componentWillUnmount(){
-    // this.clearStorage()
+    this.clearStorage()
   }
 
   clearStorage = async() => {
