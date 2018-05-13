@@ -17,14 +17,16 @@ class SearchScreen extends Component{
   constructor(props){
     super(props)
     this.state = {
-      searchList: [],
+      list: [],
       searchTerm: ''
     }
   }
 
   componentWillMount() {
-    const { artist } = this.props.navigation.state.params
-    if(artist){
+    console.log(this.props);
+    const { params } = this.props.navigation.state
+    // console.log(this.props.navigation.navigation);
+    if(params && params.artist){
       this.handleSearch(artist)
       this.setState({searchTerm: artist})
     }

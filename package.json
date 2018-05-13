@@ -15,7 +15,6 @@
     "react-native-indicators": "^0.13.0",
     "react-native-track-player": "^0.2.4",
     "react-native-modal-overlay": "^1.2.3",
-
     "react-navigation": "^2.0.1"
   },
   "devDependencies": {
