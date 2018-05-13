@@ -43,15 +43,13 @@ class Library extends Component{
               </TouchableOpacity>
             </View>
           </View>
-
-
             {
               tab === 'songs'
               ?
-                <Songs searchList={searchList} navigation={...this.props.navigation}/>
+                <Songs searchList={searchList} navigation={this.props.navigation}/>
               :
               <View>
-                <Playlists/>
+                <Playlists navigation={this.props.navigation}/>
               </View>
             }
         </View>
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
     height
   },
   screenContainer:{
-    height: height - 80,
+    height: height - 80 ,
     paddingRight: 12,
     paddingLeft: 12
   },
