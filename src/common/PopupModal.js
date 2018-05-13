@@ -9,8 +9,9 @@ import {
   ToastAndroid,
   Platform,
   AlertIOS,
-  Modal
 } from 'react-native'
+import Modal from "react-native-modal";
+
 let { width, height } = Dimensions.get('window')
 
 class PopupModal extends Component{
@@ -24,17 +25,13 @@ class PopupModal extends Component{
   render() {
     const{active, closeModal} = this.props
     return(
-      <Modal
-      animationType="slide"
-      transparent
-      onRequestClose={() => closeModal()}
-      visible={active}>
-        <View style={{height: Dimensions.get('window').height, width: Dimensions.get('window').width, backgroundColor: '#000', opacity: 0.8, justifyContent: 'center'}}>
-        <View style={{height: 150, width: Dimensions.get('window').width, backgroundColor: '#F2F2F2'}}>
-         <Text>Hello World!</Text>
-        </View>
-        </View>
-      </Modal>
+      <Modal isVisible={active} onBackButtonPress={()=> closeModal()} useNativeDriver	={true}>
+       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+         <View style={{backgroundColor: '#fff', height: 180, width: 200}}>
+          <Text>I am the modal content!</Text>
+         </View>
+       </View>
+     </Modal>
     )
   }
 }
