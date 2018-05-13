@@ -147,7 +147,6 @@ class Songs extends Component{
 
   render() {
     let { list, searchList, popupModal, selectedSong, searchTerm } = this.state
-    console.log(this.props);
     list = searchTerm? searchList : list
     return(
       <View>
@@ -155,7 +154,7 @@ class Songs extends Component{
           searchTerm={searchTerm}
           handleSearch={this.handleSearch}
         />
-        <ScrollView>
+        <ScrollView style={{ paddingTop: 20}}>
           {
             list && list.map((song,index) => (
               <ListView
