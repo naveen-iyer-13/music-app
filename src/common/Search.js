@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-export const Search = ({handleSearch, searchTerm}) => (
+export const Search = ({handleSearch, searchTerm, clearText}) => (
   <View style={styles.searchBox}>
     <Image source={require('.././images/search.png')} style={{resizeMode: 'contain', height: 15, width: 15, marginLeft: 10}}/>
     <TextInput
@@ -18,11 +18,14 @@ export const Search = ({handleSearch, searchTerm}) => (
       placeholderColor={'#000000'}
       style={styles.searchInput}
     />
-    { searchTerm ?
-      <TouchableOpacity>
-     <Image source={require('.././images/cancel.png')} style={{resizeMode: 'contain', height: 10, width: 10, marginLeft: 10}}/>
-    </TouchableOpacity>
-    : <View />}
+    {
+      searchTerm
+       ?
+      <TouchableOpacity onPress={() => clearText()}>
+       <Image source={require('.././images/cancel.png')} style={{resizeMode: 'contain', height: 10, width: 10, marginLeft: 10}}/>
+      </TouchableOpacity>
+      : <View />
+    }
   </View>
 )
 
