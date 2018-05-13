@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     height
   },
   screenContainer:{
-    height: height - 140,
+    height: height - 125,
     paddingRight: 12,
     paddingLeft: 12
   },

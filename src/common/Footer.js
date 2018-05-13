@@ -62,7 +62,7 @@ class Footer extends Component{
             <TouchableOpacity onPress={()=> screenName === screen ?  {} : this.navigate(screen)}>
               <Image
                 source={screenName === screen ? SCREENICON[screen].active : SCREENICON[screen].inactive}
-                style={{width: 30, height: 25}}
+                style={{width: 20, height: 20}}
                 resizeMode='contain'
               />
             </TouchableOpacity>
@@ -76,7 +76,7 @@ export default Footer
 
 const styles = StyleSheet.create({
   container:{
-    height: 55,
+    height: 50,
     width,
     borderTopWidth: 1,
     backgroundColor: 'transparent',
