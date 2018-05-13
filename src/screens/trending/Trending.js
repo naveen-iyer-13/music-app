@@ -75,7 +75,7 @@ class Trending extends Component {
             break
           }
         }
-        if(flag){
+        if(!flag){
           library.push(data)
           AsyncStorage.setItem('library', JSON.stringify(library))
         }
