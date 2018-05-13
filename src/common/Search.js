@@ -2,27 +2,47 @@ import React, { Component } from 'react'
 import {
   View,
   TextInput,
-  StyleSheet
+  StyleSheet,
+  Image,
+  TouchableOpacity
 } from 'react-native'
 
 export const Search = ({handleSearch, searchTerm}) => (
   <View style={styles.searchBox}>
+    <Image source={require('.././images/search.png')} style={{resizeMode: 'contain', height: 15, width: 15, marginLeft: 10}}/>
     <TextInput
       onChangeText={(text) => handleSearch(text)}
       placeholder={"Search"}
       value={searchTerm}
       underlineColorAndroid={'transparent'}
       placeholderColor={'#000000'}
-      style={styles.searchBox}
+      style={styles.searchInput}
     />
+    { searchTerm ?
+      <TouchableOpacity>
+     <Image source={require('.././images/cancel.png')} style={{resizeMode: 'contain', height: 10, width: 10, marginLeft: 10}}/>
+    </TouchableOpacity>
+    : <View />}
   </View>
 )
 
 const styles = StyleSheet.create({
   searchBox: {
     width: '100%',
-    height: 40,
+    height: 35,
     backgroundColor: '#F1F1F1',
     borderRadius: 4,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  searchInput: {
+    width: '85%',
+    height: 35,
+    backgroundColor: '#F1F1F1',
+    borderRadius: 4,
+    alignItems: 'center',
+    fontFamily: 'Proxima-Nova',
+    padding: 5,
+    color: '#000'
   }
 })
