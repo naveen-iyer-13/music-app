@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Dimensions,
   AsyncStorage,
-  Alert
+  Alert,
+  Text
 } from 'react-native'
 import { Search } from './../../common/Search'
 import Footer from './../../common/Footer'
@@ -148,6 +149,9 @@ class SearchScreen extends Component{
     const { list, searchTerm, selectedSong, popupModal } = this.state
     return(
       <View style={styles.container}>
+        <View style={{display: 'flex', alignItems: 'center', height: 50, justifyContent: 'center'}}>
+          <Text style={{fontSize: 24}}>Search</Text>
+        </View>
         <View style={styles.screenContainer}>
           <Search
             searchTerm={searchTerm}
@@ -195,7 +199,7 @@ const styles = StyleSheet.create({
     height
   },
   screenContainer:{
-    height: height - 80,
+    height: height - 140,
     paddingRight: 12,
     paddingLeft: 12
   },
