@@ -24,7 +24,7 @@ class Header extends Component{
             <Text style={styles.backArrow}>{'<'}</Text>
           </TouchableOpacity>
           :
-          <View />
+          <View style={{width: 20}}/>
         }
         <Text style={styles.heading}>{header}</Text>
         {

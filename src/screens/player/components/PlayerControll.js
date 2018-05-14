@@ -5,7 +5,9 @@ import { Image, StyleSheet, Text, TouchableOpacity, View, ViewPropTypes, Dimensi
 import PlayerModal from '../../../common/PlayerModal'
 import QueueList from './QueueList'
 import { addToLibrary } from '../../../common/helpers'
-
+import {
+  BarIndicator,
+} from 'react-native-indicators';
 class ProgressBar extends ProgressComponent {
   render() {
     return (
@@ -41,7 +43,6 @@ class Duration extends ProgressComponent {
   }
 
   render() {
-   let duration = 0
    let secDur = Math.floor(duration % 60)
    let minDur = Math.floor(duration / 60)
    const { currentSecond } = this.state
@@ -90,10 +91,7 @@ function ControlButton({ type, onPress }) {
         type === 'load'
         ?
         <View style={styles.loaderCircle} onPress={onPress}>
-          <Image
-            source={buttonTypePath}
-            style={styles.loadTrack}
-          />
+          <BarIndicator color='#D8D8D8' count = {4} size={20}/>
         </View>
 
         :
