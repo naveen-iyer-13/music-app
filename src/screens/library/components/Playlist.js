@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import { ListView } from './../../../common/ListView'
 import Songs from './Songs'
+import RemovePlaylist from './RemovePlaylist'
 import PopupModal from './../../../common/PopupModal'
 
 
@@ -66,10 +67,22 @@ class Playlists extends Component{
       })
       console.log('creating palylist');
     }
+    else if (action === 'Remove') {
+      AsyncStorage.getItem('playlists', (err, res) => {
+        res = JSON.parse(res)
+        delete res[this.state.selectedPlaylist]
+        AsyncStorage.setItem('playlists', JSON.stringify(res), (err) => {
+          this.setState({openCreatePlaylistModal: false, playlistOpen: false, playlists: res})
+        })
+      })
+    }
+    else{
+      this.props.handleModalClose()
+    }
   }
 
   openPlaylist = (list, title) => {
-    this.setState({list, playlistOpen: true})
+    this.setState({list, playlistOpen: true, selectedPlaylist: title})
     this.props.handlePlaylistOpen(list, title)
   }
 
@@ -88,7 +101,8 @@ class Playlists extends Component{
           ?
           <Text>Loading</Text>
           :
-          !playlistOpen ?
+          !playlistOpen
+          ?
           playlists
           ?
           Object.keys(playlists).map(key => (
@@ -110,15 +124,16 @@ class Playlists extends Component{
           <View/>
         }
         {
-          playlistOpen && <Songs list={list} navigation={this.props.navigation} />
+          playlistOpen && <Songs list={list} navigation={this.props.navigation} isPlaylistPage={true}/>
         }
         <PopupModal
-          active={this.state.openCreatePlaylistModal}
+          active={this.state.openCreatePlaylistModal && !playlistOpen}
           closeModal={this.closeModal}
           navigation={this.props.navigation}
           addPlaylistModal={this.state.openCreatePlaylistModal}
           onlyModal={true}
         />
+        <RemovePlaylist active={playlistOpen && this.state.openCreatePlaylistModal} closeModal={this.closeModal}/>
       </View>
     )
   }

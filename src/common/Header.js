@@ -29,7 +29,7 @@ class Header extends Component{
         <Text style={styles.heading}>{header}</Text>
         {
           tab !== 'songs' && <TouchableOpacity onPress={() => handleKeyPress()}>
-            <Text style={styles.plus}>+</Text>
+            <Text style={styles.plus}>{header === 'Library' ? '+' : '...'}</Text>
           </TouchableOpacity>
         }
       </View>
