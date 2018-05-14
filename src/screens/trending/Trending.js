@@ -157,8 +157,8 @@ class Trending extends Component {
     this.props.navigation.navigate(screen, {song})
   }
 
-  playSong = (song, index) => {
-    this.props.navigation.navigate('Player', {index, storageKey:'trendingSongs'})
+  playSong = (song) => {
+    this.props.navigation.navigate('Player', {song})
   }
 
   render () {
@@ -178,21 +178,23 @@ class Trending extends Component {
              openModal={this.openModal.bind(this)}
              key={index}
              playSong={this.playSong}
-             index={index}
-             key={item.title+index}
           />
         );
       })
        artistView= trending.map((item, index)=> {
         if(this.state.randomArray.includes(index)){
           return(
-            <TouchableOpacity key={index} style={styles.trendingView} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
+            <View key={index} style={styles.trendingView} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
+             <TouchableOpacity style={{height: 85, paddingLeft: 10}}>
               <Image
                 style={styles.trendingImage}
                 source={item.cover ? {uri: item.cover} : defaultIcon}
               />
-              <Text style={styles.trendingTitle}>{item.artist}</Text>
-            </TouchableOpacity>
+              </TouchableOpacity>
+              <View style={{backgroundColor: '#FFFFFF', height: 50, width: 100}}>
+               <Text style={styles.trendingTitle}>{item.artist}</Text>
+              </View>
+            </View>
           )
         }
       })
@@ -261,10 +263,11 @@ const styles = StyleSheet.create({
   },
   trendingTitle: {
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: 14,
     fontFamily :'Proxima-Nova-Bold',
     color: '#797979',
-    paddingTop: 5
+    paddingTop: 10,
+    opacity: 0.6
   },
   trendingImage: {
     resizeMode: 'contain',
@@ -273,9 +276,8 @@ const styles = StyleSheet.create({
     borderRadius: 80
   },
   trendingView: {
-    paddingLeft: 15,
     paddingTop: 15,
-    width: 100
+    width: 100,
   },
   backgroundImage: {
     width: '100%',

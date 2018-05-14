@@ -161,11 +161,13 @@ class SearchScreen extends Component{
           <Text style={{fontSize: 18, fontFamily: 'Proxima-Nova-Bold', color: '#000'}}>Search</Text>
         </View>
         <View style={styles.screenContainer}>
+          <View style={{margin: 15}}>
           <Search
             searchTerm={searchTerm}
             handleSearch={this.handleSearch}
             clearText={() => this.setState({searchTerm: ''})}
           />
+          </View>
           {
             searchTerm
             ?
@@ -232,12 +234,10 @@ const styles = StyleSheet.create({
   container:{
     display: 'flex',
     backgroundColor: '#FFFFFF',
-    width,
-    height
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
   },
   screenContainer:{
     height: height - 135,
-    paddingRight: 12,
-    paddingLeft: 12
   },
 })
