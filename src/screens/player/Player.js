@@ -15,41 +15,74 @@ export default class Player extends Component {
 		this.state = {
 			playbackState: "",
 			track: {},
-			trackList: []
+			trackList: [],
+			songs: []
 		}
 	}
 
 	componentWillMount() {
+		if (this.props.navigation.state.params) {
 		const { index, storageKey, name } = this.props.navigation.state.params
-		AsyncStorage.getItem(storageKey, (err,res) => {
-			if (name)
-				trackList = JSON.parse(res)[name]
-			else
-				trackList = JSON.parse(res)
-
-			trackList.unshift(trackList[index])
-			trackList = trackList.splice(index+1, index+3)
-			let obj, list = []
-			trackList.forEach(track => {
-				obj = {}
-				obj.url = track.streamlink
-				obj.artwork = track.cover
-				obj.title = track.title
-				obj.id = track.bp_id
-				obj.artist = track.artist
-				obj.thumbnail = track.thumbnail
-				list.push(obj)
+			AsyncStorage.getItem(storageKey, (err,res) => {
+				if (name)
+					trackList = JSON.parse(res)[name]
+				else
+					trackList = JSON.parse(res)
+				let songs = trackList
+				trackList.unshift(trackList[index])
+				trackList.splice(index+1, 1)
+				let obj, list = []
+				trackList.forEach(track => {
+					obj = {}
+					obj.url = track.streamlink
+					obj.artwork = track.cover
+					obj.title = track.title
+					obj.id = track.bp_id
+					obj.artist = track.artist
+					obj.thumbnail = track.thumbnail
+					list.push(obj)
+				})
+				trackList = list
+				this.setState({
+					track: trackList[0],
+					trackList: trackList,
+					songs: songs
+				})
 			})
-			trackList = list
-
-			this.setState({
-				track: trackList[0],
-				trackList: trackList
+		}
+		else {
+			let index = 0, name = null
+			AsyncStorage.getItem('trendingSongs', (err,res) => {
+				if (name)
+					trackList = JSON.parse(res)[name]
+				else
+					trackList = JSON.parse(res)
+				let songs = trackList
+				trackList.unshift(trackList[index])
+				trackList.splice(index+1, 1)
+				let obj, list = []
+				trackList.forEach(track => {
+					obj = {}
+					obj.url = track.streamlink
+					obj.artwork = track.cover
+					obj.title = track.title
+					obj.id = track.bp_id
+					obj.artist = track.artist
+					obj.thumbnail = track.thumbnail
+					list.push(obj)
+				})
+				trackList = list
+				this.setState({
+					track: trackList[0],
+					trackList: trackList,
+					songs: songs
+				})
 			})
-		})
+		}
+		
 	}
 
-	async componentDidMount() {
+	componentDidMount() {
 		let trackNext = {}
 	    TrackPlayer.setupPlayer();
 			
@@ -76,6 +109,8 @@ export default class Player extends Component {
 		  }
 		  
 		});
+					TrackPlayer.reset()
+
 		this.togglePlayback()
 	    TrackPlayer.updateOptions({
 	      stopWithApp: true,
@@ -92,6 +127,7 @@ export default class Player extends Component {
 		const { playbackState } = this.state
 	    const currentTrack = await TrackPlayer.getCurrentTrack();
 	    if (currentTrack == null) {
+	    	console.log('empty')
 	      TrackPlayer.reset();
 	      await TrackPlayer.add(trackList);
 	      TrackPlayer.play();
@@ -120,15 +156,43 @@ export default class Player extends Component {
 	  }
 
 	  handleQueue = async(index) => {
+	  	trackList = [...trackList]
 	  	trackList.unshift(trackList[index])
-	  	trackList = trackList.splice(index+1, 1)
+	  	trackList.splice(index+1, 1)
 	  	TrackPlayer.reset()
+	  	this.setState({
+	  		track: trackList[0],
+	  		trackList: trackList
+	  	})
 	  	this.togglePlayback()
 	  }
 
+	  shuffleArray = () => {
+	  	trackList = [...trackList]
+		    for (let i = trackList.length - 1; i > 0; i--) {
+		        let j = Math.floor(Math.random() * (i + 1));
+		        [trackList[i], trackList[j]] = [trackList[j], trackList[i]];
+		    }
+		    TrackPlayer.reset()
+		    this.setState({
+		  		track: trackList[0],
+		  		trackList: trackList
+		  	})
+		    this.togglePlayback()
+		}
+
 	render() {
-		const { playbackState, track } = this.state
-		const { song, index } = this.props.navigation.state.params
+
+		const { playbackState, track, trackList } = this.state
+		let index, storageKey
+		 if (this.props.navigation.state.params) {
+			index = this.props.navigation.state.params.index
+			storageKey = this.props.navigation.state.params.storageKey
+		}
+		else {
+			index = 0
+			storageKey = 'trendingSongs'
+		}
 		//console.log('first', (playbackState === TrackPlayer.STATE_BUFFERING || playbackState === TrackPlayer.STATE_NONE || playbackState === TrackPlayer.STATE_STOPPED))
 		return (
 
@@ -149,9 +213,12 @@ export default class Player extends Component {
 				          navigation={this.props.navigation}
 				          trackList={trackList}
 				          handleQueue={this.handleQueue}
+				          shuffleTracks = {this.shuffleArray}
+				          songs = {this.state.songs}
+				          key={storageKey}
 				    />
 		        </View>
-				<Footer screenName={'Search'} navigation={this.props.navigation}/>
+				<Footer screenName={'Player'} navigation={this.props.navigation}/>
 				
 				
 			</View>
