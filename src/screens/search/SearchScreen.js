@@ -29,7 +29,8 @@ class SearchScreen extends Component{
       searchTerm: '',
       popupModal: false,
       openPlaylist: false,
-      loading: false
+      loading: false,
+      fetchFailed: []
     }
   }
 
@@ -151,6 +152,12 @@ class SearchScreen extends Component{
     this.props.navigation.navigate('Player', {song})
   }
 
+  onError = (id) => {
+    let { fetchFailed } = this.state
+    fetchFailed.push(id)
+    this.setState({fetchFailed})
+  }
+
   render(){
     const { list, searchTerm, selectedSong, popupModal, loading } = this.state
     console.log(this.state);
@@ -189,6 +196,8 @@ class SearchScreen extends Component{
                     song={song}
                     playSong={this.playSong}
                     openModal={this.openModal}
+                    onError={this.onError}
+                    fetchFailed={this.state.fetchFailed}
                   />
                 ))
                 :
