@@ -24,6 +24,7 @@ class Songs extends Component{
       popupModal: false,
       searchTerm: '',
       openPlaylist: false,
+      fetchFailed: []
     }
   }
 
@@ -151,9 +152,15 @@ class Songs extends Component{
     this.props.navigation.navigate('Player', {song, storageKey: 'library'})
   }
 
+  onError = (id) => {
+    let { fetchFailed } = this.state
+    fetchFailed.push(id)
+    this.setState({fetchFailed})
+  }
+
   render() {
     let { list, searchList, popupModal, selectedSong, searchTerm, loading } = this.state
-    console.log(this.state);
+    // console.log(this.state);
     list = searchTerm? searchList : list
     return(
       <View>
@@ -177,6 +184,8 @@ class Songs extends Component{
                     song={song}
                     openModal={this.openModal}
                     playSong={this.playSong}
+                    onError={this.onError}
+                    fetchFailed={this.state.fetchFailed}
                   />
                 ))
                 :
