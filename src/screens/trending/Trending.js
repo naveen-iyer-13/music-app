@@ -18,6 +18,7 @@ import Footer from '../../common/Footer'
 import {ListView} from '../../common/ListView'
 import PopupModal from '../../common/PopupModal'
 import SplashScreen from '../../common/SplashScreen'
+import LinearGradient from 'react-native-linear-gradient';
 
 let defaultIcon = require('./../../images/default-icon.png')
 
@@ -31,6 +32,7 @@ class Trending extends Component {
       loading: true,
       popupModal: false,
       openPlaylist: false,
+      fetchFailed: []
     }
   }
 
@@ -158,7 +160,13 @@ class Trending extends Component {
   }
 
   playSong = (index) => {
-    this.props.navigation.navigate('Player', {index, storageKey:'trendingSongs'})
+    this.props.navigation.navigate('Player', {index, storageKey:'trendingSongs'})  
+  }
+
+  onError = (id) => {
+    let { fetchFailed } = this.state
+    fetchFailed.push(id)
+    this.setState({fetchFailed})
   }
 
   render () {
@@ -176,23 +184,28 @@ class Trending extends Component {
              thumbnail={item.thumbnail}
              song={item}
              openModal={this.openModal.bind(this)}
-             key={index}
              playSong={this.playSong}
              index={index}
-
+             onError={this.onError}
+             fetchFailed={this.state.fetchFailed}
+             key={item.title+index}
           />
         );
       })
        artistView= trending.map((item, index)=> {
         if(this.state.randomArray.includes(index)){
           return(
-            <TouchableOpacity key={index} style={styles.trendingView} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
+            <View key={index} style={styles.trendingView} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
+             <TouchableOpacity style={{height: 85, paddingLeft: 10}}>
               <Image
                 style={styles.trendingImage}
                 source={item.cover ? {uri: item.cover} : defaultIcon}
               />
-              <Text style={styles.trendingTitle}>{item.artist}</Text>
-            </TouchableOpacity>
+              </TouchableOpacity>
+              <View style={{backgroundColor: '#FFFFFF', height: 50, width: 100}}>
+               <Text style={styles.trendingTitle}>{item.artist}</Text>
+              </View>
+            </View>
           )
         }
       })
@@ -205,12 +218,14 @@ class Trending extends Component {
     else {
       return (
         <View style={styles.container}>
+              <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+
           <ImageBackground
             source={{uri: trending[randomIndex].cover}}
             style={styles.backgroundImage}
           >
          <View style={styles.topView}>
-          <Text style={styles.trendingArtist}>Trending artist</Text>
+          <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
            <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
             {artistView}
            </ScrollView>
@@ -257,14 +272,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontFamily: 'Proxima-Nova-Bold',
     color: '#4A4A4A',
-    fontSize: 14
+    fontSize: 20
   },
   trendingTitle: {
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: 14,
     fontFamily :'Proxima-Nova-Bold',
     color: '#797979',
-    paddingTop: 5
+    paddingTop: 10,
+    opacity: 0.6
   },
   trendingImage: {
     resizeMode: 'contain',
@@ -273,7 +289,6 @@ const styles = StyleSheet.create({
     borderRadius: 80
   },
   trendingView: {
-    paddingLeft: 15,
     paddingTop: 15,
     width: 100
   },
@@ -288,7 +303,7 @@ const styles = StyleSheet.create({
   trendingArtist: {
     fontFamily: 'Proxima-Nova-Bold',
     color: '#fff',
-    fontSize: 22,
+    fontSize: 20,
     paddingTop: 15,
   }
 });

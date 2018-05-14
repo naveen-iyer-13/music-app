@@ -34,11 +34,11 @@ class PlayerModal extends Component{
         {
           viewPlaylists
           ?
-          <View>  
+          <View>
                {
-                 playlistNames && playlistNames.map(name => {
+                 playlistNames && playlistNames.map((name, index) => {
                    return(
-                     <TouchableOpacity style={styles.selectView} onPress={() => removeFromPlaylist(name, song, (res) => closeModal())}>
+                     <TouchableOpacity key={name+index} style={styles.selectView} onPress={() => removeFromPlaylist(name, song, (res) => closeModal())}>
                        <Text style={styles.TextStyle}>{name}</Text>
                      </TouchableOpacity>
                    )
@@ -48,30 +48,30 @@ class PlayerModal extends Component{
           :
           <View>
            <TouchableOpacity style={styles.selectView} onPress={() => removeFromLibrary(song, () => closeModal() ) }>
-             <Image source={require('../images/cancel.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+             <Image source={require('../images/cancel.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
              <Text style={styles.TextStyle}>Remove from Library</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.selectView} onPress={() => showPlaylists()}>
-           <Image source={require('../images/remove-from-playlist.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+           <Image source={require('../images/remove-from-playlist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
            <Text style={styles.TextStyle}>Remove from playlist</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.selectView}>
-           <Image source={require('../images/wrong-song.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+           <Image source={require('../images/wrong-song.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
            <Text style={styles.TextStyle}>Wrong song?</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.selectView} onPress={() => navigateToScreen('Search')} >
-           <Image source={require('../images/search-artist.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+           <Image source={require('../images/search-artist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
            <Text style={styles.TextStyle}>Search Artist</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.cancelView} onPress={() => closeModal()}>
-           <Image source={require('../images/cancel.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
+           <Image source={require('../images/cancel.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
            <Text style={styles.TextStyle}>Cancel</Text>
            </TouchableOpacity>
 
          </View>
         }
          <TouchableOpacity style={styles.cancelView} onPress={() => closeModal()}>
-             <Image source={require('.././images/cancel.png')} style={{resizeMode: 'contain', height: 12, width: 12, marginLeft: 20}}/>
+             <Image source={require('.././images/cancel.png')} style={{resizeMode: 'contain', height: 10, width: 10, marginLeft: 20}}/>
              <Text style={styles.TextStyle}>Cancel</Text>
              </TouchableOpacity>
          </View>

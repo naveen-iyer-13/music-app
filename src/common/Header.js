@@ -13,17 +13,25 @@ class Header extends Component{
   }
 
   render() {
-    const { handleBackButton, handleKeyPress, header } = this.props
+    const { handleBackButton, handleKeyPress, header, tab } = this.props
     // console.log(this.props);
     return(
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => handleBackButton()}>
-          <Text style={styles.backArrow}>{'<'}</Text>
-        </TouchableOpacity>
+        {
+          header !== 'Library'
+          ?
+          <TouchableOpacity onPress={() => handleBackButton()}>
+            <Text style={styles.backArrow}>{'<'}</Text>
+          </TouchableOpacity>
+          :
+          <View style={{width: 20}}/>
+        }
         <Text style={styles.heading}>{header}</Text>
-        <TouchableOpacity onPress={() => handleKeyPress()}>
-          <Text style={styles.plus}>+</Text>
-        </TouchableOpacity>
+        {
+          tab !== 'songs' && <TouchableOpacity onPress={() => handleKeyPress()}>
+            <Text style={styles.plus}>{header === 'Library' ? '+' : '...'}</Text>
+          </TouchableOpacity>
+        }
       </View>
     )
   }
