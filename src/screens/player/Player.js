@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
-import { StyleSheet, Text, TouchableOpacity, View, Dimensions, Image, AsyncStorage, AppRegistry } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Dimensions, Image, AsyncStorage, AppRegistry, EventEmitter } from 'react-native';
 import PlayerControll from './components/PlayerControll'
 import Footer from './../../common/Footer'
 import data from '../../common/data.json'
 import {
   BarIndicator,
 } from 'react-native-indicators';
+import LinearGradient from 'react-native-linear-gradient';
+
 // import { closeApp } from '../../common/helpers'
 let { height, width } = Dimensions.get('window')
 let trackList = []
@@ -24,8 +26,34 @@ export default class Player extends Component {
 	}
 
 	componentWillMount() {
+		EventEmitter.setMaxListeners()
 		if (this.props.navigation.state.params) {
-		const { index, storageKey, name } = this.props.navigation.state.params
+		const { index, storageKey, name, search } = this.props.navigation.state.params
+		console.log(index, storageKey, name)
+		if(search) {
+
+			let songs = [...search]
+			let trackList = [...search]
+				trackList.unshift(trackList[index])
+				trackList.splice(index+1, 1)
+				let obj, list = []
+				trackList.forEach(track => {
+					obj = {}
+					obj.url = track.streamlink
+					obj.artwork = track.cover
+					obj.title = track.title
+					obj.id = track.bp_id
+					obj.artist = track.artist
+					obj.thumbnail = track.thumbnail
+					list.push(obj)
+				})
+				trackList = list
+				this.setState({
+					track: trackList[0],
+					trackList: trackList,
+					songs: songs
+				})
+		}
 			AsyncStorage.getItem(storageKey, (err,res) => {
 				if (name)
 					trackList = JSON.parse(res)[name]
@@ -55,6 +83,7 @@ export default class Player extends Component {
 		}
 		else {
 			let index = 0, name = null
+			console.log("ELSE")
 			AsyncStorage.getItem('trendingSongs', (err,res) => {
 				if (name)
 					trackList = JSON.parse(res)[name]
@@ -112,9 +141,9 @@ export default class Player extends Component {
 		  }
 
 		});
-					TrackPlayer.reset()
-
-		this.togglePlayback()
+		TrackPlayer.reset()
+		if (this.props.navigation.state.params) 
+			this.togglePlayback()
 	    TrackPlayer.updateOptions({
 	      stopWithApp: true,
 	      capabilities: [
@@ -125,6 +154,9 @@ export default class Player extends Component {
 	      ]
 	    });
 	}
+	componentWillUnmount(){
+			//AppRegistry.removeDeviceListeners()
+		}
 
 	togglePlayback = async () => {
 		const { playbackState } = this.state
@@ -184,6 +216,8 @@ export default class Player extends Component {
 		    this.togglePlayback()
 		}
 
+		
+
 	render() {
 
 		const { playbackState, track, trackList } = this.state
@@ -200,13 +234,19 @@ export default class Player extends Component {
 		return (
 
 			<View style={styles.container}>
+
 		        <View style={styles.backgroundContainer}>
 					<Image
 						style={styles.backgroundImage}
 		            	source={{ uri: (playbackState === TrackPlayer.STATE_BUFFERING) ? track.thumbnail : track.artwork }}
 		          	/>
+     				
+
 		        </View>
+		        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+
 		        <View style={styles.playerContainer}>
+
 		            <PlayerControll
 				          onNext={() => this.skipToNext()}
 				          onPrevious={() => this.skipToPrevious()}
@@ -232,7 +272,7 @@ export default class Player extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-	backgroundColor: '#eee',
+	backgroundColor: 'transparent',
   },
   backgroundContainer: {
   	position: 'absolute',
@@ -246,8 +286,9 @@ const styles = StyleSheet.create({
 	resizeMode: 'cover',
   },
   playerContainer: {
-  flex: 1,
-	backgroundColor: 'transparent',
+  	flex: 1,
+	backgroundColor: '#000000',
+    opacity: 0.6,
 	justifyContent: 'center',
 	width: '100%',
 	height: '100%',

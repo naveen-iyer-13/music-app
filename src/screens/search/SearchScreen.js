@@ -148,8 +148,8 @@ class SearchScreen extends Component{
       this.props.navigation.navigate(screen, {song})
     }
 
-  playSong = (song) => {
-    this.props.navigation.navigate('Player', {song})
+  playSong = (index, name) => {
+    this.props.navigation.navigate('Player', {index, search: this.state.list})
   }
 
   onError = (id) => {
@@ -195,6 +195,8 @@ class SearchScreen extends Component{
                     key={song.title + index}
                     thumbnail={song.thumbnail}
                     title={song.title}
+                    artist={song.artist}
+                    index={index}
                     song={song}
                     playSong={this.playSong}
                     openModal={this.openModal}
