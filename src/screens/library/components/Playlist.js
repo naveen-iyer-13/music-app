@@ -3,13 +3,16 @@ import {
   View,
   StyleSheet,
   Text,
-  AsyncStorage
+  AsyncStorage,
+  Dimensions,
+  Image,
 } from 'react-native'
 import { ListView } from './../../../common/ListView'
 import Songs from './Songs'
 import RemovePlaylist from './RemovePlaylist'
 import PopupModal from './../../../common/PopupModal'
 
+let { height, width } = Dimensions.get('window')
 
 class Playlists extends Component{
   constructor(props){
@@ -88,10 +91,10 @@ class Playlists extends Component{
     this.props.handlePlaylistOpen(list, title)
   }
 
-  playSong = (song, index, title) => {
-    // console.log(this.props);
-    this.props.navigation.navigate('Player', {index, storageKey: 'playlists', name: title})
-  }
+  // playSong = (index, title) => {
+  //   // console.log(this.props);
+  //   this.props.navigation.navigate('Player', {index, storageKey: 'playlists', name: title})
+  // }
 
   onError = (id) => {
     // let { fetchFailed } = this.state
@@ -111,7 +114,7 @@ class Playlists extends Component{
           :
           !playlistOpen
           ?
-          playlists
+          playlists && Object.keys(playlists).length
           ?
           Object.keys(playlists).map((key, index) => (
             <View>
@@ -124,6 +127,7 @@ class Playlists extends Component{
                     len={playlists[key].length}
                     song={playlists[key]}
                     openPlaylist={this.openPlaylist}
+                    index={index}
                     fetchFailed={[]}
                     onError={() => {}}
                   />
@@ -131,12 +135,17 @@ class Playlists extends Component{
             </View>
           ))
           :
-          <Text>You don't have any playlist in your library</Text>
+          <View style={{ display: 'flex',height: (height * 50)/100, alignItems: 'center', justifyContent: 'center'}}>
+                  <Image source={require('./../../../images/broken-heart.png')} style={{width: 50, height: 50}}/>
+                  <Text style={{ width: 150,fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', textAlign: 'center'}}>
+                    You don't have any playlist in your library!
+                  </Text>
+                </View>
           :
           <View/>
         }
         {
-          playlistOpen && <Songs list={list} navigation={this.props.navigation} isPlaylistPage={true}/>
+          playlistOpen && <Songs storageKey={'playlists'} list={list} navigation={this.props.navigation} isPlaylistPage={true} selectedPlaylist={this.state.selectedPlaylist}/>
         }
         <PopupModal
           active={this.state.openCreatePlaylistModal && !playlistOpen}

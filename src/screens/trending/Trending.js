@@ -18,6 +18,7 @@ import Footer from '../../common/Footer'
 import {ListView} from '../../common/ListView'
 import PopupModal from '../../common/PopupModal'
 import SplashScreen from '../../common/SplashScreen'
+import LinearGradient from 'react-native-linear-gradient';
 
 let defaultIcon = require('./../../images/default-icon.png')
 
@@ -158,8 +159,8 @@ class Trending extends Component {
     this.props.navigation.navigate(screen, {song})
   }
 
-  playSong = (song) => {
-    this.props.navigation.navigate('Player', {song})
+  playSong = (index) => {
+    this.props.navigation.navigate('Player', {index, storageKey:'trendingSongs'})  
   }
 
   onError = (id) => {
@@ -194,8 +195,8 @@ class Trending extends Component {
        artistView= trending.map((item, index)=> {
         if(this.state.randomArray.includes(index)){
           return(
-            <View key={index} style={styles.trendingView} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
-             <TouchableOpacity style={{height: 85, paddingLeft: 10}}>
+            <View key={index} style={styles.trendingView} >
+             <TouchableOpacity style={{height: 85, paddingLeft: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
               <Image
                 style={styles.trendingImage}
                 source={item.cover ? {uri: item.cover} : defaultIcon}
@@ -217,6 +218,8 @@ class Trending extends Component {
     else {
       return (
         <View style={styles.container}>
+              <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+
           <ImageBackground
             source={{uri: trending[randomIndex] && trending[randomIndex].cover ? trending[randomIndex].cover : ''}}
             style={styles.backgroundImage}
@@ -287,7 +290,7 @@ const styles = StyleSheet.create({
   },
   trendingView: {
     paddingTop: 15,
-    width: 100,
+    width: 100
   },
   backgroundImage: {
     width: '100%',

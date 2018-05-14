@@ -8,12 +8,13 @@ import { addToLibrary } from '../../../common/helpers'
 import {
   BarIndicator,
 } from 'react-native-indicators';
+
 class ProgressBar extends ProgressComponent {
   render() {
     return (
       <View style={styles.progress}>
-        <View style={{ flex: this.getProgress(), backgroundColor: 'red' }} />
-        <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: 'red', marginTop: -6 }} />
+        <View style={{ flex: this.getProgress(), backgroundColor: '#6DE9D6' }} />
+        <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: '#6DE9D6', marginTop: -6 }} />
         <View style={{ flex: 1 - this.getProgress(), backgroundColor: 'white' }} />
       </View>
     );
@@ -43,7 +44,7 @@ class Duration extends ProgressComponent {
   }
 
   render() {
-    let duration = 0
+    let duration = this.getDuration()
    let secDur = Math.floor(duration % 60)
    let minDur = Math.floor(duration / 60)
    const { currentSecond } = this.state
@@ -267,7 +268,7 @@ const styles = StyleSheet.create({
 
   },
   songTitle: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#FFFFFF'
   },
   songArtist: {
@@ -318,8 +319,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
   },
   progress: {
-    height: 1,
-    width: '90%',
+    height: 2,
+    width: '96%',
     marginTop: 10,
     flexDirection: 'row',
   },
@@ -339,7 +340,7 @@ const styles = StyleSheet.create({
     color: '#FFF'
   },
   controls: {
-    marginVertical: 5,
+    marginVertical: 2,
     width: Dimensions.get('window').width * 1,
     flexDirection: 'row',
     alignItems: 'center',
@@ -354,8 +355,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   playButton: {
-    width: 50,
-    height: 50
+    width: 60,
+    height: 60
   },
   loaderCircle: {
     width: 60,
