@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontFamily: 'Proxima-Nova-Bold',
-    fontSize: 12,
+    fontSize: 16,
     color: '#252525',
     paddingBottom: 5
   },
   artistText: {
     fontFamily: 'Proxima-Nova',
-    fontSize: 12,
+    fontSize: 16,
     color: '#252525',
     opacity: 0.5
   },

@@ -208,7 +208,7 @@ class Trending extends Component {
             style={styles.backgroundImage}
           >
          <View style={styles.topView}>
-          <Text style={styles.trendingArtist}>Trending artist</Text>
+          <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
            <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
             {artistView}
            </ScrollView>
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontFamily: 'Proxima-Nova-Bold',
     color: '#4A4A4A',
-    fontSize: 14
+    fontSize: 20
   },
   trendingTitle: {
     textAlign: 'center',
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
   trendingArtist: {
     fontFamily: 'Proxima-Nova-Bold',
     color: '#fff',
-    fontSize: 22,
+    fontSize: 20,
     paddingTop: 15,
   }
 });
