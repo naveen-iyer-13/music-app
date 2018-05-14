@@ -153,7 +153,7 @@ class Songs extends Component{
 
   render() {
     let { list, searchList, popupModal, selectedSong, searchTerm, loading } = this.state
-    // console.log(this.state);
+    console.log(this.state);
     list = searchTerm? searchList : list
     return(
       <View>
@@ -169,7 +169,7 @@ class Songs extends Component{
              :
             <ScrollView style={{ paddingTop: 20}}>
               {
-                list.length > 0 ? list.map((song,index) => (
+                list && list.length > 0 ? list.map((song,index) => (
                   <ListView
                     key={song.title + index}
                     thumbnail={song.thumbnail}

@@ -179,7 +179,7 @@ class Trending extends Component {
              key={index}
              playSong={this.playSong}
              index={index}
-
+             key={item.title+index}
           />
         );
       })
