@@ -34,11 +34,11 @@ class PlayerModal extends Component{
         {
           viewPlaylists
           ?
-          <View>  
+          <View>
                {
-                 playlistNames && playlistNames.map(name => {
+                 playlistNames && playlistNames.map((name, index) => {
                    return(
-                     <TouchableOpacity style={styles.selectView} onPress={() => removeFromPlaylist(name, song, (res) => closeModal())}>
+                     <TouchableOpacity key={name+index} style={styles.selectView} onPress={() => removeFromPlaylist(name, song, (res) => closeModal())}>
                        <Text style={styles.TextStyle}>{name}</Text>
                      </TouchableOpacity>
                    )

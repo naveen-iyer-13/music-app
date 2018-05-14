@@ -18,12 +18,12 @@ export const ListView = props => {
          source={thumbnail ? {uri: thumbnail} : require('./../images/default-icon.png')}
        />
      </TouchableOpacity>
-     <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song, index, title) : openPlaylist(title)}>
+     <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song, index, title) : openPlaylist(song, title)}>
        <Text style={styles.titleText}>{title ? title : ''}</Text>
        <Text style={styles.artistText}>{artist ? artist : ''}</Text>
        <Text style={styles.artistText}>{len ? `${len} songs` : ''}</Text>
      </TouchableOpacity>
-     <TouchableOpacity style={styles.breadCumsLayout} onPress = {() => openModal(song)}>
+     <TouchableOpacity style={styles.breadCumsLayout} onPress = {() => openModal ? openModal(song) : {}}>
       <View style={styles.breadCums}/>
       <View style={styles.breadCums}/>
       <View style={styles.breadCums}/>

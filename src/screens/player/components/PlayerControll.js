@@ -42,6 +42,7 @@ class Duration extends ProgressComponent {
 
   render() {
    let duration = this.getDuration()
+   duration = 0
    let secDur = Math.floor(duration % 60)
    let minDur = Math.floor(duration / 60)
    const { currentSecond } = this.state
@@ -210,7 +211,7 @@ export default class PlayerControll extends Component {
             visible={this.state.showQueue}
             onRequestClose={() => this.toggleQueueModal()}
           >
-            <QueueList 
+            <QueueList
               trackList={this.props.trackList}
               handleQueue={this.chooseTrackFromQueue}
               closeModal = {this.toggleQueueModal}
@@ -240,7 +241,7 @@ export default class PlayerControll extends Component {
             <Image source={require('../../../images/queue.png')} style={styles.skipTrack}/>
           </TouchableOpacity>
         </View>
-        
+
       </View>
     );
   }

@@ -19,7 +19,7 @@ class QueueList extends Component {
 				{
 					trackList && trackList.map((track, i) => {
 						return(
-							<View style={styles.rowItem}>
+							<View style={styles.rowItem} key={track.title+i}>
 							     <TouchableOpacity>
 							       <Image
 							         style={styles.imageView}
@@ -30,7 +30,7 @@ class QueueList extends Component {
 							       <Text style={styles.titleText}>{track.title ? track.title : ''}</Text>
 							       <Text style={styles.artistText}>{track.artist ? track.artist : ''}</Text>
 							     </TouchableOpacity>
-						     
+
 							</View>
 						)
 					})
