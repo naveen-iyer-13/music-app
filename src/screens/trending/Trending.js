@@ -158,8 +158,8 @@ class Trending extends Component {
     this.props.navigation.navigate(screen, {song})
   }
 
-  playSong = (song, index) => {
-    this.props.navigation.navigate('Player', {index, storageKey:'trendingSongs'})
+  playSong = (song) => {
+    this.props.navigation.navigate('Player', {song})
   }
 
   onError = (id) => {
@@ -194,13 +194,17 @@ class Trending extends Component {
        artistView= trending.map((item, index)=> {
         if(this.state.randomArray.includes(index)){
           return(
-            <TouchableOpacity key={index} style={styles.trendingView} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
+            <View key={index} style={styles.trendingView} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
+             <TouchableOpacity style={{height: 85, paddingLeft: 10}}>
               <Image
                 style={styles.trendingImage}
                 source={item.cover ? {uri: item.cover} : defaultIcon}
               />
-              <Text style={styles.trendingTitle}>{item.artist}</Text>
-            </TouchableOpacity>
+              </TouchableOpacity>
+              <View style={{backgroundColor: '#FFFFFF', height: 50, width: 100}}>
+               <Text style={styles.trendingTitle}>{item.artist}</Text>
+              </View>
+            </View>
           )
         }
       })
@@ -218,7 +222,7 @@ class Trending extends Component {
             style={styles.backgroundImage}
           >
          <View style={styles.topView}>
-          <Text style={styles.trendingArtist}>Trending artist</Text>
+          <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
            <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
             {artistView}
            </ScrollView>
@@ -265,14 +269,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontFamily: 'Proxima-Nova-Bold',
     color: '#4A4A4A',
-    fontSize: 14
+    fontSize: 20
   },
   trendingTitle: {
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: 14,
     fontFamily :'Proxima-Nova-Bold',
     color: '#797979',
-    paddingTop: 5
+    paddingTop: 10,
+    opacity: 0.6
   },
   trendingImage: {
     resizeMode: 'contain',
@@ -281,9 +286,8 @@ const styles = StyleSheet.create({
     borderRadius: 80
   },
   trendingView: {
-    paddingLeft: 15,
     paddingTop: 15,
-    width: 100
+    width: 100,
   },
   backgroundImage: {
     width: '100%',
@@ -296,7 +300,7 @@ const styles = StyleSheet.create({
   trendingArtist: {
     fontFamily: 'Proxima-Nova-Bold',
     color: '#fff',
-    fontSize: 22,
+    fontSize: 20,
     paddingTop: 15,
   }
 });
