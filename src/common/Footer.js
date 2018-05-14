@@ -58,8 +58,8 @@ class Footer extends Component{
     return(
       <View style={styles.container}>
         {
-          SCREENS.map(screen => (
-            <TouchableOpacity onPress={()=> screenName === screen ?  {} : this.navigate(screen)}>
+          SCREENS.map((screen, index) => (
+            <TouchableOpacity key={screen+index} onPress={()=> screenName === screen ?  {} : this.navigate(screen)}>
               <Image
                 source={screenName === screen ? SCREENICON[screen].active : SCREENICON[screen].inactive}
                 style={{width: 20, height: 20}}

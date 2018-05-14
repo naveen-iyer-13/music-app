@@ -5,13 +5,15 @@ import {
   AsyncStorage,
   ScrollView,
   Alert,
-  Dimensions
+  Dimensions,
+  Image
 } from 'react-native'
 // import { getTrending } from './../../../common/helpers'
 import { ListView } from './../../../common/ListView'
 import PopupModal from './../../../common/PopupModal'
 import { Search } from './../../../common/Search'
 
+let {height, width} = Dimensions.get('window')
 
 class Songs extends Component{
   constructor(props){
@@ -144,9 +146,9 @@ class Songs extends Component{
     this.setState({searchList})
   }
 
-  playSong = (song) => {
+  playSong = (song, index, title) => {
     // console.log(this.props);
-    this.props.navigation.navigate('Player', {song})
+    this.props.navigation.navigate('Player', {song, storageKey: 'library'})
   }
 
   render() {
@@ -167,7 +169,7 @@ class Songs extends Component{
              :
             <ScrollView style={{ paddingTop: 20}}>
               {
-                list.length > 0 ? list.map((song,index) => (
+                list && list.length > 0 ? list.map((song,index) => (
                   <ListView
                     key={song.title + index}
                     thumbnail={song.thumbnail}
@@ -178,7 +180,12 @@ class Songs extends Component{
                   />
                 ))
                 :
-                 <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold',textAlign: 'center'}}>You don{"'"}t have songs in your library</Text>
+                <View style={{ display: 'flex',height: (height * 50)/100, alignItems: 'center', justifyContent: 'center'}}>
+                  <Image source={require('./../../../images/broken-heart.png')} style={{width: 50, height: 50}}/>
+                  <Text style={{ width: 150,fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', textAlign: 'center'}}>
+                    You don't have songs in your {this.props.isPlaylistPage ? 'playlist' : 'library'}!
+                  </Text>
+                </View>
               }
             </ScrollView>
         }
