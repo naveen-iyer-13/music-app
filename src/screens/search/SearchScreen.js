@@ -194,7 +194,8 @@ class SearchScreen extends Component{
                 :
                 <ScrollView>
                  <View style={{height: Dimensions.get('window').height-170, justifyContent:'center', alignItems: 'center'}}>
-                  <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', marginTop: 20, width: 150, textAlign: 'center'}}>No results found</Text>
+                   <Image source={require('./../../images/surprised.png')} style={{width: 50, height: 50}}/>
+                   <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', marginTop: 10, width: 120, textAlign: 'center'}}>No search results!</Text>
                  </View>
                 </ScrollView>
               }
