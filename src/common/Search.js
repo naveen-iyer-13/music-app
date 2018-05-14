@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   searchBox: {
     width: '100%',
     height: 35,
-    backgroundColor: '#F1F1F1',
+    backgroundColor: '#F7F7F7',
     borderRadius: 4,
     flexDirection: 'row',
     alignItems: 'center'
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   searchInput: {
     width: '85%',
     height: 35,
-    backgroundColor: '#F1F1F1',
+    backgroundColor: '#F7F7F7',
     borderRadius: 4,
     alignItems: 'center',
     fontFamily: 'Proxima-Nova',
