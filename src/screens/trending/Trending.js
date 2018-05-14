@@ -221,7 +221,7 @@ class Trending extends Component {
               <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
 
           <ImageBackground
-            source={{uri: trending[randomIndex].cover}}
+            source={{uri: trending[randomIndex] && trending[randomIndex].cover ? trending[randomIndex].cover : ''}}
             style={styles.backgroundImage}
           >
          <View style={styles.topView}>
