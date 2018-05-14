@@ -150,7 +150,7 @@ class Songs extends Component{
 
   render() {
     let { list, searchList, popupModal, selectedSong, searchTerm, loading } = this.state
-    console.log(this.state);
+    // console.log(this.state);
     list = searchTerm? searchList : list
     return(
       <View>
@@ -177,7 +177,7 @@ class Songs extends Component{
                   />
                 ))
                 :
-                <Text>You don't have songs in your library</Text>
+                <Text>You don't have songs in your {this.props.isPlaylistPage ? 'playlist' : 'library'}!</Text>
               }
             </ScrollView>
         }
