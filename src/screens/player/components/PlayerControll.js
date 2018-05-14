@@ -41,8 +41,7 @@ class Duration extends ProgressComponent {
   }
 
   render() {
-   let duration = this.getDuration()
-   duration = 0
+   let duration = 0
    let secDur = Math.floor(duration % 60)
    let minDur = Math.floor(duration / 60)
    const { currentSecond } = this.state

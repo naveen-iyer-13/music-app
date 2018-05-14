@@ -18,7 +18,8 @@ class Playlists extends Component{
       playlists: null,
       list: [],
       playlistOpen: false,
-      searchList: ''
+      searchList: '',
+      fetchFailed: []
     }
   }
 
@@ -92,6 +93,12 @@ class Playlists extends Component{
     this.props.navigation.navigate('Player', {index, storageKey: 'playlists', name: title})
   }
 
+  onError = (id) => {
+    // let { fetchFailed } = this.state
+    // fetchFailed.push(id)
+    // this.setState({fetchFailed})
+  }
+
   render() {
     const { playlists, playlistOpen, searchList, list, loading } = this.state
     console.log(this.state);
@@ -111,11 +118,14 @@ class Playlists extends Component{
               {
                   <ListView
                     thumbnail={playlists[key][0] ? playlists[key][0].thumbnail : '' }
+                    showDefault={!playlists[key][0]}
                     title={key}
                     key={index+key}
                     len={playlists[key].length}
                     song={playlists[key]}
                     openPlaylist={this.openPlaylist}
+                    fetchFailed={[]}
+                    onError={() => {}}
                   />
               }
             </View>

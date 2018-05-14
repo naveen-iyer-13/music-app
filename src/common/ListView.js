@@ -9,13 +9,14 @@ import {
 } from 'react-native'
 
 export const ListView = props => {
-  const { thumbnail, title, artist, song, openModal, openPlaylist, playSong, len, index } = props
+  const { thumbnail, title, artist, song, openModal, openPlaylist, playSong, len, index, onError, fetchFailed, showDefault } = props
 	return(
 		<View style={styles.container}>
      <TouchableOpacity>
        <Image
          style={styles.imageView}
-         source={thumbnail ? {uri: thumbnail} : require('./../images/default-icon.png')}
+         onError={() => onError(song.bp_id)}
+         source={ showDefault || fetchFailed.includes(song.bp_id) ? require('./../images/default-icon.png') :  {uri: thumbnail}}
        />
      </TouchableOpacity>
      <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song, index, title) : openPlaylist(song, title)}>
