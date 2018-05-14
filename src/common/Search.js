@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-export const Search = ({handleSearch, searchTerm}) => (
+export const Search = ({handleSearch, searchTerm, clearText}) => (
   <View style={styles.searchBox}>
     <Image source={require('.././images/search.png')} style={{resizeMode: 'contain', height: 15, width: 15, marginLeft: 10}}/>
     <TextInput
@@ -18,11 +18,14 @@ export const Search = ({handleSearch, searchTerm}) => (
       placeholderColor={'#000000'}
       style={styles.searchInput}
     />
-    { searchTerm ?
-      <TouchableOpacity>
-     <Image source={require('.././images/cancel.png')} style={{resizeMode: 'contain', height: 10, width: 10, marginLeft: 10}}/>
-    </TouchableOpacity>
-    : <View />}
+    {
+      searchTerm
+       ?
+      <TouchableOpacity onPress={() => clearText()}>
+       <Image source={require('.././images/cancel.png')} style={{resizeMode: 'contain', height: 10, width: 10, marginLeft: 10}}/>
+      </TouchableOpacity>
+      : <View />
+    }
   </View>
 )
 
@@ -30,7 +33,7 @@ const styles = StyleSheet.create({
   searchBox: {
     width: '100%',
     height: 35,
-    backgroundColor: '#F1F1F1',
+    backgroundColor: '#F7F7F7',
     borderRadius: 4,
     flexDirection: 'row',
     alignItems: 'center'
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
   searchInput: {
     width: '85%',
     height: 35,
-    backgroundColor: '#F1F1F1',
+    backgroundColor: '#F7F7F7',
     borderRadius: 4,
     alignItems: 'center',
     fontFamily: 'Proxima-Nova',

@@ -4,7 +4,8 @@ import {
   Text,
   AsyncStorage,
   ScrollView,
-  Alert
+  Alert,
+  Dimensions
 } from 'react-native'
 // import { getTrending } from './../../../common/helpers'
 import { ListView } from './../../../common/ListView'
@@ -157,6 +158,7 @@ class Songs extends Component{
         <Search
           searchTerm={searchTerm}
           handleSearch={this.handleSearch}
+          clearText={() => this.setState({searchTerm: ''})}
         />
         {
             loading
@@ -176,7 +178,7 @@ class Songs extends Component{
                   />
                 ))
                 :
-                <Text>You don't have songs in your library</Text>
+                 <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold',textAlign: 'center'}}>You don{"'"}t have songs in your library</Text>
               }
             </ScrollView>
         }
