@@ -86,9 +86,9 @@ class Playlists extends Component{
     this.props.handlePlaylistOpen(list, title)
   }
 
-  playSong = (song) => {
+  playSong = (song, index, title) => {
     // console.log(this.props);
-    this.props.navigation.navigate('Player', {song})
+    this.props.navigation.navigate('Player', {index, storageKey: 'playlists', name: title})
   }
 
   render() {
