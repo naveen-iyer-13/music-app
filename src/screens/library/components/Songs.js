@@ -144,9 +144,9 @@ class Songs extends Component{
     this.setState({searchList})
   }
 
-  playSong = (song) => {
+  playSong = (song, index, title) => {
     // console.log(this.props);
-    this.props.navigation.navigate('Player', {song})
+    this.props.navigation.navigate('Player', {song, storageKey: 'library'})
   }
 
   render() {
