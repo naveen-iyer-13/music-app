@@ -40,6 +40,7 @@ class Trending extends Component {
   }
 
   getSongs(){
+    this.setState({loading: true})
     AsyncStorage.getItem('trendingSongs', (err, res) => {
       if(res)
         this.setState({trendingSongs: JSON.parse(res), loading: false})
@@ -108,7 +109,7 @@ class Trending extends Component {
           playlists[data] = []
           let { playlistName } = this.state
           playlistName.push(data)
-          this.setState({playlistName, addPlaylistModal: false}, () => console.log(this.state))
+          this.setState({playlistName, addPlaylistModal: false})
           AsyncStorage.setItem('playlists', JSON.stringify(playlists))
         }
         else{
@@ -185,13 +186,13 @@ class Trending extends Component {
        artistView= trending.map((item, index)=> {
         if(this.state.randomArray.includes(index)){
           return(
-            <View key={index} style={styles.trendingView}>
+            <TouchableOpacity key={index} style={styles.trendingView} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
               <Image
                 style={styles.trendingImage}
                 source={item.cover ? {uri: item.cover} : defaultIcon}
               />
               <Text style={styles.trendingTitle}>{item.artist}</Text>
-            </View>
+            </TouchableOpacity>
           )
         }
       })

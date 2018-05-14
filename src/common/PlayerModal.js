@@ -11,7 +11,7 @@ import {
   AlertIOS,
 } from 'react-native'
 import Modal from "react-native-modal";
-import { removeFromPlaylist } from './helpers'
+import { removeFromPlaylist, removeFromLibrary } from './helpers'
 let { width, height } = Dimensions.get('window')
 
 
@@ -47,7 +47,7 @@ class PlayerModal extends Component{
           </View>
           :
           <View>
-           <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Library', song)}>
+           <TouchableOpacity style={styles.selectView} onPress={() => removeFromLibrary(song, () => closeModal() ) }>
              <Image source={require('../images/cancel.png')} style={{resizeMode: 'contain', height: 25, width: 25, marginLeft: 15}}/>
              <Text style={styles.TextStyle}>Remove from Library</Text>
            </TouchableOpacity>

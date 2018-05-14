@@ -30,6 +30,7 @@ class SearchScreen extends Component{
 
   componentWillMount() {
     const { params } = this.props.navigation.state
+    console.log(this.props);
     if(params && params.song.artist){
       this.handleSearch(params.song.artist)
       this.setState({searchTerm: params.song.artist})

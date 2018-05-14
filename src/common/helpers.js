@@ -48,6 +48,84 @@ export const removeFromPlaylist = async(name, song, cb) => {
 
 }
 
+
+export const addToLibrary = async(list, song , cb) => {
+  console.log('enter')
+  let track = list.filter(obj => obj.bp_id === song.id )
+  let tracks = []
+  AsyncStorage.getItem('library', (err, res) => {
+    console.log(res, err, 'response')
+    if (res) {
+      tracks = JSON.parse(res)
+      tracks.push(track)
+      AsyncStorage.setItem('library', JSON.stringify(tracks)) 
+         Alert.alert(
+          'Success',
+          'Song has been added to the library',
+          [
+            {text: 'OK', onPress: () =>  cb(true)}
+          ],
+          { cancelable: false }
+        )
+    }
+    else {
+      Alert.alert(
+          'Sorry',
+          'Library is not initialized',
+          [
+            {text: 'OK', onPress: () =>  cb(false)}
+          ],
+          { cancelable: false }
+        )
+    }
+  })
+  
+}
+
+export const removeFromLibrary = async(song , cb) => {
+  
+  AsyncStorage.getItem('library', (err, res) => {
+    if (res) {
+      tracks = JSON.parse(res)
+      let newTracks = tracks.filter(obj => obj.bp_id !== song.id)
+      if (tracks.length === newTracks.length) {
+        Alert.alert(
+          'Error',
+          'Song is not present in the library',
+          [
+            {text: 'OK', onPress: () =>  cb(true)}
+          ],
+          { cancelable: false }
+        )
+      }
+      else {
+        AsyncStorage.setItem('library', JSON.stringify(newTracks)) 
+        Alert.alert(
+          'Success',
+          'Song has been removed from the library',
+          [
+            {text: 'OK', onPress: () =>  cb(true)}
+          ],
+          { cancelable: false }
+        )
+      }
+      
+         
+    }
+    else {
+      Alert.alert(
+          'Sorry',
+          'Library is not initialized',
+          [
+            {text: 'OK', onPress: () =>  cb(false)}
+          ],
+          { cancelable: false }
+        )
+    }
+  })
+  
+}
+
 export const searchSong = (q, cb) => {
   if(source)
     source.cancel()
