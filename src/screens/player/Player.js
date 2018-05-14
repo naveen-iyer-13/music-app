@@ -4,6 +4,9 @@ import { StyleSheet, Text, TouchableOpacity, View, Dimensions, Image, AsyncStora
 import PlayerControll from './components/PlayerControll'
 import Footer from './../../common/Footer'
 import data from '../../common/data.json'
+import {
+  BarIndicator,
+} from 'react-native-indicators';
 // import { closeApp } from '../../common/helpers'
 let { height, width } = Dimensions.get('window')
 let trackList = []
@@ -79,13 +82,13 @@ export default class Player extends Component {
 				})
 			})
 		}
-		
+
 	}
 
 	componentDidMount() {
 		let trackNext = {}
 	    TrackPlayer.setupPlayer();
-			
+
 		TrackPlayer.registerEventHandler(async (data) => {
 		  if (data.type === 'playback-track-changed') {
 		    if (data.nextTrack) {
@@ -107,7 +110,7 @@ export default class Player extends Component {
 		    	playbackState: data.state
 		    })
 		  }
-		  
+
 		});
 					TrackPlayer.reset()
 
@@ -121,7 +124,7 @@ export default class Player extends Component {
 	        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
 	      ]
 	    });
-	}	
+	}
 
 	togglePlayback = async () => {
 		const { playbackState } = this.state
@@ -198,7 +201,7 @@ export default class Player extends Component {
 
 			<View style={styles.container}>
 		        <View style={styles.backgroundContainer}>
-					<Image 
+					<Image
 						style={styles.backgroundImage}
 		            	source={{ uri: (playbackState === TrackPlayer.STATE_BUFFERING) ? track.thumbnail : track.artwork }}
 		          	/>
@@ -219,8 +222,8 @@ export default class Player extends Component {
 				    />
 		        </View>
 				<Footer screenName={'Player'} navigation={this.props.navigation}/>
-				
-				
+
+
 			</View>
 		)
 	}
@@ -243,11 +246,12 @@ const styles = StyleSheet.create({
 	resizeMode: 'cover',
   },
   playerContainer: {
-  	flex: 1, 
+  flex: 1,
 	backgroundColor: 'transparent',
-	justifyContent: 'center', 
-	width: '100%', 
-	height: '100%'
+	justifyContent: 'center',
+	width: '100%',
+	height: '100%',
+	alignItems:'center',
 	},
-	
+
 });
