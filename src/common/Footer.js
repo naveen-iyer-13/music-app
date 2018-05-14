@@ -65,7 +65,7 @@ class Footer extends Component{
             <TouchableOpacity key={screen+index} onPress={()=> screenName === screen ?  {} : this.navigate(screen)} style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
               <Image
                 source={screenName === screen ? SCREENICON[screen].active : SCREENICON[screen].inactive}
-                style={{width: 20, height: 20}}
+                style={{width: 20, height: 20, padding: 5}}
                 resizeMode='contain'
               />
             </TouchableOpacity>
@@ -87,5 +87,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
+    backgroundColor: '#FFFFFF'
   }
 })

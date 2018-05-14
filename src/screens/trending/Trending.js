@@ -195,8 +195,8 @@ class Trending extends Component {
        artistView= trending.map((item, index)=> {
         if(this.state.randomArray.includes(index)){
           return(
-            <View key={index} style={styles.trendingView} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
-             <TouchableOpacity style={{height: 85, paddingLeft: 10}}>
+            <View key={index} style={styles.trendingView} >
+             <TouchableOpacity style={{height: 85, paddingLeft: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
               <Image
                 style={styles.trendingImage}
                 source={item.cover ? {uri: item.cover} : defaultIcon}

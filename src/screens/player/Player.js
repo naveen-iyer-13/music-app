@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
-import { StyleSheet, Text, TouchableOpacity, View, Dimensions, Image, AsyncStorage, AppRegistry } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Dimensions, Image, AsyncStorage, AppRegistry, EventEmitter } from 'react-native';
 import PlayerControll from './components/PlayerControll'
 import Footer from './../../common/Footer'
 import data from '../../common/data.json'
@@ -26,9 +26,34 @@ export default class Player extends Component {
 	}
 
 	componentWillMount() {
+		EventEmitter.setMaxListeners()
 		if (this.props.navigation.state.params) {
-		const { index, storageKey, name } = this.props.navigation.state.params
-			console.log(index, storageKey,name)
+		const { index, storageKey, name, search } = this.props.navigation.state.params
+		console.log(index, storageKey, name)
+		if(search) {
+
+			let songs = [...search]
+			let trackList = [...search]
+				trackList.unshift(trackList[index])
+				trackList.splice(index+1, 1)
+				let obj, list = []
+				trackList.forEach(track => {
+					obj = {}
+					obj.url = track.streamlink
+					obj.artwork = track.cover
+					obj.title = track.title
+					obj.id = track.bp_id
+					obj.artist = track.artist
+					obj.thumbnail = track.thumbnail
+					list.push(obj)
+				})
+				trackList = list
+				this.setState({
+					track: trackList[0],
+					trackList: trackList,
+					songs: songs
+				})
+		}
 			AsyncStorage.getItem(storageKey, (err,res) => {
 				if (name)
 					trackList = JSON.parse(res)[name]
@@ -129,6 +154,9 @@ export default class Player extends Component {
 	      ]
 	    });
 	}
+	componentWillUnmount(){
+			//AppRegistry.removeDeviceListeners()
+		}
 
 	togglePlayback = async () => {
 		const { playbackState } = this.state
@@ -188,6 +216,8 @@ export default class Player extends Component {
 		    this.togglePlayback()
 		}
 
+		
+
 	render() {
 
 		const { playbackState, track, trackList } = this.state
@@ -213,7 +243,7 @@ export default class Player extends Component {
      				
 
 		        </View>
-		        						        	      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+		        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
 
 		        <View style={styles.playerContainer}>
 
