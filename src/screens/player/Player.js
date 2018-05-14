@@ -26,14 +26,14 @@ export default class Player extends Component {
 	}
 
 	componentWillMount() {
-		EventEmitter.setMaxListeners()
+		//EventEmitter.setMaxListeners()
 		if (this.props.navigation.state.params) {
 		const { index, storageKey, name, search } = this.props.navigation.state.params
-		console.log(index, storageKey, name)
+		console.log(index, storageKey, name, search)
 		if(search) {
-
+      //console.log('enter')
 			let songs = [...search]
-			let trackList = [...search]
+			trackList = [...search]
 				trackList.unshift(trackList[index])
 				trackList.splice(index+1, 1)
 				let obj, list = []
@@ -53,7 +53,9 @@ export default class Player extends Component {
 					trackList: trackList,
 					songs: songs
 				})
+        console.log(trackList, 'list')
 		}
+    else
 			AsyncStorage.getItem(storageKey, (err,res) => {
 				if (name)
 					trackList = JSON.parse(res)[name]
@@ -79,11 +81,11 @@ export default class Player extends Component {
 					trackList: trackList,
 					songs: songs
 				})
+        console.log(trackList, 'list');
 			})
 		}
 		else {
 			let index = 0, name = null
-			console.log("ELSE")
 			AsyncStorage.getItem('trendingSongs', (err,res) => {
 				if (name)
 					trackList = JSON.parse(res)[name]
@@ -142,7 +144,7 @@ export default class Player extends Component {
 
 		});
 		TrackPlayer.reset()
-		if (this.props.navigation.state.params) 
+		if (this.props.navigation.state.params)
 			this.togglePlayback()
 	    TrackPlayer.updateOptions({
 	      stopWithApp: true,
@@ -216,7 +218,7 @@ export default class Player extends Component {
 		    this.togglePlayback()
 		}
 
-		
+
 
 	render() {
 
@@ -240,7 +242,7 @@ export default class Player extends Component {
 						style={styles.backgroundImage}
 		            	source={{ uri: (playbackState === TrackPlayer.STATE_BUFFERING) ? track.thumbnail : track.artwork }}
 		          	/>
-     				
+
 
 		        </View>
 		        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
