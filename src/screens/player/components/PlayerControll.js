@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
 
   },
   songTitle: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#FFFFFF'
   },
   songArtist: {
@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
     color: '#FFF'
   },
   controls: {
-    marginVertical: 5,
+    marginVertical: 2,
     width: Dimensions.get('window').width * 1,
     flexDirection: 'row',
     alignItems: 'center',
@@ -355,8 +355,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   playButton: {
-    width: 50,
-    height: 50
+    width: 60,
+    height: 60
   },
   loaderCircle: {
     width: 60,

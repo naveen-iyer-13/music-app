@@ -64,7 +64,7 @@ class Playlists extends Component{
           !playlistOpen ?
           playlists
           ?
-          Object.keys(playlists).map(key => (
+          Object.keys(playlists).map((key, i) => (
             <View>
               {
                   <ListView
@@ -73,6 +73,7 @@ class Playlists extends Component{
                     len={playlists[key].length}
                     song={playlists[key]}
                     openPlaylist={this.openPlaylist}
+                    index={i}
                   />
               }
             </View>

@@ -23,6 +23,7 @@ export default class Player extends Component {
 	componentWillMount() {
 		if (this.props.navigation.state.params) {
 		const { index, storageKey, name } = this.props.navigation.state.params
+			console.log(index, storageKey,name)
 			AsyncStorage.getItem(storageKey, (err,res) => {
 				if (name)
 					trackList = JSON.parse(res)[name]
@@ -52,6 +53,7 @@ export default class Player extends Component {
 		}
 		else {
 			let index = 0, name = null
+			console.log("ELSE")
 			AsyncStorage.getItem('trendingSongs', (err,res) => {
 				if (name)
 					trackList = JSON.parse(res)[name]
@@ -109,9 +111,9 @@ export default class Player extends Component {
 		  }
 		  
 		});
-					TrackPlayer.reset()
-
-		this.togglePlayback()
+		TrackPlayer.reset()
+		if (this.props.navigation.state.params) 
+			this.togglePlayback()
 	    TrackPlayer.updateOptions({
 	      stopWithApp: true,
 	      capabilities: [
