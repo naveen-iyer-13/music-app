@@ -4,6 +4,11 @@ import { StyleSheet, Text, TouchableOpacity, View, Dimensions, Image, AsyncStora
 import PlayerControll from './components/PlayerControll'
 import Footer from './../../common/Footer'
 import data from '../../common/data.json'
+import {
+  BarIndicator,
+} from 'react-native-indicators';
+import LinearGradient from 'react-native-linear-gradient';
+
 // import { closeApp } from '../../common/helpers'
 let { height, width } = Dimensions.get('window')
 let trackList = []
@@ -81,13 +86,13 @@ export default class Player extends Component {
 				})
 			})
 		}
-		
+
 	}
 
 	componentDidMount() {
 		let trackNext = {}
 	    TrackPlayer.setupPlayer();
-			
+
 		TrackPlayer.registerEventHandler(async (data) => {
 		  if (data.type === 'playback-track-changed') {
 		    if (data.nextTrack) {
@@ -109,7 +114,7 @@ export default class Player extends Component {
 		    	playbackState: data.state
 		    })
 		  }
-		  
+
 		});
 		TrackPlayer.reset()
 		if (this.props.navigation.state.params) 
@@ -123,7 +128,7 @@ export default class Player extends Component {
 	        TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
 	      ]
 	    });
-	}	
+	}
 
 	togglePlayback = async () => {
 		const { playbackState } = this.state
@@ -199,13 +204,19 @@ export default class Player extends Component {
 		return (
 
 			<View style={styles.container}>
+
 		        <View style={styles.backgroundContainer}>
-					<Image 
+					<Image
 						style={styles.backgroundImage}
 		            	source={{ uri: (playbackState === TrackPlayer.STATE_BUFFERING) ? track.thumbnail : track.artwork }}
 		          	/>
+     				
+
 		        </View>
+		        						        	      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+
 		        <View style={styles.playerContainer}>
+
 		            <PlayerControll
 				          onNext={() => this.skipToNext()}
 				          onPrevious={() => this.skipToPrevious()}
@@ -221,8 +232,8 @@ export default class Player extends Component {
 				    />
 		        </View>
 				<Footer screenName={'Player'} navigation={this.props.navigation}/>
-				
-				
+
+
 			</View>
 		)
 	}
@@ -231,7 +242,7 @@ export default class Player extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-	backgroundColor: '#eee',
+	backgroundColor: 'transparent',
   },
   backgroundContainer: {
   	position: 'absolute',
@@ -245,11 +256,13 @@ const styles = StyleSheet.create({
 	resizeMode: 'cover',
   },
   playerContainer: {
-  	flex: 1, 
-	backgroundColor: 'transparent',
-	justifyContent: 'center', 
-	width: '100%', 
-	height: '100%'
+  	flex: 1,
+	backgroundColor: '#000000',
+    opacity: 0.6,
+	justifyContent: 'center',
+	width: '100%',
+	height: '100%',
+	alignItems:'center',
 	},
-	
+
 });

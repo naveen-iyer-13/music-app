@@ -29,7 +29,8 @@ class SearchScreen extends Component{
       searchTerm: '',
       popupModal: false,
       openPlaylist: false,
-      loading: false
+      loading: false,
+      fetchFailed: []
     }
   }
 
@@ -151,6 +152,12 @@ class SearchScreen extends Component{
     this.props.navigation.navigate('Player', {song})
   }
 
+  onError = (id) => {
+    let { fetchFailed } = this.state
+    fetchFailed.push(id)
+    this.setState({fetchFailed})
+  }
+
   render(){
     const { list, searchTerm, selectedSong, popupModal, loading } = this.state
     console.log(this.state);
@@ -161,11 +168,13 @@ class SearchScreen extends Component{
           <Text style={{fontSize: 18, fontFamily: 'Proxima-Nova-Bold', color: '#000'}}>Search</Text>
         </View>
         <View style={styles.screenContainer}>
+          <View style={{margin: 15}}>
           <Search
             searchTerm={searchTerm}
             handleSearch={this.handleSearch}
             clearText={() => this.setState({searchTerm: ''})}
           />
+          </View>
           {
             searchTerm
             ?
@@ -190,12 +199,15 @@ class SearchScreen extends Component{
                     song={song}
                     playSong={this.playSong}
                     openModal={this.openModal}
+                    onError={this.onError}
+                    fetchFailed={this.state.fetchFailed}
                   />
                 ))
                 :
                 <ScrollView>
                  <View style={{height: Dimensions.get('window').height-170, justifyContent:'center', alignItems: 'center'}}>
-                  <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', marginTop: 20, width: 150, textAlign: 'center'}}>No results found</Text>
+                   <Image source={require('./../../images/surprised.png')} style={{width: 50, height: 50}}/>
+                   <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', marginTop: 10, width: 120, textAlign: 'center'}}>No search results!</Text>
                  </View>
                 </ScrollView>
               }
@@ -232,12 +244,10 @@ const styles = StyleSheet.create({
   container:{
     display: 'flex',
     backgroundColor: '#FFFFFF',
-    width,
-    height
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
   },
   screenContainer:{
     height: height - 135,
-    paddingRight: 12,
-    paddingLeft: 12
   },
 })

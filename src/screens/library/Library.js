@@ -29,21 +29,22 @@ class Library extends Component{
   }
 
   handlePlaylistOpen = (list, title) => {
-    // console.log(title, list);
     if(title){
       this.setState({header: title})
     }
   }
 
   render() {
-    const { searchTerm, tab, header, closePlaylist } = this.state
+    const { searchTerm, tab, header, closePlaylist, openCreatePlaylistModal } = this.state
     return (
       <View style={styles.container}>
       <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
         <View style={styles.screenContainer} navigation={this.props.navigation}>
           <Header
             header={header}
+            tab={tab}
             handleBackButton={() => this.setState({closePlaylist: true, header: "Library"})}
+            handleKeyPress={() => this.setState({openCreatePlaylistModal: true})}
           />
           <View style={styles.containerItem}>
             <View style={styles.headerItem}>
@@ -57,7 +58,6 @@ class Library extends Component{
               </TouchableOpacity>
             </View>
           </View>
-
             {
               tab === 'songs'
               ?
@@ -68,6 +68,9 @@ class Library extends Component{
                   navigation={this.props.navigation}
                   closePlaylist={closePlaylist}
                   handlePlaylistOpen={this.handlePlaylistOpen}
+                  reset={() => this.setState({closePlaylist: false})}
+                  openCreatePlaylistModal={openCreatePlaylistModal}
+                  handleModalClose={() => this.setState({openCreatePlaylistModal: false})}
                 />
               </View>
             }
@@ -88,9 +91,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').heights
   },
   screenContainer:{
-    height: height - 85 ,
-    paddingRight: 12,
-    paddingLeft: 12
+    height: height - 85 
   },
   containerItem:{
     display: 'flex',

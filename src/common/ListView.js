@@ -9,13 +9,14 @@ import {
 } from 'react-native'
 
 export const ListView = props => {
-  const { thumbnail, title, artist, song, openModal, openPlaylist, playSong, len, index } = props
+  const { thumbnail, title, artist, song, openModal, openPlaylist, playSong, len, index, onError, fetchFailed, showDefault } = props
 	return(
 		<View style={styles.container}>
      <TouchableOpacity>
        <Image
          style={styles.imageView}
-         source={thumbnail ? {uri: thumbnail} : require('./../images/default-icon.png')}
+         onError={() => onError(song.bp_id)}
+         source={ showDefault || fetchFailed.includes(song.bp_id) ? require('./../images/default-icon.png') :  {uri: thumbnail}}
        />
      </TouchableOpacity>
      <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(index, title) : openPlaylist(title)}>
@@ -23,7 +24,7 @@ export const ListView = props => {
        <Text style={styles.artistText}>{artist ? artist : ''}</Text>
        <Text style={styles.artistText}>{len ? `${len} songs` : ''}</Text>
      </TouchableOpacity>
-     <TouchableOpacity style={styles.breadCumsLayout} onPress = {() => openModal(song)}>
+     <TouchableOpacity style={styles.breadCumsLayout} onPress = {() => openModal ? openModal(song) : {}}>
       <View style={styles.breadCums}/>
       <View style={styles.breadCums}/>
       <View style={styles.breadCums}/>
@@ -49,15 +50,17 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontFamily: 'Proxima-Nova-Bold',
-    fontSize: 12,
+    fontSize: 14,
     color: '#252525',
-    paddingBottom: 5
+    paddingBottom: 5,
+    flexWrap: 'wrap'
   },
   artistText: {
     fontFamily: 'Proxima-Nova',
-    fontSize: 12,
+    fontSize: 14,
     color: '#252525',
-    opacity: 0.5
+    opacity: 0.5,
+    flexWrap: 'wrap'
   },
   breadCumsLayout: {
     flexDirection: 'row',
