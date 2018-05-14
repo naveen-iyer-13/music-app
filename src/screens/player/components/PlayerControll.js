@@ -13,8 +13,8 @@ class ProgressBar extends ProgressComponent {
   render() {
     return (
       <View style={styles.progress}>
-        <View style={{ flex: this.getProgress(), backgroundColor: 'red' }} />
-        <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: 'red', marginTop: -6 }} />
+        <View style={{ flex: this.getProgress(), backgroundColor: '#6DE9D6' }} />
+        <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: '#6DE9D6', marginTop: -6 }} />
         <View style={{ flex: 1 - this.getProgress(), backgroundColor: 'white' }} />
       </View>
     );
@@ -319,8 +319,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
   },
   progress: {
-    height: 1,
-    width: '90%',
+    height: 2,
+    width: '96%',
     marginTop: 10,
     flexDirection: 'row',
   },

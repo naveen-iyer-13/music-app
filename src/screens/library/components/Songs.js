@@ -149,7 +149,12 @@ class Songs extends Component{
 
   playSong = (index, title) => {
     // console.log(this.props);
-    this.props.navigation.navigate('Player', {index, storageKey: 'library'})
+    let { storageKey, selectedPlaylist } = this.props
+    if (storageKey)
+      this.props.navigation.navigate('Player', {index, storageKey: 'playlists', name: selectedPlaylist})
+    else
+      this.props.navigation.navigate('Player', {index, storageKey: 'library'})
+
   }
 
   onError = (id) => {
@@ -174,13 +179,14 @@ class Songs extends Component{
              ?
             <Text>Loading</Text>
              :
-            <ScrollView style={{ paddingTop: 20}}>
+            <ScrollView style={{ paddingTop: 20, paddingBottom:20}}>
               {
                 list && list.length > 0 ? list.map((song,index) => (
                   <ListView
                     key={song.title + index}
                     thumbnail={song.thumbnail}
                     title={song.title}
+                    artist={song.artist}
                     song={song}
                     index={index}
                     openModal={this.openModal}
