@@ -218,7 +218,7 @@ class Trending extends Component {
       return (
         <View style={styles.container}>
           <ImageBackground
-            source={{uri: trending[randomIndex].cover}}
+            source={{uri: trending[randomIndex] && trending[randomIndex].cover ? trending[randomIndex].cover : ''}}
             style={styles.backgroundImage}
           >
          <View style={styles.topView}>
