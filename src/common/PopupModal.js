@@ -88,9 +88,9 @@ class PopupModal extends Component{
                      </TouchableOpacity>
                      <ScrollView>
                        {
-                         playlistName && playlistName.map(name => {
+                         playlistName && playlistName.map((name, index) => {
                            return(
-                             <TouchableOpacity style={styles.selectView} onPress={() => addToPlaylist(name)} style={{marginLeft: 10}}>
+                             <TouchableOpacity key={name+index} style={styles.selectView} onPress={() => addToPlaylist(name)} style={{marginLeft: 10}}>
                                <Text style={styles.TextStyle}>{name}</Text>
                              </TouchableOpacity>
                            )

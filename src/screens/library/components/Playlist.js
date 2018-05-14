@@ -82,6 +82,7 @@ class Playlists extends Component{
   }
 
   openPlaylist = (list, title) => {
+    console.log(list);
     this.setState({list, playlistOpen: true, selectedPlaylist: title})
     this.props.handlePlaylistOpen(list, title)
   }
@@ -93,7 +94,7 @@ class Playlists extends Component{
 
   render() {
     const { playlists, playlistOpen, searchList, list, loading } = this.state
-    // console.log(this.state);
+    console.log(this.state);
     return(
       <View>
         {
@@ -105,12 +106,13 @@ class Playlists extends Component{
           ?
           playlists
           ?
-          Object.keys(playlists).map(key => (
+          Object.keys(playlists).map((key, index) => (
             <View>
               {
                   <ListView
                     thumbnail={playlists[key][0] ? playlists[key][0].thumbnail : '' }
                     title={key}
+                    key={index+key}
                     len={playlists[key].length}
                     song={playlists[key]}
                     openPlaylist={this.openPlaylist}
