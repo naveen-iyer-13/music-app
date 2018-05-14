@@ -157,7 +157,7 @@ class Trending extends Component {
     this.props.navigation.navigate(screen, {song})
   }
 
-  playSong = (song, index) => {
+  playSong = (index) => {
     this.props.navigation.navigate('Player', {index, storageKey:'trendingSongs'})
   }
 

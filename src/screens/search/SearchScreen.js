@@ -186,6 +186,7 @@ class SearchScreen extends Component{
                     key={song.title + index}
                     thumbnail={song.thumbnail}
                     title={song.title}
+                    index={index}
                     song={song}
                     playSong={this.playSong}
                     openModal={this.openModal}

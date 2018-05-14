@@ -144,9 +144,9 @@ class Songs extends Component{
     this.setState({searchList})
   }
 
-  playSong = (song, index, title) => {
+  playSong = (index, title) => {
     // console.log(this.props);
-    this.props.navigation.navigate('Player', {song, storageKey: 'library'})
+    this.props.navigation.navigate('Player', {index, storageKey: 'library'})
   }
 
   render() {
@@ -173,6 +173,7 @@ class Songs extends Component{
                     thumbnail={song.thumbnail}
                     title={song.title}
                     song={song}
+                    index={index}
                     openModal={this.openModal}
                     playSong={this.playSong}
                   />
