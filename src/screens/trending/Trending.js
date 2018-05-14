@@ -31,6 +31,7 @@ class Trending extends Component {
       loading: true,
       popupModal: false,
       openPlaylist: false,
+      fetchFailed: []
     }
   }
 
@@ -161,6 +162,12 @@ class Trending extends Component {
     this.props.navigation.navigate('Player', {song})
   }
 
+  onError = (id) => {
+    let { fetchFailed } = this.state
+    fetchFailed.push(id)
+    this.setState({fetchFailed})
+  }
+
   render () {
     var trending = this.state.trendingSongs
     var List = <View />
@@ -176,8 +183,11 @@ class Trending extends Component {
              thumbnail={item.thumbnail}
              song={item}
              openModal={this.openModal.bind(this)}
-             key={index}
              playSong={this.playSong}
+             index={index}
+             onError={this.onError}
+             fetchFailed={this.state.fetchFailed}
+             key={item.title+index}
           />
         );
       })
