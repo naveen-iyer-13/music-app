@@ -59,7 +59,7 @@ class Footer extends Component{
       <View style={styles.container}>
         {
           SCREENS.map((screen, index) => (
-            <TouchableOpacity key={screen+index} onPress={()=> screenName === screen ?  {} : this.navigate(screen)}>
+            <TouchableOpacity key={screen+index} onPress={()=> screenName === screen ?  {} : this.navigate(screen)} style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
               <Image
                 source={screenName === screen ? SCREENICON[screen].active : SCREENICON[screen].inactive}
                 style={{width: 20, height: 20}}
@@ -84,7 +84,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
-    bottom: 0,
-    justifyContent: 'space-around'
   }
 })
