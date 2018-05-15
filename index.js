@@ -3,7 +3,11 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Animated,
+  AsyncStorage,
+  Easing,
+  AppState
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Trending from './src/screens/trending'
@@ -18,17 +22,31 @@ const StackNavigation = StackNavigator ({
   Search: { screen: Search},
   Player: { screen: Player }
 },{
-  navigationOptions: {title: 'Welcome', header: null}
+  navigationOptions: {title: 'Welcome', header: null},
+  transitionConfig : () => ({
+  	transitionSpec: {
+  		duration: 0,
+  		timing: Animated.timing,
+  		easing: Easing.step0,
+  	},
+  }),
 });
 
 class bibimpop extends Component{
-  componentWillUnmount(){
-    this.clearStorage()
+
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
   }
 
-  clearStorage = async() => {
-    AsyncStorage.clear(() => console.log('clearing local storage'))
+  _handleAppStateChange = (nextState) => {
+    // console.log(nextState);
+    if(nextState === 'background')
+    AsyncStorage.removeItem('trendingSongs' ,() => {
+      // console.log('clearing local storage')
+      AppState.removeEventListener('change', this._handleAppStateChange);
+    })
   }
+
   render() {
     return(
       <StackNavigation />
