@@ -10,6 +10,7 @@ import {
   Platform,
   AlertIOS
 } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient';
 
 let { width, height } = Dimensions.get('window')
 
@@ -54,20 +55,23 @@ class Footer extends Component{
 
   render() {
     const { screenName } = this.props
-
+    let sty = styles.container
+    if (screenName === 'Player')
+      sty = [sty, {backgroundColor: '#000000', opacity: 0.6}]
     return(
-      <View style={styles.container}>
+      <View style={sty}>
         {
           SCREENS.map((screen, index) => (
             <TouchableOpacity key={screen+index} onPress={()=> screenName === screen ?  {} : this.navigate(screen)} style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
               <Image
                 source={screenName === screen ? SCREENICON[screen].active : SCREENICON[screen].inactive}
-                style={{width: 20, height: 20}}
+                style={{width: 20, height: 20, padding: 5}}
                 resizeMode='contain'
               />
             </TouchableOpacity>
           ))
         }
+
       </View>
     )
   }
@@ -79,10 +83,10 @@ const styles = StyleSheet.create({
     height: 50,
     width,
     borderTopWidth: 1,
-    backgroundColor: '#FFFFFF',
     borderColor: '#EBEBEB',
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
+    backgroundColor: '#FFFFFF'
   }
 })
