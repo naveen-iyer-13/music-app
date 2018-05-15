@@ -12,6 +12,7 @@ import {
 import { ListView } from './../../../common/ListView'
 import PopupModal from './../../../common/PopupModal'
 import { Search } from './../../../common/Search'
+import { removeFromLibrary } from './../../../common/helpers'
 
 let {height, width} = Dimensions.get('window')
 
@@ -35,39 +36,57 @@ class Songs extends Component{
       this.getSongs()
   }
 
-  closeModal = (action, data) => {
+  componentWillReceiveProps(nextProps) {
+    this.setState({list: nextProps.list})
+  }
+
+  closeModal = (action, data, operation) => {
+    // console.log(action, operation);
     if(action === 'Search'){
       this.setState({popupModal: false})
       this.navigateTo('Search', data)
     }
     else if (action === 'Library') {
       this.setState({popupModal: false})
-      AsyncStorage.getItem('library', (err, res) => {
-        let library = res ? JSON.parse(res) : []
-        let flag = false
-        for(let i = 0; i < library.length; i++){
-          if(library[i].title === data.title){
-            flag = true
-            break
+      if(operation === 'add'){
+        AsyncStorage.getItem('library', (err, res) => {
+          let library = res ? JSON.parse(res) : []
+          let flag = false
+          for(let i = 0; i < library.length; i++){
+            if(library[i].title === data.title){
+              flag = true
+              break
+            }
           }
-        }
-        if(!flag){
-          library.push(data)
-          AsyncStorage.setItem('library', JSON.stringify(library))
-        }
-        else{
-          Alert.alert(
-          'Alert',
-          'Song already exists'
-          )
-        }
-      })
+          if(!flag){
+            library.push(data)
+            AsyncStorage.setItem('library', JSON.stringify(library))
+          }
+          else{
+            Alert.alert(
+              'Song already exists',
+            )
+          }
+        })
+      }
+      else{
+        removeFromLibrary(data, res => {})
+      }
     }
     else if (action === 'Playlists') {
-      this.setState({openPlaylist: true, songToBeAdded: data})
-      AsyncStorage.getItem('playlists', (err, res) => {
-        this.setState({playlistName: res ? Object.keys(JSON.parse(res)) : []})
-      })
+      this.setState({openPlaylist: !this.props.isPlaylistPage, songToBeAdded: data})
+      if(operation === 'add'){
+        AsyncStorage.getItem('playlists', (err, res) => {
+          this.setState({playlistName: res ? Object.keys(JSON.parse(res)) : []})
+        })
+      }
+      else{
+        AsyncStorage.getItem('playlists', (err, res) => {
+          let playlists = res ? JSON.parse(res) : {}
+          playlists[this.props.selectedPlaylist] = playlists[this.props.selectedPlaylist].filter(item => data.title !== item.title)
+          AsyncStorage.setItem('playlists', JSON.stringify(playlists), () => this.props.updatePlaylist(playlists))
+        })
+      }
     }
     else if (action === 'Cancel Create') {
       this.setState({openPlaylist: true, addPlaylistModal: false})
@@ -79,7 +98,7 @@ class Songs extends Component{
           playlists[data] = []
           let { playlistName } = this.state
           playlistName.push(data)
-          this.setState({playlistName, addPlaylistModal: false}, () => console.log(this.state))
+          this.setState({playlistName, addPlaylistModal: false})
           AsyncStorage.setItem('playlists', JSON.stringify(playlists))
         }
         else{
@@ -88,16 +107,16 @@ class Songs extends Component{
           )
         }
       })
-      console.log('creating palylist');
+      // console.log('creating palylist');
     }
     else{
       this.setState({popupModal: false, openPlaylist: false})
     }
   }
 
-  addToPlaylist = (playlistName) => {
+  addToPlaylist = (playlistName, operation) => {
     const { songToBeAdded } = this.state
-    this.setState({popupModal: false})
+    this.setState({popupModal: false, openPlaylist: false})
     AsyncStorage.getItem('playlists', (err, res) => {
       let playlists = res ? JSON.parse(res) : {}
       let flag = false
@@ -143,7 +162,7 @@ class Songs extends Component{
   handleSearch = (text) => {
     let { list } = this.state
     this.setState({searchTerm: text})
-    let searchList = list.filter(song => song.title.toLowerCase().includes(text.toLowerCase()))
+    let searchList = list.filter(song => song && (song.title && song.title.toLowerCase().includes(text.toLowerCase())) || (song.artist && song.artist.toLowerCase().includes(text.toLowerCase())))
     this.setState({searchList})
   }
 
@@ -210,6 +229,7 @@ class Songs extends Component{
           closeModal={this.closeModal}
           navigation={this.props.navigation}
           song={selectedSong}
+          isPlaylistPage={this.props.isPlaylistPage}
           openPlaylist={this.state.openPlaylist}
           playlistName={this.state.playlistName}
           addToPlaylist={this.addToPlaylist}

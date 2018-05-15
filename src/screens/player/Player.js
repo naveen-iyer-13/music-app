@@ -33,6 +33,7 @@ export default class Player extends Component {
 			if (search) {	
 				let songs = [...search]
 				trackList = [...search]
+
 				trackList.unshift(trackList[index])
 				trackList.splice(index + 1, 1)
 				let obj, list = []
@@ -81,6 +82,7 @@ export default class Player extends Component {
 						trackList: trackList,
 						songs: songs
 					})
+
 				})
 		}
 		else {																									//Handle Now Playing

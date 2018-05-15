@@ -20,7 +20,7 @@ class Header extends Component{
     return(
       <View style={styles.container}>
         {
-          header !== 'Library'
+          header !== 'Library' && tab !== 'songs'
           ?
           <View style={{width: '10%', justifyContent:'center', alignItems:'center'}}>
           <TouchableOpacity onPress={() => handleBackButton()}>
@@ -39,7 +39,7 @@ class Header extends Component{
         {
           tab !== 'songs' && <View style={{width: '10%', justifyContent:'center', alignItems:'center'}}>
           <TouchableOpacity onPress={() => handleKeyPress()}>
-            <Text style={styles.plus}>{header === 'Library' ? '+' : '...'}</Text>
+            <Text style={styles.plus}>{header === 'Library' ? '+' : ''}</Text>
           </TouchableOpacity>
           </View>
         }
