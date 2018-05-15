@@ -7,12 +7,12 @@ class QueueList extends Component {
 		console.log(trackList)
 		return (
 			<View style={styles.container}>
-				<View style={{flexDirection: 'row', marginBottom: 10}}>
-					<View style={{ width: '85%'}}>
-					<Text style={{color: '#FFFFFF', alignSelf: 'center', fontSize: 17}}>UP NEXT</Text>
+				<View style={{flexDirection: 'row', marginBottom: 10,width: Dimensions.get('window').width}}>
+					<View style={{ width: Dimensions.get('window').width - 25, alignItems: 'center', }}>
+					<Text style={{color: '#FFFFFF',fontSize: 17}}>UP NEXT</Text>
 					</View>
 					 <TouchableOpacity onPress={() => closeModal()}>
-					<Image source={require('../../../images/white-close.png')} style={{width: 16, height: 16, alignSelf: 'flex-end'}} />
+					<Image source={require('../../../images/white-close.png')} style={{width: 15, height: 15, alignSelf: 'flex-end'}} />
 					</TouchableOpacity>
 				</View>
 				<ScrollView>

@@ -168,7 +168,7 @@ class SearchScreen extends Component{
           <Text style={{fontSize: 18, fontFamily: 'Proxima-Nova-Bold', color: '#000'}}>Search</Text>
         </View>
         <View style={styles.screenContainer}>
-          <View style={{margin: 15}}>
+          <View>
           <Search
             searchTerm={searchTerm}
             handleSearch={this.handleSearch}

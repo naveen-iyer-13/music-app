@@ -160,7 +160,7 @@ class Trending extends Component {
   }
 
   playSong = (index) => {
-    this.props.navigation.navigate('Player', {index, storageKey:'trendingSongs'})  
+    this.props.navigation.navigate('Player', {index, storageKey:'trendingSongs'})
   }
 
   onError = (id) => {
@@ -195,14 +195,14 @@ class Trending extends Component {
        artistView= trending.map((item, index)=> {
         if(this.state.randomArray.includes(index)){
           return(
-            <View key={index} style={styles.trendingView} >
-             <TouchableOpacity style={{height: 85, paddingLeft: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
+            <View key={index} style={styles.trendingView} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
+             <TouchableOpacity style={{height: 110, paddingLeft: 10, paddingTop: 10}}>
               <Image
                 style={styles.trendingImage}
                 source={item.cover ? {uri: item.cover} : defaultIcon}
               />
               </TouchableOpacity>
-              <View style={{backgroundColor: '#FFFFFF', height: 50, width: 100}}>
+              <View style={{backgroundColor: '#FFFFFF', height: 60, width: 100}}>
                <Text style={styles.trendingTitle}>{item.artist}</Text>
               </View>
             </View>
@@ -218,19 +218,17 @@ class Trending extends Component {
     else {
       return (
         <View style={styles.container}>
-              <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
-
-          <ImageBackground
-            source={{uri: trending[randomIndex] && trending[randomIndex].cover ? trending[randomIndex].cover : ''}}
-            style={styles.backgroundImage}
-          >
-         <View style={styles.topView}>
-          <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
-           <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
-            {artistView}
-           </ScrollView>
+        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+         <View style={{height: 220, width: Dimensions.get('window').width, backgroundColor: '#000'}}>
+           <ImageBackground
+              source={{uri: trending[randomIndex].cover}}
+              style={styles.backgroundImage}>
+            <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
+             <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
+              {artistView}
+             </ScrollView>
+           </ImageBackground>
          </View>
-         </ImageBackground>
          <Text style={styles.heading}>TODAY{"'"}S TOP 100 SONGS</Text>
          <ScrollView>
           {List}
@@ -260,11 +258,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
-  topView: {
-    height: 175,
-    borderTopWidth: 4,
-    borderBottomWidth: 1
-  },
   heading: {
     textAlign: 'center',
     width: '100%',
@@ -290,20 +283,19 @@ const styles = StyleSheet.create({
   },
   trendingView: {
     paddingTop: 15,
-    width: 100
+    width: 100,
+    height: 160,
   },
   backgroundImage: {
     width: '100%',
-    height: 180
-  },
-  topView:{
-    height: 180,
-    alignItems: 'center'
+    height: 220,
   },
   trendingArtist: {
     fontFamily: 'Proxima-Nova-Bold',
     color: '#fff',
-    fontSize: 20,
+    fontSize: 22,
     paddingTop: 15,
+    height: 50,
+    textAlign: 'center',
   }
 });
