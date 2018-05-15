@@ -148,8 +148,8 @@ class SearchScreen extends Component{
       this.props.navigation.navigate(screen, {song})
     }
 
-  playSong = (song) => {
-    this.props.navigation.navigate('Player', {song})
+  playSong = (index, name) => {
+    this.props.navigation.navigate('Player', {index, search: this.state.list})
   }
 
   onError = (id) => {
@@ -168,7 +168,7 @@ class SearchScreen extends Component{
           <Text style={{fontSize: 18, fontFamily: 'Proxima-Nova-Bold', color: '#000'}}>Search</Text>
         </View>
         <View style={styles.screenContainer}>
-          <View style={{margin: 15}}>
+          <View>
           <Search
             searchTerm={searchTerm}
             handleSearch={this.handleSearch}
@@ -183,10 +183,9 @@ class SearchScreen extends Component{
                 loading
                 ?
                 <ScrollView>
-                 <View style={{height: Dimensions.get('window').height-170, justifyContent:'center', alignItems: 'center'}}>
+                 <View style={{justifyContent:'center', alignItems: 'center'}}>
                   <BarIndicator color='#6DEAD3' count = {5}/>
                  </View>
-                </ScrollView>
                 :
                 list && list.length > 0
                 ?
@@ -195,6 +194,8 @@ class SearchScreen extends Component{
                     key={song.title + index}
                     thumbnail={song.thumbnail}
                     title={song.title}
+                    artist={song.artist}
+                    index={index}
                     song={song}
                     playSong={this.playSong}
                     openModal={this.openModal}

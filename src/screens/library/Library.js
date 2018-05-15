@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').heights
   },
   screenContainer:{
-    height: height - 85 
+    height: height - 85
   },
   containerItem:{
     display: 'flex',

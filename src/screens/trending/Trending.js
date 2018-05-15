@@ -18,6 +18,7 @@ import Footer from '../../common/Footer'
 import {ListView} from '../../common/ListView'
 import PopupModal from '../../common/PopupModal'
 import SplashScreen from '../../common/SplashScreen'
+import LinearGradient from 'react-native-linear-gradient';
 
 let defaultIcon = require('./../../images/default-icon.png')
 
@@ -158,8 +159,8 @@ class Trending extends Component {
     this.props.navigation.navigate(screen, {song})
   }
 
-  playSong = (song) => {
-    this.props.navigation.navigate('Player', {song})
+  playSong = (index) => {
+    this.props.navigation.navigate('Player', {index, storageKey:'trendingSongs'})
   }
 
   onError = (id) => {
@@ -217,6 +218,7 @@ class Trending extends Component {
     else {
       return (
         <View style={styles.container}>
+        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
          <View style={{height: 220, width: Dimensions.get('window').width, backgroundColor: '#000'}}>
            <ImageBackground
               source={{uri: trending[randomIndex].cover}}

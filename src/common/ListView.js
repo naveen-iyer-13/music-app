@@ -19,7 +19,7 @@ export const ListView = props => {
          source={ showDefault || fetchFailed.includes(song.bp_id) ? require('./../images/default-icon.png') :  {uri: thumbnail}}
        />
      </TouchableOpacity>
-     <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(song, index, title) : openPlaylist(song, title)}>
+     <TouchableOpacity style={{width: '70%'}} onPress={() => playSong ? playSong(index, title) : openPlaylist(song, title)}>
        <Text style={styles.titleText}>{title ? title : ''}</Text>
        <Text style={styles.artistText}>{artist ? artist : ''}</Text>
        <Text style={styles.artistText}>{len ? `${len} songs` : ''}</Text>
