@@ -183,9 +183,10 @@ class SearchScreen extends Component{
                 loading
                 ?
                 <ScrollView>
-                 <View style={{justifyContent:'center', alignItems: 'center'}}>
+                 <View style={{height: Dimensions.get('window').height-170, justifyContent:'center', alignItems: 'center'}}>
                   <BarIndicator color='#6DEAD3' count = {5}/>
                  </View>
+                </ScrollView>
                 :
                 list && list.length > 0
                 ?
