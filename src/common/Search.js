@@ -4,7 +4,8 @@ import {
   TextInput,
   StyleSheet,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native'
 
 export const Search = ({handleSearch, searchTerm, clearText}) => (
@@ -31,12 +32,13 @@ export const Search = ({handleSearch, searchTerm, clearText}) => (
 
 const styles = StyleSheet.create({
   searchBox: {
-    width: '100%',
+    width: Dimensions.get('window').width - 20,
     height: 35,
     backgroundColor: '#F7F7F7',
     borderRadius: 4,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: 10
   },
   searchInput: {
     width: '85%',
