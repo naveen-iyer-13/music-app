@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontFamily: 'Proxima-Nova-Bold',
-    fontSize: 14,
+    fontSize: 16,
     color: '#252525',
     paddingBottom: 5,
     flexWrap: 'wrap'
@@ -70,9 +70,8 @@ const styles = StyleSheet.create({
   breadCums:{
     width: 5,
     height: 5,
-    backgroundColor: '#252525',
+    backgroundColor: '#D8D8D8',
     marginRight: 3,
     borderRadius: 5,
-    opacity: 0.6
   }
 })

@@ -337,14 +337,12 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.95,
     flexDirection: 'row',
     alignItems: 'center',
-    color: '#FFF'
   },
   controls: {
     marginVertical: 2,
     width: Dimensions.get('window').width * 1,
     flexDirection: 'row',
     alignItems: 'center',
-    color: '#FFF'
   },
   controlButtonContainer: {
     flex: 1,
