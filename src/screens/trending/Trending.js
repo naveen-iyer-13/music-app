@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: 220
+    height: 220,
   },
   trendingArtist: {
     fontFamily: 'Proxima-Nova-Bold',

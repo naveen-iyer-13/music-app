@@ -15,7 +15,7 @@ import {
 } from 'react-native'
 import Modal from "react-native-modal";
 let { width, height } = Dimensions.get('window')
-
+import LinearGradient from 'react-native-linear-gradient';
 class PopupModal extends Component{
   constructor(props){
     super(props)
@@ -30,7 +30,8 @@ class PopupModal extends Component{
     return(
       <Modal
         isVisible={active}
-        onBackButtonPress={() => closeModal()}>
+        onBackButtonPress={() => closeModal()}
+        onBackdropPress = {() => closeModal()}>
         <View style={{flex: 1, justifyContent: addPlaylistModal ? 'center' : 'flex-end'}}>
          {
           addPlaylistModal  ?
@@ -82,16 +83,18 @@ class PopupModal extends Component{
                    </View>
                    :
                    <View style={{height: 250}}>
-                     <TouchableOpacity onPress={() => createPlaylist()} style={{width: '50%', height: 35,alignItems:'center',
-                        marginLeft: '25%',marginTop: 15, justifyContent: 'center', borderRadius: 10, backgroundColor: '#f4f4f4', marginBottom: 15}}>
-                       <Text style={{fontFamily: 'Proxima-Nova', fontSize: 14, color: '#4A4A4A'}}>New Playlist</Text>
-                     </TouchableOpacity>
+                    <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
+                       marginLeft: '20%',marginTop: 15, justifyContent: 'center', borderRadius: 10, backgroundColor: '#f4f4f4', marginBottom: 15}}>
+                       <TouchableOpacity onPress={() => createPlaylist()}>
+                         <Text style={{fontFamily: 'Proxima-Nova-Bold', fontSize: 16, color: '#4A4A4A'}}>New Playlist</Text>
+                       </TouchableOpacity>
+                     </LinearGradient>
                      <ScrollView>
                        {
                          playlistName && playlistName.map((name, index) => {
                            return(
                              <TouchableOpacity key={name+index} style={styles.selectView} onPress={() => addToPlaylist(name)} style={{marginLeft: 10}}>
-                               <Text style={styles.TextStyle}>{name}</Text>
+                               <Text style={styles.TextStylePlaylist}>{name}</Text>
                              </TouchableOpacity>
                            )
                          })
@@ -159,8 +162,8 @@ const styles = StyleSheet.create({
   },
   closeIcon: {
     resizeMode: 'contain',
-    height: 12,
-    width: 12,
+    height: 10,
+    width: 10,
     marginLeft: 20
   },
   icons:{
@@ -202,6 +205,13 @@ const styles = StyleSheet.create({
     color: '#2B2B2B',
     fontFamily: 'Proxima-Nova-Bold',
     fontSize: 15,
+  },
+  TextStylePlaylist:{
+    paddingLeft: 15,
+    color: '#2B2B2B',
+    fontFamily: 'Proxima-Nova-Bold',
+    fontSize: 17,
+    marginBottom: 7
   },
   PlayTextStyle:{
     paddingLeft: 15,
