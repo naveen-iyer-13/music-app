@@ -3,7 +3,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  Dimensions,
+  Image
 } from 'react-native'
 
 class Header extends Component{
@@ -20,17 +22,26 @@ class Header extends Component{
         {
           header !== 'Library'
           ?
+          <View style={{width: '10%', justifyContent:'center', alignItems:'center'}}>
           <TouchableOpacity onPress={() => handleBackButton()}>
-            <Text style={styles.backArrow}>{'<'}</Text>
+          <Image
+            style={{height: 30, width: 30}}
+            source={require('./../images/arrow_back.png')}
+          />
           </TouchableOpacity>
+          </View>
           :
-          <View style={{width: 20}}/>
+          <View style={{width: '10%'}}/>
         }
-        <Text style={styles.heading}>{header}</Text>
+        <View style={{width: '80%', justifyContent:'center', alignItems:'center'}}>
+        <Text style={styles.heading}>{header.toUpperCase()}</Text>
+        </View>
         {
-          tab !== 'songs' && <TouchableOpacity onPress={() => handleKeyPress()}>
+          tab !== 'songs' && <View style={{width: '10%', justifyContent:'center', alignItems:'center'}}>
+          <TouchableOpacity onPress={() => handleKeyPress()}>
             <Text style={styles.plus}>{header === 'Library' ? '+' : '...'}</Text>
           </TouchableOpacity>
+          </View>
         }
       </View>
     )
@@ -44,7 +55,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     height: 45,
-    alignItems:'center'
+    alignItems:'center',
+    width: Dimensions.get('window').width
   },
   backArrow: {
     fontSize: 25,
@@ -54,10 +66,10 @@ const styles = StyleSheet.create({
   plus: {
     fontSize: 25,
     fontFamily: 'Proxima-Nova-Bold',
-    color: '#4A4A4A',
+    color: '#4A4A4A'
   },
   heading: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Proxima-Nova-Bold',
     color: '#4A4A4A',
     width: '90%',
