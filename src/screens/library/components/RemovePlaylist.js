@@ -4,18 +4,28 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Image
+  Image,
+  TextInput
 } from 'react-native'
 import Modal from 'react-native-modal'
 
 class RemovePlaylist extends Component{
   constructor(props){
     super(props)
-    this.state = {}
+    this.state = {
+      newPlaylistName: '',
+      renameModalOpen: false
+    }
+  }
+
+  handleRename = () => {
+    this.setState({renameModalOpen: false})
+    this.props.closeModal('Rename', this.state.newPlaylistName)
   }
 
   render() {
     const { closeModal, active } = this.props
+    const { newPlaylistName } = this.state
     return(
       <Modal
         isVisible={active}
@@ -23,6 +33,10 @@ class RemovePlaylist extends Component{
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
+            <TouchableOpacity style={styles.selectView} onPress={() => this.setState({renameModalOpen: true})}>
+              <Image source={require('../../../images/cancel.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
+              <Text style={styles.TextStyle}>Rename Playlist</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Remove')}>
               <Image source={require('../../../images/cancel.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
               <Text style={styles.TextStyle}>Remove Playlist</Text>
@@ -33,6 +47,26 @@ class RemovePlaylist extends Component{
             </TouchableOpacity>
           </View>
         </View>
+        <Modal isVisible={this.state.renameModalOpen} onBackButtonPress={() => this.setState({renameModalOpen: false})}>
+          <View style={styles.addPlaylist}>
+            <View style={{alignItems: 'center'}}>
+              <Text style={styles.playlistHeading}>Rename the Playlist</Text>
+              <Text style={styles.subheading}>Enter the name for this Playlist</Text>
+              <TextInput style={styles.playlistInput}
+                underlineColorAndroid={'transparent'}
+                onChangeText={(text) => this.setState({newPlaylistName: text})}
+             />
+            </View>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <TouchableOpacity style={styles.optionOverview} onPress={() => this.setState({renameModalOpen: false})}>
+                <Text style={styles.optionButton}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.optionOverview} onPress={() => newPlaylistName ? this.handleRename() : {}}>
+                <Text style={styles.optionButtonCreate}>Rename</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </Modal>
     )
   }
@@ -67,5 +101,49 @@ const styles = StyleSheet.create({
     color: '#4B4B4B',
     fontFamily: 'Proxima-Nova-Bold',
     fontSize: 14
-  }
+  },
+  addPlaylist: {
+    backgroundColor: 'white',
+    height: 200,
+    borderRadius: 8,
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  playlistHeading: {
+    fontFamily: 'Proxima-Nova-Bold',
+    fontSize: 18,
+    marginBottom: 10,
+    color: '#1C1C1C'
+  },
+  subheading: {
+    fontFamily: 'Proxima-Nova',
+    fontSize: 16,
+    marginBottom: 10,
+    color: '#919191'
+  },
+  playlistInput: {
+    width: 300,
+    height: 40,
+    backgroundColor: '#F7F7F7',
+    borderColor: '#EBEBEB',
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 15,
+    fontFamily: 'Proxima-Nova'
+  },
+  optionOverview: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center'
+  },
+  optionButton: {
+    fontFamily: 'Proxima-Nova-Bold',
+    fontSize: 16,
+    color: '#F8001E'
+  },
+  optionButtonCreate: {
+    fontFamily: 'Proxima-Nova-Bold',
+    fontSize: 16,
+    color: '#6DEAD3',
+  },
 })
