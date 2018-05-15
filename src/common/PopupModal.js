@@ -11,7 +11,8 @@ import {
   Platform,
   AlertIOS,
   TextInput,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native'
 import Modal from "react-native-modal";
 let { width, height } = Dimensions.get('window')
@@ -20,13 +21,35 @@ class PopupModal extends Component{
   constructor(props){
     super(props)
     this.state = {
-      newPlaylistName: ''
+      newPlaylistName: '',
+      addSong: true
+    }
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('library', (err, res) => {
+      if(res){
+        res = JSON.parse(res)
+        this.setState({librarySongs: res})
+      }
+    })
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.song){
+      const { librarySongs } = this.state
+      for(let i = 0; i < librarySongs.length; i++){
+        if(librarySongs[i].bp_id === nextProps.song.bp_id){
+          this.setState({addSong: false})
+          break;
+        }
+      }
     }
   }
 
   render() {
-    const { active, closeModal, song, openPlaylist, playlistName, addToPlaylist, createPlaylist, addPlaylistModal, onlyModal } = this.props
-    const { newPlaylistName } = this.state
+    const { active, closeModal, song, openPlaylist, playlistName, addToPlaylist, createPlaylist, addPlaylistModal, onlyModal, isPlaylistPage } = this.props
+    const { newPlaylistName, addSong } = this.state
     return(
       <Modal
         isVisible={active}
@@ -60,13 +83,13 @@ class PopupModal extends Component{
                <View style={styles.modalView}>
                  {
                    !openPlaylist ? <View>
-                     <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Library', song)}>
+                     <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Library', song, addSong ? 'add' : 'remove')}>
                        <Image source={require('.././images/library.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
-                       <Text style={styles.TextStyle}>Add to Library</Text>
+                       <Text style={styles.TextStyle}>{addSong ? 'Add to Library' : 'Remove from Library'}</Text>
                      </TouchableOpacity>
-                     <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Playlists', song)}>
+                     <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Playlists', song, isPlaylistPage ? 'remove' : 'add')}>
                      <Image source={require('.././images/add-to-playlist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}} />
-                     <Text style={styles.TextStyle}>Add to playlist</Text>
+                     <Text style={styles.TextStyle}>{isPlaylistPage? 'Remove from playlist' : 'Add to playlist'}</Text>
                      </TouchableOpacity>
                      <TouchableOpacity style={styles.selectView}>
                      <Image source={require('.././images/add-to-queue.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>

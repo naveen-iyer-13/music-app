@@ -75,35 +75,41 @@ class Playlists extends Component{
       AsyncStorage.getItem('playlists', (err, res) => {
         res = JSON.parse(res)
         delete res[this.state.selectedPlaylist]
+        // console.log(res);
         AsyncStorage.setItem('playlists', JSON.stringify(res), (err) => {
-          this.setState({openCreatePlaylistModal: false, playlistOpen: false, playlists: res})
+          this.setState({openCreatePlaylistModal: false, playlistOpen: false, playlists: res, openActionModal: false})
+        })
+      })
+    }
+    else if(action === 'Rename'){
+      AsyncStorage.getItem('playlists', (err, res) => {
+        const { selectedPlaylist } = this.state
+        res = JSON.parse(res)
+        res[data] = res[selectedPlaylist]
+        delete res[selectedPlaylist]
+        AsyncStorage.setItem('playlists', JSON.stringify(res), (err) => {
+          this.setState({openCreatePlaylistModal: false, playlists: res, openActionModal: false})
         })
       })
     }
     else{
+      this.setState({openActionModal: false})
       this.props.handleModalClose()
     }
   }
 
   openPlaylist = (list, title) => {
-    console.log(list);
+    // console.log(list);
     this.setState({list, playlistOpen: true, selectedPlaylist: title})
     this.props.handlePlaylistOpen(list, title)
   }
 
-  // playSong = (index, title) => {
-  //   // console.log(this.props);
-  //   this.props.navigation.navigate('Player', {index, storageKey: 'playlists', name: title})
-  // }
-
-  onError = (id) => {
-    // let { fetchFailed } = this.state
-    // fetchFailed.push(id)
-    // this.setState({fetchFailed})
+  updatePlaylist = (playlists) => {
+    this.setState({playlists: playlists, list: playlists[this.state.selectedPlaylist]})
   }
 
   render() {
-    const { playlists, playlistOpen, searchList, list, loading } = this.state
+    const { playlists, playlistOpen, searchList, list, loading, openActionModal } = this.state
     console.log(this.state);
     return(
       <View>
@@ -129,6 +135,7 @@ class Playlists extends Component{
                     openPlaylist={this.openPlaylist}
                     index={index}
                     fetchFailed={[]}
+                    openModal={(song, title) => this.setState({openActionModal: true, selectedPlaylist: title})}
                     onError={() => {}}
                   />
               }
@@ -145,7 +152,15 @@ class Playlists extends Component{
           <View/>
         }
         {
-          playlistOpen && <Songs storageKey={'playlists'} list={list} navigation={this.props.navigation} isPlaylistPage={true} selectedPlaylist={this.state.selectedPlaylist}/>
+          playlistOpen &&
+          <Songs
+            storageKey={'playlists'}
+            list={list}
+            navigation={this.props.navigation}
+            isPlaylistPage={true}
+            selectedPlaylist={this.state.selectedPlaylist}
+            updatePlaylist={this.updatePlaylist}
+          />
         }
         <PopupModal
           active={this.state.openCreatePlaylistModal && !playlistOpen}
@@ -154,7 +169,7 @@ class Playlists extends Component{
           addPlaylistModal={this.state.openCreatePlaylistModal}
           onlyModal={true}
         />
-        <RemovePlaylist active={playlistOpen && this.state.openCreatePlaylistModal} closeModal={this.closeModal}/>
+      <RemovePlaylist active={openActionModal} closeModal={this.closeModal}/>
       </View>
     )
   }
