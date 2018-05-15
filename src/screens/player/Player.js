@@ -263,8 +263,9 @@ export default class Player extends Component {
 				          key={storageKey}
 				    />
 		        </View>
-				<Footer screenName={'Player'} navigation={this.props.navigation}/>
-
+        <View>
+				 <Footer screenName={'Player'} navigation={this.props.navigation}/>
+        </View>
 
 			</View>
 		)
@@ -274,7 +275,7 @@ export default class Player extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-	backgroundColor: 'transparent',
+	  backgroundColor: 'transparent',
   },
   backgroundContainer: {
   	position: 'absolute',
