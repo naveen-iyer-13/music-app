@@ -24,7 +24,7 @@ export const ListView = props => {
        <Text style={styles.artistText}>{artist ? artist : ''}</Text>
        <Text style={styles.artistText}>{len ? `${len} songs` : ''}</Text>
      </TouchableOpacity>
-     <TouchableOpacity style={styles.breadCumsLayout} onPress = {() => openModal ? openModal(song) : {}}>
+     <TouchableOpacity style={styles.breadCumsLayout} onPress = {() => openModal ? openModal(song, title) : {}}>
       <View style={styles.breadCums}/>
       <View style={styles.breadCums}/>
       <View style={styles.breadCums}/>

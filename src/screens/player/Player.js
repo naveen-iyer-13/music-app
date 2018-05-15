@@ -29,7 +29,7 @@ export default class Player extends Component {
 		//EventEmitter.setMaxListeners()
 		if (this.props.navigation.state.params) {
 		const { index, storageKey, name, search } = this.props.navigation.state.params
-		console.log(index, storageKey, name, search)
+		//console.log(index, storageKey, name, search)
 		if(search) {
       //console.log('enter')
 			let songs = [...search]
@@ -53,7 +53,7 @@ export default class Player extends Component {
 					trackList: trackList,
 					songs: songs
 				})
-        console.log(trackList, 'list')
+      //  console.log(trackList, 'list')
 		}
     else
 			AsyncStorage.getItem(storageKey, (err,res) => {
