@@ -19,6 +19,7 @@ import {ListView} from '../../common/ListView'
 import PopupModal from '../../common/PopupModal'
 import SplashScreen from '../../common/SplashScreen'
 import LinearGradient from 'react-native-linear-gradient';
+import { removeFromLibrary, addToLibrary } from './../../common/helpers'
 
 let defaultIcon = require('./../../images/default-icon.png')
 
@@ -54,46 +55,51 @@ class Trending extends Component {
   }
 
   randomNumber(){
-    var random;
-    var array = []
-    for(var i = 0 ; i < 10 ; i++){
-      random = Math.floor(Math.random()*101);
-      array.push(random)
+    let randomArray = []
+    while (randomArray.length < 10){
+        let num = Math.floor(Math.random()*100)
+        if(!randomArray.includes(num)){
+          randomArray.push(num)
+        }
     }
-    var sortedArray = array.sort();
-    this.setState({randomArray: sortedArray})
+    this.setState({randomArray})
   }
 
   openModal(song){
     this.setState({popupModal: true, selectedSong: song})
   }
 
-  closeModal = (action, data) => {
+  closeModal = (action, data, operation) => {
     if(action === 'Search'){
       this.setState({popupModal: false})
       this.navigateTo('Search', data)
     }
     else if (action === 'Library') {
       this.setState({popupModal: false})
-      AsyncStorage.getItem('library', (err, res) => {
-        let library = res ? JSON.parse(res) : []
-        let flag = false
-        for(let i = 0; i < library.length; i++){
-          if(library[i].title === data.title){
-            flag = true
-            break
+      if(operation === 'add'){
+        AsyncStorage.getItem('library', (err, res) => {
+          let library = res ? JSON.parse(res) : []
+          let flag = false
+          for(let i = 0; i < library.length; i++){
+            if(library[i].title === data.title){
+              flag = true
+              break
+            }
           }
-        }
-        if(!flag){
-          library.push(data)
-          AsyncStorage.setItem('library', JSON.stringify(library))
-        }
-        else{
-          Alert.alert(
-            'Song already exists',
-          )
-        }
-      })
+          if(!flag){
+            library.push(data)
+            AsyncStorage.setItem('library', JSON.stringify(library))
+          }
+          else{
+            Alert.alert(
+              'Song already exists',
+            )
+          }
+        })
+      }
+      else{
+        removeFromLibrary(data, res => {})
+      }
     }
     else if (action === 'Playlists') {
       this.setState({openPlaylist: true, songToBeAdded: data})
@@ -120,7 +126,7 @@ class Trending extends Component {
           )
         }
       })
-      console.log('creating palylist');
+      // console.log('creating palylist');
     }
     else{
       this.setState({popupModal: false, openPlaylist: false})
@@ -129,7 +135,7 @@ class Trending extends Component {
 
   addToPlaylist = (playlistName) => {
     const { songToBeAdded } = this.state
-    this.setState({popupModal: false})
+    this.setState({popupModal: false, openPlaylist: false})
     AsyncStorage.getItem('playlists', (err, res) => {
       let playlists = res ? JSON.parse(res) : {}
       let flag = false
@@ -195,8 +201,8 @@ class Trending extends Component {
        artistView= trending.map((item, index)=> {
         if(this.state.randomArray.includes(index)){
           return(
-            <View key={index} style={styles.trendingView} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
-             <TouchableOpacity style={{height: 110, paddingLeft: 10, paddingTop: 10}}>
+            <View key={index} style={styles.trendingView} >
+             <TouchableOpacity style={{height: 110, paddingLeft: 10, paddingTop: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
               <Image
                 style={styles.trendingImage}
                 source={item.cover ? {uri: item.cover} : defaultIcon}
@@ -221,7 +227,7 @@ class Trending extends Component {
         <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
          <View style={{height: 220, width: Dimensions.get('window').width, backgroundColor: '#000'}}>
            <ImageBackground
-              source={{uri: trending[randomIndex].cover}}
+              source={{uri: trending[randomIndex] ? trending[randomIndex].cover : require('./../../images/default-icon.png')}}
               style={styles.backgroundImage}>
             <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
              <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
