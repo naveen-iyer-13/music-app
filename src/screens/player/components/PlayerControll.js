@@ -4,7 +4,7 @@ import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
 import { Image, StyleSheet, Text, TouchableOpacity, View, ViewPropTypes, Dimensions, AsyncStorage, Modal } from 'react-native';
 import PlayerModal from '../../../common/PlayerModal'
 import QueueList from './QueueList'
-import { addToLibrary } from '../../../common/helpers'
+import { addToLibrary, ifInLibrary, removeFromLibrary } from '../../../common/helpers'
 import {
   BarIndicator,
 } from 'react-native-indicators';
@@ -31,44 +31,44 @@ class Duration extends ProgressComponent {
   }
 
   componentDidMount() {
-    setInterval( () => {
+    setInterval(() => {
       if (this.getProgress() > 0 && this.props.playbackState !== TrackPlayer.STATE_PAUSED)
         this.setState({
-          currentSecond : this.state.currentSecond + 1
+          currentSecond: this.getDuration()*(this.getProgress())
         })
       else if (this.getProgress() === 0)
         this.setState({
           currentSecond: 0
         })
-    },1000)
+    }, 1000)
   }
 
   render() {
-    let duration =  0//this.getDuration()
-   let secDur = Math.floor(duration % 60)
-   let minDur = Math.floor(duration / 60)
-   const { currentSecond } = this.state
-   let secCur = Math.floor(currentSecond % 60)
-   let minCur = Math.floor(currentSecond / 60)
-   secCur = secCur < 10 ? `0${secCur}` : secCur
-   secDur = secDur < 10 ? `0${secDur}` : secDur
+    let duration = this.getDuration()
+    let secDur = Math.floor(duration % 60)
+    let minDur = Math.floor(duration / 60)
+    const { currentSecond } = this.state
+    let secCur = Math.floor(currentSecond % 60)
+    let minCur = Math.floor(currentSecond / 60)
+    secCur = secCur < 10 ? `0${secCur}` : secCur
+    secDur = secDur < 10 ? `0${secDur}` : secDur
     return (
       <View >
-      {
-        duration > 0
-        ?
-        <View style={styles.timeSecton}>
-          <View style={styles.leftTime}>
-            <Text style={styles.time}>{minCur}:{secCur}</Text>
-          </View>
-          <View style={styles.rightTime}>
-            <Text style={styles.time}>{minDur}:{secDur}</Text>
-          </View>
-        </View>
-        :
-        <View style={styles.timeSecton}>
-        </View>
-      }
+        {
+          duration > 0
+            ?
+            <View style={styles.timeSecton}>
+              <View style={styles.leftTime}>
+                <Text style={styles.time}>{minCur}:{secCur}</Text>
+              </View>
+              <View style={styles.rightTime}>
+                <Text style={styles.time}>{minDur}:{secDur}</Text>
+              </View>
+            </View>
+            :
+            <View style={styles.timeSecton}>
+            </View>
+        }
       </View>
     );
   }
@@ -91,18 +91,18 @@ function ControlButton({ type, onPress }) {
     <View style={styles.controlButtonContainer}>
       {
         type === 'load'
-        ?
-        <View style={styles.loaderCircle} onPress={onPress}>
-          <BarIndicator color='#D8D8D8' count = {4} size={20}/>
-        </View>
+          ?
+          <View style={styles.loaderCircle} onPress={onPress}>
+            <BarIndicator color='#D8D8D8' count={4} size={20} />
+          </View>
 
-        :
-        <TouchableOpacity onPress={onPress}>
-          <Image
-            source={buttonTypePath}
-            style={ type !== 'back' && type !== 'skip' ? styles.playButton : styles.skipTrack}
-          />
-        </TouchableOpacity>
+          :
+          <TouchableOpacity onPress={onPress}>
+            <Image
+              source={buttonTypePath}
+              style={type !== 'back' && type !== 'skip' ? styles.playButton : styles.skipTrack}
+            />
+          </TouchableOpacity>
       }
     </View>
 
@@ -121,20 +121,44 @@ export default class PlayerControll extends Component {
     this.state = {
       popupModal: false,
       showPlaylists: false,
-      playlistNames:[],
+      playlistNames: [],
       showQueue: false,
       library: false
     }
   }
 
   componentWillMount() {
-    AsyncStorage.getItem('playlists', (err, res) =>{
+    AsyncStorage.getItem('playlists', (err, res) => {
       if (res) {
         this.setState({
           playlistNames: Object.keys(JSON.parse(res))
         })
       }
     })
+    //
+  }
+
+
+
+  // initializeLibrary = async() => {
+  //   let value = ifInLibrary(this.props.track.id)
+  //   this.setState({
+  //     library: value
+  //   })
+  // }
+
+  componentWillReceiveProps(nextProps) {
+    this.initializeLibrary(nextProps.track.id)
+
+  }
+
+  initializeLibrary = async(id) => {
+    ifInLibrary(id, (value) => {
+      this.setState({
+        library: value
+      })
+    })
+
   }
 
   static propTypes = {
@@ -151,7 +175,7 @@ export default class PlayerControll extends Component {
   toggleModal = () => {
     let { popupModal } = this.state
     this.setState({
-      popupModal: !popupModal ,
+      popupModal: !popupModal,
       showPlaylists: false
     })
   }
@@ -183,7 +207,7 @@ export default class PlayerControll extends Component {
 
 
   render() {
-    const { style, onNext, onPrevious, onTogglePlayback, navigation, playlistNames, handleQueue, shuffleTracks, songs, key } = this.props;
+    const { style, onNext, onPrevious, onTogglePlayback, navigation, playlistNames, handleQueue, shuffleTracks, songs, storageKey } = this.props;
     const { playbackState, track } = this.props
     var middleButtonText = 'Play'
     if (playbackState === TrackPlayer.STATE_PLAYING
@@ -193,51 +217,54 @@ export default class PlayerControll extends Component {
     let path = require('../../../images/nav-heart.png')
     if (this.state.library)
       path = require('../../../images/library-active.png')
+  //let ifInLibrary = ifInLibrary()
     return (
       <View style={styles.controller}>
-       <PlayerModal
-           active={this.state.popupModal}
-           closeModal={this.toggleModal}
-           navigateToScreen={this.navigateToScreen}
-           song={track}
-           showPlaylists={this.showPlaylists}
-           viewPlaylists = {this.state.showPlaylists}
-           playlistNames={this.state.playlistNames}
+        <PlayerModal
+          active={this.state.popupModal}
+          closeModal={this.toggleModal}
+          navigateToScreen={this.navigateToScreen}
+          song={track}
+          showPlaylists={this.showPlaylists}
+          viewPlaylists={this.state.showPlaylists}
+          playlistNames={this.state.playlistNames}
+          ifInLibrary={this.state.library}
+          songs={songs}
+        />
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.showQueue}
+          onRequestClose={() => this.toggleQueueModal()}
+        >
+          <QueueList
+            trackList={this.props.trackList}
+            handleQueue={this.chooseTrackFromQueue}
+            closeModal={this.toggleQueueModal}
           />
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={this.state.showQueue}
-            onRequestClose={() => this.toggleQueueModal()}
-          >
-            <QueueList
-              trackList={this.props.trackList}
-              handleQueue={this.chooseTrackFromQueue}
-              closeModal = {this.toggleQueueModal}
-            />
-          </Modal>
+        </Modal>
         <Text style={styles.songTitle}>{track.title}</Text>
         <Text style={styles.songArtist}>{track.artist}</Text>
 
         <View style={styles.controls}>
-          <TouchableOpacity style={styles.sideSectionTopLeft} onPress={() => (key !== 'library' )? addToLibrary(songs, track, (res) => res ? this.setState({ library: true }) : {} ) : {}}>
-            <Image source={path} style={styles.skipTrack}/>
+          <TouchableOpacity style={styles.sideSectionTopLeft} onPress={() => (this.state.library) ? removeFromLibrary(track, () => this.setState({library: false}) ) : addToLibrary(songs, track, () => this.setState({library: true}) )}>
+            <Image source={path} style={styles.skipTrack} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.sideSectionTopRight} onPress={this.toggleModal}>
             <Image source={require('../../../images/elipsis.png')} style={styles.skipTrack} />
           </TouchableOpacity>
         </View>
         <ProgressBar />
-        <Duration playbackState={playbackState}/>
+        <Duration playbackState={playbackState} />
         <View style={styles.controls}>
           <TouchableOpacity style={styles.sideSectionLeft} onPress={() => shuffleTracks()}>
-            <Image source={require('../../../images/shuffle-white.png')} style={styles.skipTrack}/>
+            <Image source={require('../../../images/shuffle-white.png')} style={styles.skipTrack} />
           </TouchableOpacity>
-          <ControlButton type={'back'} onPress={onPrevious}  />
-          <ControlButton type={playbackState === 3 ? 'pause' : (playbackState === TrackPlayer.STATE_BUFFERING) ? 'load' : 'play'} onPress={onTogglePlayback} />
-          <ControlButton type={'skip'} onPress={onNext}/>
-           <TouchableOpacity style={styles.sideSectionRight} onPress={this.toggleQueueModal}>
-            <Image source={require('../../../images/queue.png')} style={styles.skipTrack}/>
+          <ControlButton type={'back'} onPress={onPrevious} />
+          <ControlButton type={playbackState === TrackPlayer.STATE_PLAYING ? 'pause' : (playbackState === TrackPlayer.STATE_BUFFERING) ? 'load' : 'play'} onPress={onTogglePlayback} />
+          <ControlButton type={'skip'} onPress={onNext} />
+          <TouchableOpacity style={styles.sideSectionRight} onPress={this.toggleQueueModal}>
+            <Image source={require('../../../images/queue.png')} style={styles.skipTrack} />
           </TouchableOpacity>
         </View>
 
@@ -269,30 +296,33 @@ const styles = StyleSheet.create({
   },
   songTitle: {
     fontSize: 16,
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    textAlign: 'center'
   },
   songArtist: {
     paddingTop: 5,
     fontSize: 14,
-    color: 'grey'
+    color: 'grey',
+    textAlign: 'center'
+
   },
   sideSectionLeft: {
-    flex:1,
+    flex: 1,
     paddingLeft: 10,
     alignItems: 'center'
   },
   sideSectionRight: {
-    flex:1,
+    flex: 1,
     paddingRight: 10,
     alignItems: 'center'
   },
   sideSectionTopLeft: {
-    flex:1,
+    flex: 1,
     paddingLeft: 20,
     alignItems: 'flex-start'
   },
   sideSectionTopRight: {
-    flex:1,
+    flex: 1,
     paddingRight: 20,
     alignItems: 'flex-end'
   },

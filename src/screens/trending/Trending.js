@@ -203,13 +203,13 @@ class Trending extends Component {
         if(this.state.randomArray.includes(index)){
           return(
             <View key={index} style={styles.trendingView} >
-             <TouchableOpacity style={{height: 110, paddingLeft: 10, paddingTop: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
+             <TouchableOpacity style={{height: 100, paddingLeft: 10, paddingTop: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
               <Image
                 style={styles.trendingImage}
                 source={item.cover ? {uri: item.cover} : defaultIcon}
               />
               </TouchableOpacity>
-              <View style={{backgroundColor: '#FFFFFF', height: 60, width: 100}}>
+              <View style={{height: 60, width: 100,backgroundColor: '#FFFFFF'}}>
                <Text style={styles.trendingTitle}>{item.artist}</Text>
               </View>
             </View>
@@ -226,10 +226,11 @@ class Trending extends Component {
       return (
         <View style={styles.container}>
         <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
-         <View style={{height: 220, width: Dimensions.get('window').width, backgroundColor: '#000'}}>
+         <View style={{height: 210, width: Dimensions.get('window').width}}>
            <ImageBackground
               source={{uri: trending[randomIndex] ? trending[randomIndex].cover : require('./../../images/default-icon.png')}}
-              style={styles.backgroundImage}>
+              style={styles.backgroundImage}
+              blurRadius={0.4}>
             <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
              <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
               {artistView}
@@ -270,17 +271,16 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     marginTop: 10,
-    fontFamily: 'Proxima-Nova-Bold',
+    fontFamily: 'Proxima-Nova',
     color: '#4A4A4A',
     fontSize: 20
   },
   trendingTitle: {
     textAlign: 'center',
     fontSize: 14,
-    fontFamily :'Proxima-Nova-Bold',
-    color: '#797979',
+    fontFamily :'Proxima-Nova',
+    color: '#000',
     paddingTop: 10,
-    opacity: 0.6
   },
   trendingImage: {
     resizeMode: 'contain',
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: 220,
+    height: 210,
   },
   trendingArtist: {
     fontFamily: 'Proxima-Nova-Bold',
