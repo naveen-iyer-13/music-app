@@ -44,7 +44,7 @@ class Duration extends ProgressComponent {
   }
 
   render() {
-    let duration = this.getDuration()
+    let duration = 0
     let secDur = Math.floor(duration % 60)
     let minDur = Math.floor(duration / 60)
     const { currentSecond } = this.state
@@ -138,7 +138,7 @@ export default class PlayerControll extends Component {
     //
   }
 
-  
+
 
   // initializeLibrary = async() => {
   //   let value = ifInLibrary(this.props.track.id)
@@ -158,7 +158,7 @@ export default class PlayerControll extends Component {
         library: value
       })
     })
-    
+
   }
 
   static propTypes = {
