@@ -45,6 +45,7 @@ class Trending extends Component {
   getSongs(){
     this.setState({loading: true})
     AsyncStorage.getItem('trendingSongs', (err, res) => {
+      console.log(res);
       if(res)
         this.setState({trendingSongs: JSON.parse(res), loading: false})
       else
