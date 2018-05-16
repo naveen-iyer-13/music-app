@@ -22,7 +22,8 @@ class PopupModal extends Component{
     super(props)
     this.state = {
       newPlaylistName: '',
-      addSong: true
+      addSong: true,
+      librarySongs: []
     }
   }
 
