@@ -92,11 +92,13 @@ class PopupModal extends Component{
                  {
                    !openPlaylist ? <View>
                      <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Library', song, addSong ? 'add' : 'remove')}>
-                       <Image source={require('.././images/library.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
+                       {addSong ? <Image source={require('.././images/library.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/> :
+                                  <Image source={require('.././images/library-active.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>}
                        <Text style={styles.TextStyle}>{addSong ? 'Add to Library' : 'Remove from Library'}</Text>
                      </TouchableOpacity>
                      <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Playlists', song, isPlaylistPage ? 'remove' : 'add')}>
-                     <Image source={require('.././images/add-to-playlist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}} />
+                     {isPlaylistPage ? <Image source={require('.././images/add-to-playlist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/> :
+                                       <Image source={require('.././images/remove-from-playlist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>}
                      <Text style={styles.TextStyle}>{isPlaylistPage? 'Remove from playlist' : 'Add to playlist'}</Text>
                      </TouchableOpacity>
                      <TouchableOpacity style={styles.selectView}>
