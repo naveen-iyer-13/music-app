@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 16,
-    fontFamily: 'Proxima-Nova-Bold',
+    fontFamily: 'Proxima-Nova',
     color: '#4A4A4A',
     width: '90%',
     textAlign: 'center'
