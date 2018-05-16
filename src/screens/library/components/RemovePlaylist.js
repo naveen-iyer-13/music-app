@@ -29,16 +29,17 @@ class RemovePlaylist extends Component{
     return(
       <Modal
         isVisible={active}
+        onBackdropPress = {() => closeModal()}
         onBackButtonPress={() => closeModal()}
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
             <TouchableOpacity style={styles.selectView} onPress={() => this.setState({renameModalOpen: true})}>
-              <Image source={require('../../../images/cancel.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
+              <Image source={require('../../../images/box_edit.png')} style={{resizeMode: 'contain', height: 15, width: 15, marginLeft: 15}}/>
               <Text style={styles.TextStyle}>Rename Playlist</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Remove')}>
-              <Image source={require('../../../images/cancel.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
+              <Image source={require('../../../images/cancel.png')} style={{resizeMode: 'contain', height: 12, width: 12, marginLeft: 15}}/>
               <Text style={styles.TextStyle}>Remove Playlist</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.cancelView} onPress={() => closeModal()}>
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
   TextStyle: {
     paddingLeft: 15,
     color: '#4B4B4B',
-    fontFamily: 'Proxima-Nova-Bold',
+    fontFamily: 'Proxima-Nova',
     fontSize: 14
   },
   addPlaylist: {
