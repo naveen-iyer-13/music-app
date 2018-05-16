@@ -52,12 +52,12 @@ class Library extends Component{
           <View style={styles.containerItem}>
             <View style={styles.headerItem}>
               <TouchableOpacity onPress={() => tab !== 'songs' ? this.handleTabPress('songs') : {}}>
-                <Text style={{fontSize: 16, color: tab == 'songs' ? '#6DEAD3' : '#C9C9C9', fontFamily: 'Proxima-Nova-Bold'}}>SONGS</Text>
+                <Text style={{fontSize: 16, color: tab == 'songs' ? '#6DEAD3' : '#C9C9C9', fontFamily: 'Proxima-Nova'}}>SONGS</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.headerItem2}>
               <TouchableOpacity onPress={() => tab === 'songs' ? this.handleTabPress('playlists') : {}}>
-                <Text style={{fontSize: 16, color: tab == 'songs' ? '#C9C9C9' : '#6DEAD3', fontFamily: 'Proxima-Nova-Bold'}}>PLAYLISTS</Text>
+                <Text style={{fontSize: 16, color: tab == 'songs' ? '#C9C9C9' : '#6DEAD3', fontFamily: 'Proxima-Nova'}}>PLAYLISTS</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRightWidth: 2,
+    borderRightWidth: 1,
     borderColor: '#D8D8D8'
   },
   headerItem2: {

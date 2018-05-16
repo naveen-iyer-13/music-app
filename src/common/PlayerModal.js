@@ -65,7 +65,7 @@ class PlayerModal extends Component{
            <Text style={styles.TextStyle}>Search Artist</Text>
            </TouchableOpacity>
            <TouchableOpacity style={styles.cancelView} onPress={() => closeModal()}>
-           <Image source={require('../images/cancel.png')} style={{resizeMode: 'contain', height: 10, width: 10, marginLeft: 15}}/>
+           <Image source={require('../images/cancel.png')} style={{resizeMode: 'contain', height: 10, width: 10, marginLeft: 20}}/>
            <Text style={styles.TextStyle}>Cancel</Text>
            </TouchableOpacity>
 
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   TextStyle: {
     paddingLeft: 10,
     color: '#4B4B4B',
-    fontFamily: 'Proxima-Nova-Bold',
+    fontFamily: 'Proxima-Nova',
     fontSize: 14
   }
 })

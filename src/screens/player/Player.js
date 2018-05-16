@@ -30,7 +30,7 @@ export default class Player extends Component {
 	componentWillMount() {
 		if (this.props.navigation.state.params ) {
 			const { index, storageKey, name, search } = this.props.navigation.state.params
-			if (search) {	
+			if (search) {
 				let songs = [...search]
 				trackList = [...search]
 
@@ -105,11 +105,11 @@ export default class Player extends Component {
 								playbackState: state
 							})
 						})
-						
+
 					})
 					.catch(err => console.log("Error"))
 				}
-					
+
 			})
 			.catch(err => {
 				this.fetchFromTrending()
@@ -127,17 +127,19 @@ export default class Player extends Component {
 					trackList = JSON.parse(res)
 				let songs = trackList
 				let obj, list = []
-				trackList.forEach((track, index) => {
-					obj = {}
-					obj.url = track.streamlink
-					obj.artwork = track.cover
-					obj.title = track.title
-					obj.bp_id = track.bp_id
-					obj.id = index.toString()
-					obj.artist = track.artist
-					obj.thumbnail = track.thumbnail
-					list.push(obj)
-				})
+				if(trackList){
+					trackList.forEach((track, index) => {
+						obj = {}
+						obj.url = track.streamlink
+						obj.artwork = track.cover
+						obj.title = track.title
+						obj.bp_id = track.bp_id
+						obj.id = index.toString()
+						obj.artist = track.artist
+						obj.thumbnail = track.thumbnail
+						list.push(obj)
+					})
+				}
 				trackList = list
 				this.setState({
 					track: trackList[0],
@@ -196,7 +198,7 @@ export default class Player extends Component {
 		// 		lastState: playbackState
 		// 	})
 		// }, 15000)
-		
+
 	}
 	componentWillUnmount() {
 		//AppRegistry.removeDeviceListeners()
@@ -276,19 +278,13 @@ export default class Player extends Component {
 		return (
 
 			<View style={styles.container}>
-
 				<View style={styles.backgroundContainer}>
 					<Image
 						style={styles.backgroundImage}
 						source={{ uri: (playbackState === TrackPlayer.STATE_BUFFERING) ? track.thumbnail : (track.artwork ? track.artwork : track.cover) }}
 					/>
-
-
 				</View>
-				<LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{ height: 10, width: Dimensions.get('window').width }} />
-
-				<View style={styles.playerContainer}>
-
+				<LinearGradient colors={['#FFFFFF','#D8D8D8', '#4A4A4A','#000000']} style={styles.playerContainer}>
 					<PlayerControll
 						onNext={() => this.skipToNext()}
 						onPrevious={() => this.skipToPrevious()}
@@ -302,8 +298,8 @@ export default class Player extends Component {
 						songs={this.state.songs}
 						storageKey={storageKey}
 					/>
-				</View>
-				<View>
+				</LinearGradient>
+				<View style={{backgroundColor: '#000000', opacity: 0.7}}>
 					<Footer screenName={'Player'} navigation={this.props.navigation} />
 				</View>
 
@@ -330,11 +326,11 @@ const styles = StyleSheet.create({
 	},
 	playerContainer: {
 		flex: 1,
-		backgroundColor: '#000000',
+		// backgroundColor: '#000000',
 		opacity: 0.6,
 		justifyContent: 'center',
 		width: '100%',
-		height: '100%',
+		height: Dimensions.get('window').height - 80,
 		alignItems: 'center',
 	},
 

@@ -37,20 +37,27 @@ class PopupModal extends Component{
   }
 
   componentWillReceiveProps(nextProps){
+    this.setState({addSong: true})
     if(nextProps.song){
-      const { librarySongs } = this.state
-      for(let i = 0; i < librarySongs.length; i++){
-        if(librarySongs[i].bp_id === nextProps.song.bp_id){
-          this.setState({addSong: false})
-          break;
+      AsyncStorage.getItem('library', (err, res) => {
+        if(res){
+          res = JSON.parse(res)
+          this.setState({librarySongs: res})
+          for(let i = 0; i < res.length; i++){
+            if(res[i].bp_id === nextProps.song.bp_id){
+              this.setState({addSong: false})
+              break;
+            }
+          }
         }
-      }
+      })
     }
   }
 
   render() {
     const { active, closeModal, song, openPlaylist, playlistName, addToPlaylist, createPlaylist, addPlaylistModal, onlyModal, isPlaylistPage } = this.props
     const { newPlaylistName, addSong } = this.state
+    console.log(this.state, this.props);
     return(
       <Modal
         isVisible={active}
@@ -188,7 +195,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     height: 10,
     width: 10,
-    marginLeft: 20
+    marginLeft: 20,
+    marginRight: 5
   },
   icons:{
     resizeMode: 'contain',
@@ -227,7 +235,7 @@ const styles = StyleSheet.create({
   TextStyle: {
     paddingLeft: 15,
     color: '#2B2B2B',
-    fontFamily: 'Proxima-Nova-Bold',
+    fontFamily: 'Proxima-Nova',
     fontSize: 15,
   },
   TextStylePlaylist:{
