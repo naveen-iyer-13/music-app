@@ -185,17 +185,17 @@ export default class Player extends Component {
 				TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
 			]
 		});
-		const { playbackState, lastState } = this.state
-		setInterval(() => {
-			console.log(playbackState, lastState);
-			if (playbackState === -1 && playbackState === lastState) {
-				ToastAndroid.show('Error Loading', ToastAndroid.SHORT)
-				this.skipToNext()
-			}
-			this.setState({
-				lastState: playbackState
-			})
-		}, 15000)
+		// const { playbackState, lastState } = this.state
+		// setInterval(() => {
+		// 	console.log(playbackState, lastState);
+		// 	if (playbackState === -1 && playbackState === lastState) {
+		// 		ToastAndroid.show('Error Loading', ToastAndroid.SHORT)
+		// 		this.skipToNext()
+		// 	}
+		// 	this.setState({
+		// 		lastState: playbackState
+		// 	})
+		// }, 15000)
 		
 	}
 	componentWillUnmount() {
