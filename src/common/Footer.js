@@ -57,7 +57,7 @@ class Footer extends Component{
     const { screenName } = this.props
     let sty = styles.container
     if (screenName === 'Player')
-      sty = [sty, {backgroundColor: '#000000', opacity: 0.6}]
+      sty = [sty, {backgroundColor: '#000000', opacity: 0.4, borderTopWidth: 0}]
     return(
       <View style={sty}>
         {
