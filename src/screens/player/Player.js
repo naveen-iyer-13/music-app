@@ -33,16 +33,15 @@ export default class Player extends Component {
 			if (search) {
 				let songs = [...search]
 				trackList = [...search]
-
 				trackList.unshift(trackList[index])
 				trackList.splice(index + 1, 1)
 				let obj, list = []
-				trackList.forEach((track, index) => {
+				trackList.forEach((track, i) => {
 					obj = {}
 					obj.url = `${BASE_URL}/stream/${track.bp_id}`
 					obj.artwork = track.cover
 					obj.title = track.title
-					obj.id = index.toString()
+					obj.id = i.toString()
 					obj.bp_id = track.bp_id
 					obj.artist = track.artist
 					obj.thumbnail = track.thumbnail
@@ -65,12 +64,12 @@ export default class Player extends Component {
 					trackList.unshift(trackList[index])
 					trackList.splice(index + 1, 1)
 					let obj, list = []
-					trackList.forEach(track => {
+					trackList.forEach((track, i) => {
 						obj = {}
 						obj.url = track.streamlink
 						obj.artwork = track.cover
 						obj.title = track.title
-						obj.id = index.toString()
+						obj.id = i.toString()
 						obj.bp_id = track.bp_id
 						obj.artist = track.artist
 						obj.thumbnail = track.thumbnail
@@ -119,22 +118,18 @@ export default class Player extends Component {
 	}
 
 	fetchFromTrending() {
-		let index = 0, name = null
 			AsyncStorage.getItem('trendingSongs', (err,res) => {
-				if (name)
-					trackList = JSON.parse(res)[name]
-				else
 					trackList = JSON.parse(res)
 				let songs = trackList
 				let obj, list = []
 				if(trackList){
-					trackList.forEach((track, index) => {
+					trackList.forEach((track, i) => {
 						obj = {}
 						obj.url = track.streamlink
 						obj.artwork = track.cover
 						obj.title = track.title
 						obj.bp_id = track.bp_id
-						obj.id = index.toString()
+						obj.id = i.toString()
 						obj.artist = track.artist
 						obj.thumbnail = track.thumbnail
 						list.push(obj)
@@ -156,6 +151,7 @@ export default class Player extends Component {
 				if (data.type === 'playback-track-changed') {
 					if (data.nextTrack) {
 						const track = await TrackPlayer.getTrack(data.nextTrack);
+						console.log(data, "data")
 						this.setState({
 							track: track
 						})
@@ -255,8 +251,7 @@ export default class Player extends Component {
 		}
 		TrackPlayer.reset()
 		this.setState({
-			track: trackList[0],
-			trackList: trackList
+			track: trackList[0]
 		})
 		this.togglePlayback()
 	}
@@ -264,7 +259,7 @@ export default class Player extends Component {
 
 
 	render() {
-		const { playbackState, track, trackList } = this.state
+		const { playbackState, track } = this.state
 		let index, storageKey
 		if (this.props.navigation.state.params) {
 			index = this.props.navigation.state.params.index
@@ -274,6 +269,7 @@ export default class Player extends Component {
 			index = 0
 			storageKey = 'trendingSongs'
 		}
+		console.log(trackList, "track")
 		//console.log('first', (playbackState === TrackPlayer.STATE_BUFFERING || playbackState === TrackPlayer.STATE_NONE || playbackState === TrackPlayer.STATE_STOPPED))
 		return (
 
@@ -292,7 +288,7 @@ export default class Player extends Component {
 						playbackState={playbackState}
 						track={track}
 						navigation={this.props.navigation}
-						trackList={trackList}
+						trackList={this.state.trackList}
 						handleQueue={this.handleQueue}
 						shuffleTracks={this.shuffleArray}
 						songs={this.state.songs}
