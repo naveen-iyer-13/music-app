@@ -295,13 +295,13 @@ const styles = StyleSheet.create({
 
   },
   songTitle: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#FFFFFF',
     textAlign: 'center'
   },
   songArtist: {
     paddingTop: 5,
-    fontSize: 14,
+    fontSize: 18,
     color: 'grey',
     textAlign: 'center'
 
