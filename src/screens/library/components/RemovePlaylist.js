@@ -8,7 +8,7 @@ import {
   TextInput
 } from 'react-native'
 import Modal from 'react-native-modal'
-
+import LinearGradient from 'react-native-linear-gradient';
 class RemovePlaylist extends Component{
   constructor(props){
     super(props)
@@ -50,7 +50,7 @@ class RemovePlaylist extends Component{
         </View>
         <Modal isVisible={this.state.renameModalOpen} onBackButtonPress={() => this.setState({renameModalOpen: false})}>
           <View style={styles.addPlaylist}>
-            <View style={{alignItems: 'center'}}>
+            <View style={{alignItems: 'center', height: 150, alignItems:'center', justifyContent :'center'}}>
               <Text style={styles.playlistHeading}>Rename the Playlist</Text>
               <Text style={styles.subheading}>Enter the name for this Playlist</Text>
               <TextInput style={styles.playlistInput}
@@ -58,14 +58,14 @@ class RemovePlaylist extends Component{
                 onChangeText={(text) => this.setState({newPlaylistName: text})}
              />
             </View>
-            <View style={{display: 'flex', flexDirection: 'row'}}>
+            <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row', backgroundColor:'#000', alignItems: 'center', height: 50, borderBottomLeftRadius: 8, borderBottomRightRadius: 8}}>
               <TouchableOpacity style={styles.optionOverview} onPress={() => this.setState({renameModalOpen: false})}>
-                <Text style={styles.optionButton}>Cancel</Text>
+                <Text style={styles.optionButton}>CANCEL</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.optionOverview} onPress={() => newPlaylistName ? this.handleRename() : {}}>
-                <Text style={styles.optionButtonCreate}>Rename</Text>
+                <Text style={styles.optionButton}>RENAME</Text>
               </TouchableOpacity>
-            </View>
+            </LinearGradient>
           </View>
         </Modal>
       </Modal>
@@ -135,12 +135,23 @@ const styles = StyleSheet.create({
   optionOverview: {
     display: 'flex',
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRightWidth: 1,
+    borderColor: '#FFFFFF',
+    height: 50,
+    justifyContent:'center'
+  },
+  optionOverview2: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    height: 50,
+    justifyContent:'center'
   },
   optionButton: {
     fontFamily: 'Proxima-Nova-Bold',
     fontSize: 16,
-    color: '#F8001E'
+    color: '#FFFFFF'
   },
   optionButtonCreate: {
     fontFamily: 'Proxima-Nova-Bold',

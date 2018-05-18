@@ -209,7 +209,7 @@ class Trending extends Component {
                 source={item.cover ? {uri: item.cover} : defaultIcon}
               />
               </TouchableOpacity>
-              <View style={{height: 60, width: 100,backgroundColor: '#FFFFFF'}}>
+              <View style={{height: 65, width: 100,backgroundColor: '#FFFFFF'}}>
                <Text style={styles.trendingTitle}>{item.artist}</Text>
               </View>
             </View>

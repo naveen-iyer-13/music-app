@@ -60,10 +60,10 @@ class PlayerModal extends Component{
                      </ScrollView>
                    </View>
           :
-          addPlaylistModal  
+          addPlaylistModal
             ?
            <View style={styles.addPlaylist}>
-             <View style={{alignItems: 'center'}}>
+             <View style={{alignItems: 'center', height: 150, alignItems:'center', justifyContent :'center'}}>
                <Text style={styles.playlistHeading}>Create a new Playlist</Text>
                <Text style={styles.subheading}>Enter the name for this Playlist</Text>
                <TextInput style={styles.playlistInput}
@@ -71,14 +71,14 @@ class PlayerModal extends Component{
                  onChangeText={(text) => this.setState({newPlaylistName: text})}
               />
              </View>
-             <View style={{display: 'flex', flexDirection: 'row'}}>
+             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row', backgroundColor:'#000', alignItems: 'center', height: 50, borderBottomLeftRadius: 8, borderBottomRightRadius: 8}}>
                <TouchableOpacity style={styles.optionOverview} onPress={() => closeModal('addPlaylist')}>
-                 <Text style={styles.optionButton}>Cancel</Text>
+                 <Text style={styles.optionButton}>CANCEL</Text>
                </TouchableOpacity>
-               <TouchableOpacity style={styles.optionOverview} onPress={() => this.state.newPlaylistName ? addNewPlaylist(playlistName, this.state.newPlaylistName) : {}}>
-                 <Text style={styles.optionButtonCreate}>Create</Text>
+               <TouchableOpacity style={styles.optionOverview2} onPress={() => this.state.newPlaylistName ? addNewPlaylist(playlistName, this.state.newPlaylistName) : {}}>
+                 <Text style={styles.optionButton}>CREATE</Text>
                </TouchableOpacity>
-             </View>
+             </LinearGradient>
            </View>
            :
           <View>
@@ -88,7 +88,7 @@ class PlayerModal extends Component{
            //   <Text style={styles.TextStyle}>{ ifInLibrary ? 'Remove from Library' : 'Add to Library'}</Text>
            // </TouchableOpacity>
           }
-           
+
            <TouchableOpacity style={styles.selectView} onPress={() => showPlaylists()}>
            <Image source={require('../images/add-to-playlist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
            <Text style={styles.TextStyle}>Add to Playlist</Text>
@@ -145,10 +145,21 @@ const styles = StyleSheet.create({
     fontFamily: 'Proxima-Nova',
     fontSize: 14
   },
-   optionOverview: {
+  optionOverview: {
     display: 'flex',
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRightWidth: 1,
+    borderColor: '#FFFFFF',
+    height: 50,
+    justifyContent:'center'
+  },
+  optionOverview2: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    height: 50,
+    justifyContent:'center'
   },
   subheading: {
     fontFamily: 'Proxima-Nova',
@@ -159,7 +170,7 @@ const styles = StyleSheet.create({
   optionButton: {
     fontFamily: 'Proxima-Nova-Bold',
     fontSize: 16,
-    color: '#F8001E'
+    color: '#FFFFFF'
   },
   optionButtonCreate: {
     fontFamily: 'Proxima-Nova-Bold',
