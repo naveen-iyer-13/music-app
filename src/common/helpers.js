@@ -55,10 +55,10 @@ export const addToLibrary = async(list, song,  cb) => {
     AsyncStorage.getItem('library', (err, res) => {
       if (res) {
         tracks = JSON.parse(res)
-        console.log(tracks)
       }
-      
-      let t = tracks.filter(obj => obj.bp_id === track[0].bp_id)
+
+      let t = tracks.filter(obj => obj && (obj.bp_id === track[0].bp_id))
+
       if (t.length > 0) {
         ToastAndroid.show('Song already exists in library', ToastAndroid.SHORT)
         cb(false)
@@ -119,10 +119,10 @@ export const searchSong = (q, cb) => {
   })
 }
 
-export const ifInLibrary = async(id, cb) => {
+export const ifInLibrary = async(track, cb) => {
   AsyncStorage.getItem('library', (err, res) => {
     if (res) {
-      let target = JSON.parse(res).filter((obj, i) => i === parseInt(id))
+      let target = JSON.parse(res).filter((obj, i) => obj && (obj.bp_id === track.bp_id))
       if (target && target[0]) 
        cb(true)
       else 
@@ -132,10 +132,10 @@ export const ifInLibrary = async(id, cb) => {
   
 }
 
-export const ifInPlaylists = async(id, name) => {
+export const ifInPlaylists = async(track, name) => {
   AsyncStorage.getItem('playlists', (err, res) => {
     if (res) {
-      let target = JSON.parse(res)[name].filter((obj, i) => i === parseInt(id))
+      let target = JSON.parse(res)[name].filter((obj, i) => obj && (obj.bp_id === track.bp_id))
       if (target && target[0]) 
         return true 
       else 
