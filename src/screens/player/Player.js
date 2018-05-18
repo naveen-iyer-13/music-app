@@ -31,8 +31,9 @@ export default class Player extends Component {
 		if (this.props.navigation.state.params ) {
 			const { index, storageKey, name, search } = this.props.navigation.state.params
 			if (search) {
-				let songs = [...search]
-				trackList = [...search]
+				let songs = search
+				trackList = search
+
 				trackList.unshift(trackList[index])
 				trackList.splice(index + 1, 1)
 				let obj, list = []
@@ -205,7 +206,7 @@ export default class Player extends Component {
 		const currentTrack = await TrackPlayer.getCurrentTrack();
 		if (currentTrack == null) {
 			TrackPlayer.reset();
-			await TrackPlayer.add(trackList);
+			await TrackPlayer.add(this.state.trackList);
 			TrackPlayer.play();
 		} else {
 			if (playbackState === TrackPlayer.STATE_PAUSED) {
@@ -244,14 +245,16 @@ export default class Player extends Component {
 	}
 
 	shuffleArray = () => {
-		trackList = [...trackList]
-		for (let i = trackList.length - 1; i > 0; i--) {
+		t = [...trackList]
+		for (let i = t.length - 1; i > 0; i--) {
 			let j = Math.floor(Math.random() * (i + 1));
-			[trackList[i], trackList[j]] = [trackList[j], trackList[i]];
+			[t[i], t[j]] = [t[j], t[i]];
 		}
 		TrackPlayer.reset()
 		this.setState({
-			track: trackList[0]
+			track: trackList[0],
+			trackList: t
+
 		})
 		this.togglePlayback()
 	}
