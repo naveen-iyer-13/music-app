@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
-import { Image, StyleSheet, Text, TouchableOpacity, View, ViewPropTypes, Dimensions, AsyncStorage, Modal } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View, ViewPropTypes, Dimensions, AsyncStorage, Modal, ToastAndroid } from 'react-native';
 import PlayerModal from '../../../common/PlayerModal'
 import QueueList from './QueueList'
 import { addToLibrary, ifInLibrary, removeFromLibrary } from '../../../common/helpers'
@@ -123,7 +123,8 @@ export default class PlayerControll extends Component {
       showPlaylists: false,
       playlistNames: [],
       showQueue: false,
-      library: false
+      library: false,
+      addPlaylistModal: false
     }
   }
 
@@ -138,17 +139,9 @@ export default class PlayerControll extends Component {
     //
   }
 
-
-
-  // initializeLibrary = async() => {
-  //   let value = ifInLibrary(this.props.track.id)
-  //   this.setState({
-  //     library: value
-  //   })
-  // }
-
   componentWillReceiveProps(nextProps) {
     this.initializeLibrary(nextProps.track.id)
+    this.initializePlaylists(nextProps.track.id)
 
   }
 
@@ -159,6 +152,14 @@ export default class PlayerControll extends Component {
       })
     })
 
+  }
+
+  initializePlaylists = async(id) => {
+    ifInPlaylists(id, (value) => {
+      this.setState({
+        library: value
+      })
+    })
   }
 
   static propTypes = {
@@ -172,11 +173,14 @@ export default class PlayerControll extends Component {
     style: {}
   };
 
-  toggleModal = () => {
-    let { popupModal } = this.state
+  toggleModal = (libraryState) => {
+    let { popupModal, library } = this.state
     this.setState({
       popupModal: !popupModal,
-      showPlaylists: false
+      showPlaylists: false,
+      library: (typeof libraryState === 'boolean') ? (!library) : library,
+      addPlaylistModal: libraryState === 'addPlaylist' ? false : true,
+      addPlaylistModal: false
     })
   }
 
@@ -185,6 +189,56 @@ export default class PlayerControll extends Component {
       popupModal: false
     }, () => this.props.navigation.navigate(screen))
 
+  }
+
+  addToPlaylist = (playlistName) => {
+
+    const { track, songs } = this.props
+    let target = songs.filter(obj => obj.bp_id === track.bp_id)
+    target = target[0]
+    AsyncStorage.getItem('playlists', (err, res) => {
+      let playlists = res ? JSON.parse(res) : {}
+      let flag = false
+      for(let i = 0; i < playlists[playlistName].length; i++){
+        if(playlists[playlistName][i].title === target.title){
+          flag = true
+          break
+        }
+      }
+      if(!flag){
+        playlists[playlistName].push(target)
+        ToastAndroid.show('Song added to the playlist', ToastAndroid.SHORT)
+        AsyncStorage.setItem('playlists', JSON.stringify(playlists))
+        this.setState({
+          popupModal: false
+        })
+      }
+      else{
+        ToastAndroid.show('Song already exist in the playlist',ToastAndroid.SHORT)
+      }
+
+    })
+  }
+
+  addNewPlaylist = (playlistName, data) => {
+    console.log(playlistName, data)
+    AsyncStorage.getItem('playlists', (err, res) => {
+      let playlists = res ? JSON.parse(res) : {}
+      if(!Object.keys(playlists).includes(data)){
+        playlists[data] = []
+        playlistName.push(data)
+        this.setState({playlistName, addPlaylistModal: false, viewPlaylists: true})
+        AsyncStorage.setItem('playlists', JSON.stringify(playlists))
+        ToastAndroid.show('Playlist created', ToastAndroid.SHORT)
+      }
+      else{
+        ToastAndroid.show('Playlist already exists', ToastAndroid.SHORT)
+      }
+    })
+  }
+
+  createPlaylist = () => {
+    this.setState({addPlaylistModal: true, showPlaylists: false})
   }
 
   showPlaylists = () => {
@@ -217,7 +271,6 @@ export default class PlayerControll extends Component {
     let path = require('../../../images/nav-heart.png')
     if (this.state.library)
       path = require('../../../images/library-active.png')
-  //let ifInLibrary = ifInLibrary()
     return (
       <View style={styles.controller}>
         <PlayerModal
@@ -227,10 +280,15 @@ export default class PlayerControll extends Component {
           song={track}
           showPlaylists={this.showPlaylists}
           viewPlaylists={this.state.showPlaylists}
-          playlistNames={this.state.playlistNames}
+          playlistName={this.state.playlistNames}
           ifInLibrary={this.state.library}
+          addToPlaylist={this.addToPlaylist}
+          addPlaylistModal={this.state.addPlaylistModal}
           songs={songs}
+          createPlaylist={this.createPlaylist}
+          addNewPlaylist={this.addNewPlaylist}
         />
+
         <Modal
           animationType="slide"
           transparent={true}
@@ -369,7 +427,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   controls: {
-    marginVertical: 2,
+    marginVertical: 0,
+    marginBottom: 5,
     width: Dimensions.get('window').width * 1,
     flexDirection: 'row',
     alignItems: 'center',
