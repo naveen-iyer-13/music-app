@@ -67,7 +67,7 @@ class PopupModal extends Component{
          {
           addPlaylistModal  ?
            <View style={styles.addPlaylist}>
-             <View style={{alignItems: 'center'}}>
+             <View style={{alignItems: 'center', height: 150, alignItems:'center', justifyContent :'center'}}>
                <Text style={styles.playlistHeading}>Create a new Playlist</Text>
                <Text style={styles.subheading}>Enter the name for this Playlist</Text>
                <TextInput style={styles.playlistInput}
@@ -75,14 +75,14 @@ class PopupModal extends Component{
                  onChangeText={(text) => this.setState({newPlaylistName: text})}
               />
              </View>
-             <View style={{display: 'flex', flexDirection: 'row'}}>
+             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row', backgroundColor:'#000', alignItems: 'center', height: 50, borderBottomLeftRadius: 8, borderBottomRightRadius: 8}}>
                <TouchableOpacity style={styles.optionOverview} onPress={() => closeModal('Cancel Create')}>
-                 <Text style={styles.optionButton}>Cancel</Text>
+                 <Text style={styles.optionButton}>CANCEL</Text>
                </TouchableOpacity>
-               <TouchableOpacity style={styles.optionOverview} onPress={() => newPlaylistName ? closeModal('Create', newPlaylistName) : {}}>
-                 <Text style={styles.optionButtonCreate}>Create</Text>
+               <TouchableOpacity style={styles.optionOverview2} onPress={() => newPlaylistName ? closeModal('Create', newPlaylistName) : {}}>
+                 <Text style={styles.optionButtonCreate}>CREATE</Text>
                </TouchableOpacity>
-             </View>
+             </LinearGradient>
            </View>
             :
             onlyModal ?
@@ -152,7 +152,18 @@ const styles = StyleSheet.create({
   optionOverview: {
     display: 'flex',
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRightWidth: 1,
+    borderColor: '#FFFFFF',
+    height: 50,
+    justifyContent:'center'
+  },
+  optionOverview2: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    height: 50,
+    justifyContent:'center'
   },
   subheading: {
     fontFamily: 'Proxima-Nova',
@@ -163,12 +174,12 @@ const styles = StyleSheet.create({
   optionButton: {
     fontFamily: 'Proxima-Nova-Bold',
     fontSize: 16,
-    color: '#F8001E'
+    color: '#FFFFFF'
   },
   optionButtonCreate: {
     fontFamily: 'Proxima-Nova-Bold',
     fontSize: 16,
-    color: '#6DEAD3',
+    color: '#FFFFFF',
   },
   playlistInput: {
     width: 300,
@@ -191,7 +202,6 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 8,
     display: 'flex',
-    justifyContent: 'center'
   },
   closeIcon: {
     resizeMode: 'contain',
