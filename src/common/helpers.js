@@ -1,7 +1,8 @@
 import { instance } from './../utils/config/ApiConf'
 import {
   AsyncStorage,
-  Alert
+  Alert,
+  ToastAndroid
 } from 'react-native'
 import axios from 'axios'
 
@@ -20,65 +21,56 @@ export const getTrending = (cb) => {
 }
 
 export const removeFromPlaylist = async(name, song, cb) => {
-    AsyncStorage.getItem('playlists', (err, res) => {
+    AsyncStorage.getItem('playlists', async(err, res) => {
       if (res) {
-        let playlist = JSON.parse(res)[name]
-      let track = playlist.filter(obj => obj.bp_id === song.bp_id)
-      let index = 0
-      for(let i=0;i<playlist.length;i++) {
-        if (track === playlist[i]) {
-          index = i
-          break;
+        let playlistList = JSON.parse(res)
+        let list = playlistList[name]
+        let track = list.filter(obj => obj.bp_id === song.bp_id)
+        let index = -1
+        for(let i=0;i<list.length;i++) {
+          if (track && track[0] && (track[0].bp_id === list[i].bp_id)) {
+            index = i
+            break;
+          }
+        }
+        if (index === -1) {
+          ToastAndroid.show('Song doesn\'t exist in the playlist', ToastAndroid.SHORT)
+          cb(true)
+        }
+        else {
+          list.splice(index, 1)
+          playlistList[name] = list
+          console.log(playlistList)
+          await ToastAndroid.show('Song has been removed from playist', ToastAndroid.SHORT)
+          AsyncStorage.setItem('playlists', JSON.stringify(playlistList))
+          cb(true)
         }
       }
-      playlist.splice(index, 1)
-      AsyncStorage.setItem('playlists', playlist)
-      Alert.alert(
-      'Success',
-      'Song has been removed from the playlist '+name,
-      [
-        {text: 'OK', onPress: () =>  cb(true)}
-      ],
-      { cancelable: false }
-    )
-      }
-      
     })
-      
-
 }
-
 
 export const addToLibrary = async(list, song,  cb) => {
   let track = list.filter(obj => obj.bp_id === song.bp_id )
   let tracks = []
     AsyncStorage.getItem('library', (err, res) => {
+      if (res) {
         tracks = JSON.parse(res)
-        tracks = [...tracks]
-        let t = tracks.filter(obj => obj.bp_id === track[0].bp_id)
-        if (t.length > 0) {
-          Alert.alert(
-            'Alert',
-            'Song already exists in the library',
-            [
-              {text: 'OK', onPress: () =>  cb(false)}
-            ],
-            { cancelable: false }
-          )
-        }
-        else {
-          tracks.unshift(track[0])
-          AsyncStorage.setItem('library', JSON.stringify(tracks)) 
-          Alert.alert(
-            'Success',
-            'Song has been added to the library',
-            [
-              {text: 'OK', onPress: () =>  cb(true)}
-            ],
-            { cancelable: false }
-          )
-        }
-       
+        console.log(tracks)
+      }
+      
+      let t = tracks.filter(obj => obj.bp_id === track[0].bp_id)
+      if (t.length > 0) {
+        ToastAndroid.show('Song already exists in library', ToastAndroid.SHORT)
+        cb(false)
+
+      }
+      else {
+        tracks.unshift(track[0])
+        AsyncStorage.setItem('library', JSON.stringify(tracks)) 
+        ToastAndroid.show('Song has been added to library', ToastAndroid.SHORT)
+        cb(true)
+
+      }
       
     })
   
@@ -90,42 +82,26 @@ export const removeFromLibrary = async(song , cb) => {
       tracks = JSON.parse(res)
       let newTracks = tracks.filter(obj => obj.bp_id !== song.bp_id)
       if (tracks.length === newTracks.length) {
-        Alert.alert(
-          'Error',
-          'Song is not present in the library',
-          [
-            {text: 'OK', onPress: () =>  cb(true)}
-          ],
-          { cancelable: false }
-        )
+        ToastAndroid.show('Song doesn\'t exist in library', ToastAndroid.SHORT)
+        cb(false)
+
       }
       else {
         AsyncStorage.setItem('library', JSON.stringify(newTracks)) 
-        Alert.alert(
-          'Success',
-          'Song has been removed from the library',
-          [
-            {text: 'OK', onPress: () =>  cb(true)}
-          ],
-          { cancelable: false }
-        )
+        ToastAndroid.show('Song has been removed from library', ToastAndroid.SHORT)
+        cb(true)
       }
       
          
     }
     else {
-      Alert.alert(
-          'Sorry',
-          'Library is not initialized',
-          [
-            {text: 'OK', onPress: () =>  cb(false)}
-          ],
-          { cancelable: false }
-        )
+      ToastAndroid.show('Error occurred', ToastAndroid.SHORT)
+      
     }
   })
   
 }
+
 
 export const searchSong = (q, cb) => {
   if(source)
@@ -167,6 +143,9 @@ export const ifInPlaylists = async(id, name) => {
     }
   })
 }
+
+
+
 
 
 // export const closeApp = () =>{
