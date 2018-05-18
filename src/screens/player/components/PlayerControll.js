@@ -140,8 +140,8 @@ export default class PlayerControll extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.initializeLibrary(nextProps.track.id)
-    this.initializePlaylists(nextProps.track.id)
+    this.initializeLibrary(nextProps.track)
+    this.initializePlaylists(nextProps.track)
 
   }
 
@@ -200,7 +200,7 @@ export default class PlayerControll extends Component {
       let playlists = res ? JSON.parse(res) : {}
       let flag = false
       for(let i = 0; i < playlists[playlistName].length; i++){
-        if(playlists[playlistName][i].title === target.title){
+        if(playlists[playlistName][i] && (playlists[playlistName][i].title === target.title)){
           flag = true
           break
         }
@@ -263,11 +263,13 @@ export default class PlayerControll extends Component {
   render() {
     const { style, onNext, onPrevious, onTogglePlayback, navigation, playlistNames, handleQueue, shuffleTracks, songs, storageKey } = this.props;
     const { playbackState, track } = this.props
+    console.log("Library", this.state.library)
     var middleButtonText = 'Play'
     if (playbackState === TrackPlayer.STATE_PLAYING
       || playbackState === TrackPlayer.STATE_BUFFERING) {
       middleButtonText = 'Pause'
     }
+    console.log(songs, track, "List all")
     let path = require('../../../images/nav-heart.png')
     if (this.state.library)
       path = require('../../../images/library-active.png')
@@ -305,7 +307,7 @@ export default class PlayerControll extends Component {
         <Text style={styles.songArtist}>{track.artist}</Text>
 
         <View style={styles.controls}>
-          <TouchableOpacity style={styles.sideSectionTopLeft} onPress={() => (this.state.library) ? removeFromLibrary(track, () => this.setState({library: false}) ) : addToLibrary(songs, track, () => this.setState({library: true}) )}>
+          <TouchableOpacity style={styles.sideSectionTopLeft} onPress={() => (this.state.library) ? removeFromLibrary(track, () => this.setState({library: false}) ) : addToLibrary(songs, track, (res) => this.setState({library: true}) )}>
             <Image source={path} style={styles.skipTrack} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.sideSectionTopRight} onPress={this.toggleModal}>

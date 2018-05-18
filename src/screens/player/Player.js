@@ -23,7 +23,7 @@ export default class Player extends Component {
 			track: {},
 			trackList: [],
 			songs: [],
-			lastState: -1
+			lastState: -1		
 		}
 	}
 
@@ -36,20 +36,27 @@ export default class Player extends Component {
 				trackList.unshift(trackList[index])
 				trackList.splice(index + 1, 1)
 				let obj, list = []
+				let first = 0
 				trackList.forEach((track, i) => {
 					obj = {}
 					obj.url = `${BASE_URL}/stream/${track.bp_id}`
 					obj.artwork = track.cover
 					obj.title = track.title
 					obj.id = i.toString()
-					obj.bp_id = track.bp_id
+					obj.bp_id = track.bp_id	
 					obj.artist = track.artist
 					obj.thumbnail = track.thumbnail
 					list.push(obj)
+					if (track.streamlink && track.streamlink !== "processing" && first === 0) {
+
+						first = i
+					}
 				})
+				if (first !== 0)
+					ToastAndroid.show("Song not available", ToastAndroid.SHORT)
 				trackList = list
 				this.setState({
-					track: trackList[0],
+					track: trackList[first],
 					trackList: trackList,
 					songs: songs
 				})
@@ -58,12 +65,14 @@ export default class Player extends Component {
 				AsyncStorage.getItem(storageKey, (err, res) => {
 					if (name)
 						trackList = JSON.parse(res)[name]
-					else
+					else 
 						trackList = JSON.parse(res)
+					trackList = trackList ? trackList : []
 					let songs = trackList
 					trackList.unshift(trackList[index])
 					trackList.splice(index + 1, 1)
 					let obj, list = []
+					let first = 0
 					trackList.forEach((track, i) => {
 						obj = {}
 						obj.url = track.streamlink
@@ -74,10 +83,16 @@ export default class Player extends Component {
 						obj.artist = track.artist
 						obj.thumbnail = track.thumbnail
 						list.push(obj)
+						if (track.streamlink && track.streamlink !== "processing" && first === 0) {
+
+							first = i
+						}
 					})
+					if (first !== 0)
+						ToastAndroid.show("Song not available", ToastAndroid.SHORT)
 					trackList = list
 					this.setState({
-						track: trackList[0],
+						track: trackList[first],
 						trackList: trackList,
 						songs: songs
 					})
@@ -119,33 +134,39 @@ export default class Player extends Component {
 
 	fetchFromTrending() {
 		let index = 0, name = null
-			AsyncStorage.getItem('trendingSongs', (err,res) => {
-				if (name)
-					trackList = JSON.parse(res)[name]
-				else
-					trackList = JSON.parse(res)
-				let songs = trackList
-				let obj, list = []
-				if(trackList){
-					trackList.forEach((track, i) => {
-						obj = {}
-						obj.url = track.streamlink
-						obj.artwork = track.cover
-						obj.title = track.title
-						obj.bp_id = track.bp_id
-						obj.id = i.toString()
-						obj.artist = track.artist
-						obj.thumbnail = track.thumbnail
-						list.push(obj)
-					})
-				}
-				trackList = list
-				this.setState({
-					track: trackList[0],
-					trackList: trackList,
-					songs: songs
+		AsyncStorage.getItem('trendingSongs', (err,res) => {
+			if (name)
+				trackList = JSON.parse(res)[name]
+			else 
+				trackList = JSON.parse(res)
+			let songs = trackList
+			let obj, list = []
+			let first = 0
+			if(trackList){
+				trackList.forEach((track, i) => {
+					obj = {}
+					obj.url = track.streamlink
+					obj.artwork = track.cover
+					obj.title = track.title
+					obj.bp_id = track.bp_id
+					obj.id = i.toString()
+					obj.artist = track.artist
+					obj.thumbnail = track.thumbnail
+					list.push(obj)
+					if (track.streamlink && track.streamlink !== "processing" && first === 0) {
+						first = i
+					}
 				})
+			}
+			if (first !== 0)
+				ToastAndroid.show("Song not available", ToastAndroid.SHORT)
+			trackList = list
+			this.setState({
+				track: trackList[first],
+				trackList: trackList,
+				songs: songs
 			})
+		})
 	}
 
 	componentDidMount() {
@@ -164,8 +185,10 @@ export default class Player extends Component {
 				} else if (data.type == 'remote-pause') {
 					TrackPlayer.pause()
 				} else if (data.type == 'remote-next') {
+
 					TrackPlayer.skipToNext()
 				} else if (data.type == 'remote-previous') {
+
 					TrackPlayer.skipToPrevious()
 				} else if (data.type === 'playback-state') {
 					this.setState({
@@ -174,6 +197,7 @@ export default class Player extends Component {
 				}
 			});
 		if (this.props.navigation.state.params) {
+			console.log("inside")
 			TrackPlayer.reset()
 			this.togglePlayback()
 		}
@@ -208,7 +232,7 @@ export default class Player extends Component {
 		const currentTrack = await TrackPlayer.getCurrentTrack();
 		if (currentTrack == null) {
 			TrackPlayer.reset();
-			await TrackPlayer.add(this.state.trackList);
+			await TrackPlayer.add(trackList);
 			TrackPlayer.play();
 		} else {
 			if (playbackState === TrackPlayer.STATE_PAUSED) {
@@ -217,12 +241,24 @@ export default class Player extends Component {
 				TrackPlayer.pause();
 			}
 		}
-
 	}
 
 	skipToNext = async () => {
 		try {
-			await TrackPlayer.skipToNext()
+			let trackId = await TrackPlayer.getCurrentTrack()
+			let id = parseInt(trackId)
+			id = id+1
+			let j = id
+			while (!trackList[id].url || trackList[id].url === "processing") {
+				//ToastAndroid.show("Song not available", ToastAndroid.SHORT)
+				id++
+				
+			}
+			if (j !== id)
+				ToastAndroid.show("Song not available", ToastAndroid.SHORT)
+			id = id.toString()
+			await TrackPlayer.skip(id)
+			
 		} catch (_) {
 			await TrackPlayer.skipToNext()
 		}
@@ -230,7 +266,21 @@ export default class Player extends Component {
 
 	skipToPrevious = async () => {
 		try {
-			await TrackPlayer.skipToPrevious()
+			let trackId = await TrackPlayer.getCurrentTrack()
+			let id = parseInt(trackId)
+			id = (id === 0) ? 0 : id-1
+			let j = id
+			while (!trackList[id].url || trackList[id].url === "processing") {
+				//ToastAndroid.show("Song not available", ToastAndroid.SHORT)	
+				if(id === 0)
+					break	
+				id = (id === 0) ? 0 : id-1
+
+			}
+			if (j !== id) 
+				ToastAndroid.show("Song not available", ToastAndroid.SHORT)
+			id = id.toString()
+			await TrackPlayer.skip(id)
 		} catch (_) { }
 	}
 
@@ -265,6 +315,7 @@ export default class Player extends Component {
 	render() {
 		const { playbackState, track } = this.state
 		let index, storageKey
+		console.log(track, "track", "trackList", this.state.trackList)
 		if (this.props.navigation.state.params) {
 			index = this.props.navigation.state.params.index
 			storageKey = this.props.navigation.state.params.storageKey
@@ -274,6 +325,10 @@ export default class Player extends Component {
 			storageKey = 'trendingSongs'
 		}
 		//console.log('first', (playbackState === TrackPlayer.STATE_BUFFERING || playbackState === TrackPlayer.STATE_NONE || playbackState === TrackPlayer.STATE_STOPPED))
+		// if (!track.url || track.url === "processing") {
+		// 	ToastAndroid.show("Not available", ToastAndroid.SHORT)
+		// 	this.skipToNext()
+		// }
 		return (
 
 			<View style={styles.container}>
