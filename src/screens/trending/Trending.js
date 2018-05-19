@@ -200,6 +200,7 @@ class Trending extends Component {
         );
       })
        artistView= trending.map((item, index)=> {
+        console.log("Cover", item.cover)
         if(this.state.randomArray.includes(index)){
           return(
             <View key={index} style={styles.trendingView} >
