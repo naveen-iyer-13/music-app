@@ -37,7 +37,10 @@ class Songs extends Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({list: nextProps.list})
+    if(nextProps.list)
+      this.setState({list: nextProps.list})
+    else
+      this.getSongs()
   }
 
   closeModal = (action, data, operation) => {
@@ -70,7 +73,7 @@ class Songs extends Component{
         })
       }
       else{
-        removeFromLibrary(data, res => {})
+        removeFromLibrary(data, res => {this.setState({list: res})})
       }
     }
     else if (action === 'Playlists') {
@@ -184,7 +187,7 @@ class Songs extends Component{
 
   render() {
     let { list, searchList, popupModal, selectedSong, searchTerm, loading } = this.state
-    // console.log(this.state);
+    console.log(this.state);
     list = searchTerm? searchList : list
     return(
       <View>
