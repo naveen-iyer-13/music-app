@@ -21,7 +21,7 @@ export default class SplashScreen extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <Image source={require('.././images/splash.png')} style={{width: Dimensions.get('window').width, height: Dimensions.get('window').height}}/>
+        <Image source={require('.././images/splash.png')} style={{width: Dimensions.get('window').width, height: Dimensions.get('window').height, resizeMode:'contain'}}/>
       </View>
     )
   }
@@ -29,8 +29,7 @@ export default class SplashScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height:undefined,
-    width: undefined,
+    width: Dimensions.get('window').width, height: Dimensions.get('window').height,
     backgroundColor: '#FFFFFF',
   }
 });

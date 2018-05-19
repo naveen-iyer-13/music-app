@@ -7,7 +7,8 @@ import {
   AsyncStorage,
   Alert,
   Text,
-  Image
+  Image,
+  Platform
 } from 'react-native'
 import { Search } from './../../common/Search'
 import Footer from './../../common/Footer'
@@ -163,7 +164,7 @@ class SearchScreen extends Component{
     console.log(this.state);
     return(
       <View style={styles.container}>
-      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: Platform.os === 'android' ? 10 : 20, width: Dimensions.get('window').width}} />
         <View style={{display: 'flex', alignItems: 'center', height: 50, justifyContent: 'center'}}>
           <Text style={{fontSize: 18, color: '#000'}}>Search</Text>
         </View>
@@ -249,6 +250,6 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height
   },
   screenContainer:{
-    height: height - 135,
+    height: Platform.os === 'android' ? height - 135 : height - 120,
   },
 })

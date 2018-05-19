@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  Platform
 } from 'react-native'
 import Footer from './../../common/Footer'
 import Songs from './components/Songs'
@@ -42,7 +43,7 @@ class Library extends Component{
     console.log(this.state)
     return (
       <View style={styles.container}>
-      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height:Platform.os === 'android' ? 10 : 20,width: Dimensions.get('window').width}} />
         <View style={styles.screenContainer} navigation={this.props.navigation}>
           <Header
             header={header}
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').heights
   },
   screenContainer:{
-    height: height - 85
+    height: Platform.os === 'android' ? height - 80 : height - 70,
   },
   containerItem:{
     display: 'flex',

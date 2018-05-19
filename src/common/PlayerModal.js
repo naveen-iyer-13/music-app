@@ -32,9 +32,12 @@ class PlayerModal extends Component{
     return(
       <View>
       <Modal
-        isVisible={active}
-        onBackButtonPress={() => closeModal()}
-        onBackdropPress = {() => closeModal()}>
+      isVisible={active}
+      onBackButtonPress={() => closeModal()}
+      onStartShouldSetResponder={() => {
+         return closeModal();
+       }}
+      onBackdropPress = {() => closeModal()}>
           <View style={{flex: 1, justifyContent: addPlaylistModal ? 'center' : 'flex-end'}}>
          <View style={styles.modalView}>
         {
@@ -71,13 +74,13 @@ class PlayerModal extends Component{
                  onChangeText={(text) => this.setState({newPlaylistName: text})}
               />
              </View>
-             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row', backgroundColor:'#000', alignItems: 'center', height: 50, borderBottomLeftRadius: 8, borderBottomRightRadius: 8}}>
-               <TouchableOpacity style={styles.optionOverview} onPress={() => closeModal('addPlaylist')}>
-                 <Text style={styles.optionButton}>CANCEL</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.optionOverview2} onPress={() => this.state.newPlaylistName ? addNewPlaylist(playlistName, this.state.newPlaylistName) : {}}>
-                 <Text style={styles.optionButton}>CREATE</Text>
-               </TouchableOpacity>
+             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row',alignItems: 'center', height: 50, borderRadius: 8}}>
+             <TouchableOpacity style={styles.optionOverview} onPress={() => closeModal('addPlaylist')}>
+               <Text style={styles.optionButton}>CANCEL</Text>
+             </TouchableOpacity>
+             <TouchableOpacity style={styles.optionOverview2} onPress={() => this.state.newPlaylistName ? addNewPlaylist(playlistName, this.state.newPlaylistName) : {}}>
+               <Text style={styles.optionButton}>CREATE</Text>
+             </TouchableOpacity>
              </LinearGradient>
            </View>
            :

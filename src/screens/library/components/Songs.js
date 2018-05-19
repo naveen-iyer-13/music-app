@@ -187,7 +187,7 @@ class Songs extends Component{
 
   render() {
     let { list, searchList, popupModal, selectedSong, searchTerm, loading } = this.state
-    console.log(this.state);
+    //console.log(this.state);
     list = searchTerm? searchList : list
     return(
       <View>

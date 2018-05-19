@@ -45,7 +45,7 @@ class Trending extends Component {
   getSongs(){
     this.setState({loading: true})
     AsyncStorage.getItem('trendingSongs', (err, res) => {
-      console.log(res);
+      //console.log(res);
       if(res)
         this.setState({trendingSongs: JSON.parse(res), loading: false})
       else
@@ -200,8 +200,8 @@ class Trending extends Component {
         );
       })
        artistView= trending.map((item, index)=> {
-        console.log("Cover", item.cover)
         if(this.state.randomArray.includes(index)){
+          console.log(item);
           return(
             <View key={index} style={styles.trendingView} >
              <TouchableOpacity style={{height: 100, paddingLeft: 10, paddingTop: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
@@ -210,7 +210,7 @@ class Trending extends Component {
                 source={item.cover ? {uri: item.cover} : defaultIcon}
               />
               </TouchableOpacity>
-              <View style={{height: 65, width: 100,backgroundColor: '#FFFFFF'}}>
+              <View style={{height: 65, width: 100,backgroundColor: '#FFFFFF', opacity: 0.9}}>
                <Text style={styles.trendingTitle}>{item.artist}</Text>
               </View>
             </View>
@@ -226,14 +226,14 @@ class Trending extends Component {
     else {
       return (
         <View style={styles.container}>
-        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: Platform.os === 'android' ? 10 : 20, width: Dimensions.get('window').width}} />
          <View style={{height: 210, width: Dimensions.get('window').width}}>
            <ImageBackground
               source={{uri: trending[randomIndex] ? trending[randomIndex].cover : require('./../../images/default-icon.png')}}
               style={styles.backgroundImage}
               blurRadius={0.4}>
             <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
-             <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
+             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
               {artistView}
              </ScrollView>
            </ImageBackground>
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     height: 80,
     width: 80,
-    borderRadius: 80
+    borderRadius: Platform.os === 'android' ? 80 : 40
   },
   trendingView: {
     paddingTop: 15,

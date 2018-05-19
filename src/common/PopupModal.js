@@ -57,11 +57,13 @@ class PopupModal extends Component{
   render() {
     const { active, closeModal, song, openPlaylist, playlistName, addToPlaylist, createPlaylist, addPlaylistModal, onlyModal, isPlaylistPage } = this.props
     const { newPlaylistName, addSong } = this.state
-    console.log(this.state, this.props);
     return(
       <Modal
         isVisible={active}
         onBackButtonPress={() => closeModal()}
+        onStartShouldSetResponder={() => {
+           return closeModal();
+         }}
         onBackdropPress = {() => closeModal()}>
         <View style={{flex: 1, justifyContent: addPlaylistModal ? 'center' : 'flex-end'}}>
          {
@@ -75,7 +77,7 @@ class PopupModal extends Component{
                  onChangeText={(text) => this.setState({newPlaylistName: text})}
               />
              </View>
-             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row', backgroundColor:'#000', alignItems: 'center', height: 50, borderBottomLeftRadius: 8, borderBottomRightRadius: 8}}>
+             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row',alignItems: 'center', height: 50, borderRadius: 8}}>
                <TouchableOpacity style={styles.optionOverview} onPress={() => closeModal('Cancel Create')}>
                  <Text style={styles.optionButton}>CANCEL</Text>
                </TouchableOpacity>
@@ -153,17 +155,19 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     alignItems: 'center',
-    borderRightWidth: 1,
-    borderColor: '#FFFFFF',
     height: 50,
-    justifyContent:'center'
+    justifyContent:'center',
+    backgroundColor:'transparent',
+    borderRightWidth:1,
+    borderColor: '#FFFFFF'
   },
   optionOverview2: {
     display: 'flex',
     flex: 1,
     alignItems: 'center',
     height: 50,
-    justifyContent:'center'
+    justifyContent:'center',
+    backgroundColor:'transparent'
   },
   subheading: {
     //fontFamily: '',
