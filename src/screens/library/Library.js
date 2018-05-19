@@ -39,6 +39,7 @@ class Library extends Component{
 
   render() {
     const { searchTerm, tab, header, closePlaylist, openCreatePlaylistModal } = this.state
+    console.log(this.state)
     return (
       <View style={styles.container}>
       <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />

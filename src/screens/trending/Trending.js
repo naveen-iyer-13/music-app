@@ -45,6 +45,7 @@ class Trending extends Component {
   getSongs(){
     this.setState({loading: true})
     AsyncStorage.getItem('trendingSongs', (err, res) => {
+      console.log(res);
       if(res)
         this.setState({trendingSongs: JSON.parse(res), loading: false})
       else
@@ -199,6 +200,7 @@ class Trending extends Component {
         );
       })
        artistView= trending.map((item, index)=> {
+        console.log("Cover", item.cover)
         if(this.state.randomArray.includes(index)){
           return(
             <View key={index} style={styles.trendingView} >
@@ -208,7 +210,7 @@ class Trending extends Component {
                 source={item.cover ? {uri: item.cover} : defaultIcon}
               />
               </TouchableOpacity>
-              <View style={{height: 60, width: 100,backgroundColor: '#FFFFFF'}}>
+              <View style={{height: 65, width: 100,backgroundColor: '#FFFFFF'}}>
                <Text style={styles.trendingTitle}>{item.artist}</Text>
               </View>
             </View>
