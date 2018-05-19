@@ -89,7 +89,7 @@ export const removeFromLibrary = async(song , cb) => {
       else {
         AsyncStorage.setItem('library', JSON.stringify(newTracks)) 
         ToastAndroid.show('Song has been removed from library', ToastAndroid.SHORT)
-        cb(true)
+        cb(newTracks)
       }
       
          
