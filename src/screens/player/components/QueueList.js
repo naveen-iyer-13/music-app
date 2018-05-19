@@ -9,7 +9,7 @@ class QueueList extends Component {
 			<View style={styles.container}>
 				<View style={{flexDirection: 'row', marginBottom: 10,width: Dimensions.get('window').width}}>
 					<View style={{ width: Dimensions.get('window').width - 25, alignItems: 'center', }}>
-					<Text style={{color: '#FFFFFF',fontSize: 17, fontFamily: 'Proxima-Nova'}}>UP NEXT</Text>
+					<Text style={{color: '#FFFFFF',fontSize: 17}}>UP NEXT</Text>
 					</View>
 					 <TouchableOpacity onPress={() => closeModal()}>
 					<Image source={require('../../../images/white-close.png')} style={{width: 15, height: 15, alignSelf: 'flex-end'}} />
@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
   },
   titleText: {
   	paddingTop: 5,
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     fontSize: 16,
     color: '#FFFFFF',
     paddingBottom: 5
   },
   artistText: {
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
     fontSize: 12,
     color: '#D8D8D8'
   },

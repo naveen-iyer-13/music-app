@@ -220,7 +220,7 @@ class Songs extends Component{
                 :
                 <View style={{ display: 'flex',height: (height * 50)/100, alignItems: 'center', justifyContent: 'center'}}>
                   <Image source={require('./../../../images/broken-heart.png')} style={{width: 50, height: 50}}/>
-                  <Text style={{ width: 150,fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', textAlign: 'center'}}>
+                  <Text style={{ width: 150,fontSize: 18, color: '#252525', opacity: 0.4, textAlign: 'center'}}>
                     You don't have songs in your {this.props.isPlaylistPage ? 'playlist' : 'library'}!
                   </Text>
                 </View>

@@ -60,17 +60,17 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     fontSize: 25,
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     color: '#4A4A4A',
   },
   plus: {
     fontSize: 25,
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     color: '#4A4A4A'
   },
   heading: {
     fontSize: 16,
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
     color: '#4A4A4A',
     width: '90%',
     textAlign: 'center'

@@ -165,7 +165,7 @@ class SearchScreen extends Component{
       <View style={styles.container}>
       <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
         <View style={{display: 'flex', alignItems: 'center', height: 50, justifyContent: 'center'}}>
-          <Text style={{fontSize: 18, fontFamily: 'Proxima-Nova-Bold', color: '#000'}}>Search</Text>
+          <Text style={{fontSize: 18, color: '#000'}}>Search</Text>
         </View>
         <View style={styles.screenContainer}>
           <View>
@@ -208,7 +208,7 @@ class SearchScreen extends Component{
                 <ScrollView>
                  <View style={{height: Dimensions.get('window').height-170, justifyContent:'center', alignItems: 'center'}}>
                    <Image source={require('./../../images/surprised.png')} style={{width: 50, height: 50}}/>
-                   <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', marginTop: 10, width: 120, textAlign: 'center'}}>No search results!</Text>
+                   <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, marginTop: 10, width: 120, textAlign: 'center'}}>No search results!</Text>
                  </View>
                 </ScrollView>
               }
@@ -217,7 +217,7 @@ class SearchScreen extends Component{
             <ScrollView>
              <View style={{height: Dimensions.get('window').height-170, justifyContent:'center', alignItems: 'center'}}>
               <Image source={require('./../../images/search.png')} style={{width: 30, height: 30, resizeMode: 'contain'}}/>
-              <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', marginTop: 20, width: 150, textAlign: 'center'}}>Search for any song or artist</Text>
+              <Text style={{fontSize: 18, color: '#252525', opacity: 0.4, marginTop: 20, width: 150, textAlign: 'center'}}>Search for any song or artist</Text>
              </View>
             </ScrollView>
           }

@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F7F7F7',
     borderRadius: 4,
     alignItems: 'center',
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
     padding: 5,
     color: '#000'
   }

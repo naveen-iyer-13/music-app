@@ -119,7 +119,7 @@ class PopupModal extends Component{
                     <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
                        marginLeft: '20%',marginTop: 15, justifyContent: 'center', borderRadius: 10, backgroundColor: '#f4f4f4', marginBottom: 15}}>
                        <TouchableOpacity onPress={() => createPlaylist()}>
-                         <Text style={{fontFamily: 'Proxima-Nova-Bold', fontSize: 16, color: '#4A4A4A'}}>New Playlist</Text>
+                         <Text style={{fontSize: 16, color: '#4A4A4A'}}>New Playlist</Text>
                        </TouchableOpacity>
                      </LinearGradient>
                      <ScrollView>
@@ -166,18 +166,18 @@ const styles = StyleSheet.create({
     justifyContent:'center'
   },
   subheading: {
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
     fontSize: 16,
     marginBottom: 10,
     color: '#919191'
   },
   optionButton: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     fontSize: 16,
     color: '#FFFFFF'
   },
   optionButtonCreate: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     fontSize: 16,
     color: '#FFFFFF',
   },
@@ -189,10 +189,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 15,
-    fontFamily: 'Proxima-Nova'
+    //fontFamily: ''
   },
   playlistHeading: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     fontSize: 18,
     marginBottom: 10,
     color: '#1C1C1C'
@@ -247,20 +247,20 @@ const styles = StyleSheet.create({
   TextStyle: {
     paddingLeft: 15,
     color: '#2B2B2B',
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
     fontSize: 15,
   },
   TextStylePlaylist:{
     paddingLeft: 15,
     color: '#2B2B2B',
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     fontSize: 17,
     marginBottom: 7
   },
   PlayTextStyle:{
     paddingLeft: 15,
     color: '#2B2B2B',
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     fontSize: 15,
     margin: 5
   }

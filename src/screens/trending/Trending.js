@@ -272,14 +272,14 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     marginTop: 10,
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
     color: '#4A4A4A',
     fontSize: 20
   },
   trendingTitle: {
     textAlign: 'center',
     fontSize: 14,
-    fontFamily :'Proxima-Nova',
+    //fontFamily :'',
     color: '#000',
     paddingTop: 10,
   },
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     height: 210,
   },
   trendingArtist: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     color: '#fff',
     fontSize: 22,
     paddingTop: 15,

@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   TextStyle: {
     paddingLeft: 15,
     color: '#4B4B4B',
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
     fontSize: 14
   },
   addPlaylist: {
@@ -111,13 +111,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   playlistHeading: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     fontSize: 18,
     marginBottom: 10,
     color: '#1C1C1C'
   },
   subheading: {
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
     fontSize: 16,
     marginBottom: 10,
     color: '#919191'
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 15,
-    fontFamily: 'Proxima-Nova'
+    //fontFamily: ''
   },
   optionOverview: {
     display: 'flex',
@@ -149,12 +149,12 @@ const styles = StyleSheet.create({
     justifyContent:'center'
   },
   optionButton: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     fontSize: 16,
     color: '#FFFFFF'
   },
   optionButtonCreate: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     fontSize: 16,
     color: '#6DEAD3',
   },
