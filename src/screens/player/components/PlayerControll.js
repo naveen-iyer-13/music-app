@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
-import { Image, StyleSheet, Text, TouchableOpacity, View, ViewPropTypes, Dimensions, AsyncStorage, Modal, ToastAndroid } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View, Platform,ViewPropTypes, Dimensions, AsyncStorage, Modal, ToastAndroid } from 'react-native';
 import PlayerModal from '../../../common/PlayerModal'
 import QueueList from './QueueList'
 import { addToLibrary, ifInLibrary, removeFromLibrary } from '../../../common/helpers'
@@ -356,12 +356,14 @@ const styles = StyleSheet.create({
   },
   songTitle: {
     fontSize: 18,
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#FFFFFF',
     textAlign: 'center'
   },
   songArtist: {
     paddingTop: 5,
     fontSize: 18,
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: 'grey',
     textAlign: 'center'
 
@@ -400,7 +402,8 @@ const styles = StyleSheet.create({
   },
   time: {
     color: '#FFFFFF',
-    fontSize: 10
+    fontSize: 10,
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   cover: {
     width: 140,
@@ -419,6 +422,7 @@ const styles = StyleSheet.create({
   },
   artist: {
     fontWeight: 'bold',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   timeSecton: {
     marginTop: 10,
@@ -441,6 +445,7 @@ const styles = StyleSheet.create({
   },
   controlButtonText: {
     fontSize: 18,
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     textAlign: 'center',
   },
   playButton: {

@@ -54,12 +54,12 @@ class Library extends Component{
           <View style={styles.containerItem}>
             <View style={styles.headerItem}>
               <TouchableOpacity onPress={() => tab !== 'songs' ? this.handleTabPress('songs') : {}}>
-                <Text style={{fontSize: 16, color: tab == 'songs' ? '#6DEAD3' : '#C9C9C9'}}>SONGS</Text>
+                <Text style={{fontSize: 16, color: tab == 'songs' ? '#6DEAD3' : '#C9C9C9', fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>SONGS</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.headerItem2}>
               <TouchableOpacity onPress={() => tab === 'songs' ? this.handleTabPress('playlists') : {}}>
-                <Text style={{fontSize: 16, color: tab == 'songs' ? '#C9C9C9' : '#6DEAD3'}}>PLAYLISTS</Text>
+                <Text style={{fontSize: 16, color: tab == 'songs' ? '#C9C9C9' : '#6DEAD3', fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>PLAYLISTS</Text>
               </TouchableOpacity>
             </View>
           </View>

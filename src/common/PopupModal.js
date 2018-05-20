@@ -12,7 +12,7 @@ import {
   AlertIOS,
   TextInput,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
 } from 'react-native'
 import Modal from "react-native-modal";
 let { width, height } = Dimensions.get('window')
@@ -171,17 +171,20 @@ const styles = StyleSheet.create({
   },
   subheading: {
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     marginBottom: 10,
     color: '#919191'
   },
   optionButton: {
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#FFFFFF'
   },
   optionButtonCreate: {
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#FFFFFF',
   },
@@ -194,9 +197,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
     //fontFamily: ''
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   playlistHeading: {
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 18,
     marginBottom: 10,
     color: '#1C1C1C'
@@ -258,6 +263,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     color: '#2B2B2B',
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 17,
     marginBottom: 7
   },
@@ -265,6 +271,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     color: '#2B2B2B',
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 15,
     margin: 5
   }

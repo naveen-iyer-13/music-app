@@ -5,7 +5,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  TextInput
+  TextInput,
+  Platform
 } from 'react-native'
 import Modal from 'react-native-modal'
 import LinearGradient from 'react-native-linear-gradient';
@@ -103,6 +104,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     color: '#4B4B4B',
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 14
   },
   addPlaylist: {
@@ -114,12 +116,14 @@ const styles = StyleSheet.create({
   },
   playlistHeading: {
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 18,
     marginBottom: 10,
     color: '#1C1C1C'
   },
   subheading: {
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     marginBottom: 10,
     color: '#919191'
@@ -132,7 +136,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 15,
-    //fontFamily: ''
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   optionOverview: {
     display: 'flex',
@@ -152,11 +157,13 @@ const styles = StyleSheet.create({
   },
   optionButton: {
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#FFFFFF'
   },
   optionButtonCreate: {
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#6DEAD3',
   },

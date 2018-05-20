@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  Platform
 } from 'react-native'
 
 export const Search = ({handleSearch, searchTerm, clearText}) => (
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignItems: 'center',
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     padding: 5,
     color: '#000'
   }

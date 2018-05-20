@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import {
   Text,
@@ -45,7 +46,6 @@ class Trending extends Component {
   getSongs(){
     this.setState({loading: true})
     AsyncStorage.getItem('trendingSongs', (err, res) => {
-      //console.log(res);
       if(res)
         this.setState({trendingSongs: JSON.parse(res), loading: false})
       else
@@ -58,7 +58,7 @@ class Trending extends Component {
   randomNumber(){
     let randomArray = []
     while (randomArray.length < 10){
-        let num = Math.floor(Math.random()*100)
+        let num = Math.floor(Math.random()*50)
         if(!randomArray.includes(num)){
           randomArray.push(num)
         }
@@ -232,7 +232,7 @@ class Trending extends Component {
               style={styles.backgroundImage}
               blurRadius={0.4}>
             <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
-             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+             <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
               {artistView}
              </ScrollView>
            </ImageBackground>
@@ -271,14 +271,14 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     marginTop: 10,
-    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#4A4A4A',
     fontSize: 20
   },
   trendingTitle: {
     textAlign: 'center',
     fontSize: 14,
-    fontFamily :'ProximaNova-Bold',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#000',
     paddingTop: 10,
   },
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     height: 80,
     width: 80,
-    borderRadius: Platform.os === 'android' ? 80 : 40
+    borderRadius:Platform.os === 'android' ? 80 : 40
   },
   trendingView: {
     paddingTop: 15,
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     height: 210,
   },
   trendingArtist: {
-    //fontFamily: '',
+    fontFamily: Platform.os === 'android' ? 'Proxima-Nova-Bold' : 'ProximaNova-Bold',
     color: '#fff',
     fontSize: 22,
     paddingTop: 15,

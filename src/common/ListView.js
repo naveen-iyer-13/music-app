@@ -5,7 +5,8 @@ import {
   Dimensions,
   Text,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from 'react-native'
 
 export const ListView = props => {
@@ -53,10 +54,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#252525',
     paddingBottom: 5,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova-Bold' : "ProximaNova-Bold",
   },
   artistText: {
     //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 14,
     color: '#252525',
     opacity: 0.5,
