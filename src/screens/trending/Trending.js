@@ -201,7 +201,6 @@ class Trending extends Component {
       })
        artistView= trending.map((item, index)=> {
         if(this.state.randomArray.includes(index)){
-          console.log(item);
           return(
             <View key={index} style={styles.trendingView} >
              <TouchableOpacity style={{height: 100, paddingLeft: 10, paddingTop: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
@@ -279,7 +278,7 @@ const styles = StyleSheet.create({
   trendingTitle: {
     textAlign: 'center',
     fontSize: 14,
-    //fontFamily :'',
+    fontFamily :'ProximaNova-Bold',
     color: '#000',
     paddingTop: 10,
   },

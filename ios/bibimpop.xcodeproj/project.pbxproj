@@ -28,6 +28,8 @@
 		9E48B63720B05BC800F2E0AC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E48B56C20B053F300F2E0AC /* libRCTSettings.a */; };
 		9E48B63820B05BC800F2E0AC /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E48B59B20B056B800F2E0AC /* libRCTText.a */; };
 		9E48B63920B05BC800F2E0AC /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E48B62D20B059B300F2E0AC /* libRCTVibration.a */; };
+		9E8093CD20B171DA00393429 /* Proxima-Nova-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8093A420B171DA00393429 /* Proxima-Nova-Bold.ttf */; };
+		9E8093D120B1720C00393429 /* Proxima-Nova.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8093D020B1720C00393429 /* Proxima-Nova.ttf */; };
 		D77BCD848F044F3F918E51D3 /* libRNTrackPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 283B6CDBE9AC49CB81A2AECD /* libRNTrackPlayer.a */; };
 		E205D41520ACD62E007FADEC /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 /* End PBXBuildFile section */
@@ -362,6 +364,8 @@
 		9E48B61020B0599800F2E0AC /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		9E48B61F20B059A700F2E0AC /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		9E48B62820B059B300F2E0AC /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
+		9E8093A420B171DA00393429 /* Proxima-Nova-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Proxima-Nova-Bold.ttf"; path = "../../android/app/src/main/assets/fonts/Proxima-Nova-Bold.ttf"; sourceTree = "<group>"; };
+		9E8093D020B1720C00393429 /* Proxima-Nova.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Proxima-Nova.ttf"; path = "../../android/app/src/main/assets/fonts/Proxima-Nova.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -640,6 +644,8 @@
 		9E48B63C20B06C2400F2E0AC /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				9E8093D020B1720C00393429 /* Proxima-Nova.ttf */,
+				9E8093A420B171DA00393429 /* Proxima-Nova-Bold.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -742,6 +748,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = DDCF2FQ8BT;
 						LastSwiftMigration = 0920;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -1130,6 +1137,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				9E8093D120B1720C00393429 /* Proxima-Nova.ttf in Resources */,
+				9E8093CD20B171DA00393429 /* Proxima-Nova-Bold.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1311,6 +1320,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = DDCF2FQ8BT;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-track-player/ios/RNTrackPlayer/**",
@@ -1337,6 +1347,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DDCF2FQ8BT;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-track-player/ios/RNTrackPlayer/**",
