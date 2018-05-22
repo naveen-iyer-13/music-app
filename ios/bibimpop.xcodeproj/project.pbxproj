@@ -9,14 +9,12 @@
 /* Begin PBXBuildFile section */
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		792ED132307345B5B30FB93B /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E392B90659C41FDA9DF6F91 /* libBVLinearGradient.a */; };
-		9E48B57120B0542F00F2E0AC /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E48B57020B0542F00F2E0AC /* dummy.swift */; };
+		9E3F72A820B2011500F50529 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F72A720B2011500F50529 /* dummy.swift */; };
 		9E48B57320B0548900F2E0AC /* bibimpopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E48B57220B0548900F2E0AC /* bibimpopTests.m */; };
 		9E48B63120B05AF100F2E0AC /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E48B61820B0599900F2E0AC /* libRCTWebSocket.a */; };
 		9E48B63220B05B7F00F2E0AC /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E48B58B20B0569D00F2E0AC /* libRCTActionSheet.a */; };
@@ -29,6 +27,39 @@
 		9E48B63920B05BC800F2E0AC /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E48B62D20B059B300F2E0AC /* libRCTVibration.a */; };
 		9E8093CD20B171DA00393429 /* Proxima-Nova-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8093A420B171DA00393429 /* Proxima-Nova-Bold.ttf */; };
 		9E8093D120B1720C00393429 /* Proxima-Nova.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8093D020B1720C00393429 /* Proxima-Nova.ttf */; };
+		9E8E1F4B20B20F9E00696E30 /* libswiftARKit.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F2320B20F9500696E30 /* libswiftARKit.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F4C20B20F9E00696E30 /* libswiftFoundation.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F2420B20F9600696E30 /* libswiftFoundation.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F4F20B20F9E00696E30 /* libswiftCoreFoundation.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F2720B20F9600696E30 /* libswiftCoreFoundation.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5020B20F9E00696E30 /* libswiftCoreData.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F2820B20F9600696E30 /* libswiftCoreData.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5120B20F9E00696E30 /* libswiftos.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F2920B20F9600696E30 /* libswiftos.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5220B20F9E00696E30 /* libswiftDispatch.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F2A20B20F9700696E30 /* libswiftDispatch.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5320B20F9E00696E30 /* libswiftCoreLocation.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F2B20B20F9700696E30 /* libswiftCoreLocation.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5520B20F9E00696E30 /* libswiftAVFoundation.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F2D20B20F9700696E30 /* libswiftAVFoundation.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5620B20F9E00696E30 /* libswiftPhotos.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F2E20B20F9700696E30 /* libswiftPhotos.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5720B20F9E00696E30 /* libswiftHomeKit.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F2F20B20F9700696E30 /* libswiftHomeKit.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5920B20F9E00696E30 /* libswiftCoreImage.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3120B20F9800696E30 /* libswiftCoreImage.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5A20B20F9E00696E30 /* libswiftGameplayKit.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3220B20F9800696E30 /* libswiftGameplayKit.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5B20B20F9E00696E30 /* libswiftMapKit.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3320B20F9800696E30 /* libswiftMapKit.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5E20B20F9E00696E30 /* libswiftCallKit.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3620B20F9900696E30 /* libswiftCallKit.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F5F20B20F9E00696E30 /* libswiftMetalKit.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3720B20F9900696E30 /* libswiftMetalKit.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6020B20F9E00696E30 /* libswiftSpriteKit.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3820B20F9900696E30 /* libswiftSpriteKit.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6120B20F9E00696E30 /* libswiftGLKit.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3920B20F9900696E30 /* libswiftGLKit.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6220B20F9E00696E30 /* libswiftUIKit.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3A20B20F9A00696E30 /* libswiftUIKit.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6420B20F9E00696E30 /* libswiftRemoteMirror.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3C20B20F9A00696E30 /* libswiftRemoteMirror.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6520B20F9E00696E30 /* libswiftWatchKit.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3D20B20F9A00696E30 /* libswiftWatchKit.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6620B20F9E00696E30 /* libswiftXCTest.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3E20B20F9B00696E30 /* libswiftXCTest.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6720B20F9E00696E30 /* libswiftQuartzCore.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F3F20B20F9B00696E30 /* libswiftQuartzCore.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6820B20F9E00696E30 /* libswiftCoreMedia.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F4020B20F9B00696E30 /* libswiftCoreMedia.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6920B20F9E00696E30 /* libswiftCoreGraphics.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F4120B20F9B00696E30 /* libswiftCoreGraphics.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6A20B20F9E00696E30 /* libswiftMetal.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F4220B20F9C00696E30 /* libswiftMetal.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6B20B20F9E00696E30 /* libswiftModelIO.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F4320B20F9C00696E30 /* libswiftModelIO.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6C20B20F9E00696E30 /* libswiftIntents.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F4420B20F9C00696E30 /* libswiftIntents.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6D20B20F9E00696E30 /* libswiftContacts.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F4520B20F9C00696E30 /* libswiftContacts.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6E20B20F9E00696E30 /* libswiftCoreAudio.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F4620B20F9D00696E30 /* libswiftCoreAudio.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F6F20B20F9E00696E30 /* libswiftAssetsLibrary.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F4720B20F9D00696E30 /* libswiftAssetsLibrary.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F7120B20F9E00696E30 /* libswiftsimd.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F4920B20F9D00696E30 /* libswiftsimd.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E8E1F7220B20F9E00696E30 /* libswiftSwiftOnoneSupport.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 9E8E1F4A20B20F9D00696E30 /* libswiftSwiftOnoneSupport.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		9E9E495620B1C4090078423E /* Images-3.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E9E495520B1C4090078423E /* Images-3.xcassets */; };
 		D77BCD848F044F3F918E51D3 /* libRNTrackPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 283B6CDBE9AC49CB81A2AECD /* libRNTrackPlayer.a */; };
 		E205D41520ACD62E007FADEC /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 /* End PBXBuildFile section */
@@ -330,6 +361,51 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9E8E1F7320B20F9E00696E30 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9E8E1F6020B20F9E00696E30 /* libswiftSpriteKit.dylib in Embed Libraries */,
+				9E8E1F6220B20F9E00696E30 /* libswiftUIKit.dylib in Embed Libraries */,
+				9E8E1F5920B20F9E00696E30 /* libswiftCoreImage.dylib in Embed Libraries */,
+				9E8E1F5720B20F9E00696E30 /* libswiftHomeKit.dylib in Embed Libraries */,
+				9E8E1F5520B20F9E00696E30 /* libswiftAVFoundation.dylib in Embed Libraries */,
+				9E8E1F6E20B20F9E00696E30 /* libswiftCoreAudio.dylib in Embed Libraries */,
+				9E8E1F6A20B20F9E00696E30 /* libswiftMetal.dylib in Embed Libraries */,
+				9E8E1F5A20B20F9E00696E30 /* libswiftGameplayKit.dylib in Embed Libraries */,
+				9E8E1F6720B20F9E00696E30 /* libswiftQuartzCore.dylib in Embed Libraries */,
+				9E8E1F6620B20F9E00696E30 /* libswiftXCTest.dylib in Embed Libraries */,
+				9E8E1F4B20B20F9E00696E30 /* libswiftARKit.dylib in Embed Libraries */,
+				9E8E1F5020B20F9E00696E30 /* libswiftCoreData.dylib in Embed Libraries */,
+				9E8E1F6420B20F9E00696E30 /* libswiftRemoteMirror.dylib in Embed Libraries */,
+				9E8E1F5220B20F9E00696E30 /* libswiftDispatch.dylib in Embed Libraries */,
+				9E8E1F4F20B20F9E00696E30 /* libswiftCoreFoundation.dylib in Embed Libraries */,
+				9E8E1F5320B20F9E00696E30 /* libswiftCoreLocation.dylib in Embed Libraries */,
+				9E8E1F6120B20F9E00696E30 /* libswiftGLKit.dylib in Embed Libraries */,
+				9E8E1F6520B20F9E00696E30 /* libswiftWatchKit.dylib in Embed Libraries */,
+				9E8E1F5E20B20F9E00696E30 /* libswiftCallKit.dylib in Embed Libraries */,
+				9E8E1F5120B20F9E00696E30 /* libswiftos.dylib in Embed Libraries */,
+				9E8E1F5B20B20F9E00696E30 /* libswiftMapKit.dylib in Embed Libraries */,
+				9E8E1F6B20B20F9E00696E30 /* libswiftModelIO.dylib in Embed Libraries */,
+				9E8E1F7220B20F9E00696E30 /* libswiftSwiftOnoneSupport.dylib in Embed Libraries */,
+				9E8E1F6D20B20F9E00696E30 /* libswiftContacts.dylib in Embed Libraries */,
+				9E8E1F7120B20F9E00696E30 /* libswiftsimd.dylib in Embed Libraries */,
+				9E8E1F6C20B20F9E00696E30 /* libswiftIntents.dylib in Embed Libraries */,
+				9E8E1F6F20B20F9E00696E30 /* libswiftAssetsLibrary.dylib in Embed Libraries */,
+				9E8E1F6820B20F9E00696E30 /* libswiftCoreMedia.dylib in Embed Libraries */,
+				9E8E1F5F20B20F9E00696E30 /* libswiftMetalKit.dylib in Embed Libraries */,
+				9E8E1F4C20B20F9E00696E30 /* libswiftFoundation.dylib in Embed Libraries */,
+				9E8E1F5620B20F9E00696E30 /* libswiftPhotos.dylib in Embed Libraries */,
+				9E8E1F6920B20F9E00696E30 /* libswiftCoreGraphics.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
@@ -338,7 +414,6 @@
 		13B07F961A680F5B00A75B9A /* bibimpop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bibimpop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = bibimpop/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = bibimpop/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = bibimpop/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = bibimpop/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = bibimpop/main.m; sourceTree = "<group>"; };
 		283B6CDBE9AC49CB81A2AECD /* libRNTrackPlayer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNTrackPlayer.a; sourceTree = "<group>"; };
@@ -346,9 +421,9 @@
 		2D02E4901E0B4A5D006451C7 /* bibimpop-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "bibimpop-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E392B90659C41FDA9DF6F91 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
+		9E3F72A720B2011500F50529 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		9E48B56620B053F300F2E0AC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		9E48B56F20B0542F00F2E0AC /* bibimpop-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bibimpop-Bridging-Header.h"; sourceTree = "<group>"; };
-		9E48B57020B0542F00F2E0AC /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		9E48B57220B0548900F2E0AC /* bibimpopTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bibimpopTests.m; sourceTree = "<group>"; };
 		9E48B57420B0568200F2E0AC /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = "../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj"; sourceTree = "<group>"; };
 		9E48B57D20B0569100F2E0AC /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -364,6 +439,39 @@
 		9E48B62820B059B300F2E0AC /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
 		9E8093A420B171DA00393429 /* Proxima-Nova-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Proxima-Nova-Bold.ttf"; path = "../../android/app/src/main/assets/fonts/Proxima-Nova-Bold.ttf"; sourceTree = "<group>"; };
 		9E8093D020B1720C00393429 /* Proxima-Nova.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Proxima-Nova.ttf"; path = "../../android/app/src/main/assets/fonts/Proxima-Nova.ttf"; sourceTree = "<group>"; };
+		9E8E1F2320B20F9500696E30 /* libswiftARKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftARKit.dylib; path = ../../../swiftStdLib/libswiftARKit.dylib; sourceTree = "<group>"; };
+		9E8E1F2420B20F9600696E30 /* libswiftFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftFoundation.dylib; path = ../../../swiftStdLib/libswiftFoundation.dylib; sourceTree = "<group>"; };
+		9E8E1F2720B20F9600696E30 /* libswiftCoreFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCoreFoundation.dylib; path = ../../../swiftStdLib/libswiftCoreFoundation.dylib; sourceTree = "<group>"; };
+		9E8E1F2820B20F9600696E30 /* libswiftCoreData.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCoreData.dylib; path = ../../../swiftStdLib/libswiftCoreData.dylib; sourceTree = "<group>"; };
+		9E8E1F2920B20F9600696E30 /* libswiftos.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftos.dylib; path = ../../../swiftStdLib/libswiftos.dylib; sourceTree = "<group>"; };
+		9E8E1F2A20B20F9700696E30 /* libswiftDispatch.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftDispatch.dylib; path = ../../../swiftStdLib/libswiftDispatch.dylib; sourceTree = "<group>"; };
+		9E8E1F2B20B20F9700696E30 /* libswiftCoreLocation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCoreLocation.dylib; path = ../../../swiftStdLib/libswiftCoreLocation.dylib; sourceTree = "<group>"; };
+		9E8E1F2D20B20F9700696E30 /* libswiftAVFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftAVFoundation.dylib; path = ../../../swiftStdLib/libswiftAVFoundation.dylib; sourceTree = "<group>"; };
+		9E8E1F2E20B20F9700696E30 /* libswiftPhotos.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftPhotos.dylib; path = ../../../swiftStdLib/libswiftPhotos.dylib; sourceTree = "<group>"; };
+		9E8E1F2F20B20F9700696E30 /* libswiftHomeKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftHomeKit.dylib; path = ../../../swiftStdLib/libswiftHomeKit.dylib; sourceTree = "<group>"; };
+		9E8E1F3120B20F9800696E30 /* libswiftCoreImage.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCoreImage.dylib; path = ../../../swiftStdLib/libswiftCoreImage.dylib; sourceTree = "<group>"; };
+		9E8E1F3220B20F9800696E30 /* libswiftGameplayKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftGameplayKit.dylib; path = ../../../swiftStdLib/libswiftGameplayKit.dylib; sourceTree = "<group>"; };
+		9E8E1F3320B20F9800696E30 /* libswiftMapKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftMapKit.dylib; path = ../../../swiftStdLib/libswiftMapKit.dylib; sourceTree = "<group>"; };
+		9E8E1F3620B20F9900696E30 /* libswiftCallKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCallKit.dylib; path = ../../../swiftStdLib/libswiftCallKit.dylib; sourceTree = "<group>"; };
+		9E8E1F3720B20F9900696E30 /* libswiftMetalKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftMetalKit.dylib; path = ../../../swiftStdLib/libswiftMetalKit.dylib; sourceTree = "<group>"; };
+		9E8E1F3820B20F9900696E30 /* libswiftSpriteKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftSpriteKit.dylib; path = ../../../swiftStdLib/libswiftSpriteKit.dylib; sourceTree = "<group>"; };
+		9E8E1F3920B20F9900696E30 /* libswiftGLKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftGLKit.dylib; path = ../../../swiftStdLib/libswiftGLKit.dylib; sourceTree = "<group>"; };
+		9E8E1F3A20B20F9A00696E30 /* libswiftUIKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftUIKit.dylib; path = ../../../swiftStdLib/libswiftUIKit.dylib; sourceTree = "<group>"; };
+		9E8E1F3C20B20F9A00696E30 /* libswiftRemoteMirror.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftRemoteMirror.dylib; path = ../../../swiftStdLib/libswiftRemoteMirror.dylib; sourceTree = "<group>"; };
+		9E8E1F3D20B20F9A00696E30 /* libswiftWatchKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftWatchKit.dylib; path = ../../../swiftStdLib/libswiftWatchKit.dylib; sourceTree = "<group>"; };
+		9E8E1F3E20B20F9B00696E30 /* libswiftXCTest.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftXCTest.dylib; path = ../../../swiftStdLib/libswiftXCTest.dylib; sourceTree = "<group>"; };
+		9E8E1F3F20B20F9B00696E30 /* libswiftQuartzCore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftQuartzCore.dylib; path = ../../../swiftStdLib/libswiftQuartzCore.dylib; sourceTree = "<group>"; };
+		9E8E1F4020B20F9B00696E30 /* libswiftCoreMedia.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCoreMedia.dylib; path = ../../../swiftStdLib/libswiftCoreMedia.dylib; sourceTree = "<group>"; };
+		9E8E1F4120B20F9B00696E30 /* libswiftCoreGraphics.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCoreGraphics.dylib; path = ../../../swiftStdLib/libswiftCoreGraphics.dylib; sourceTree = "<group>"; };
+		9E8E1F4220B20F9C00696E30 /* libswiftMetal.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftMetal.dylib; path = ../../../swiftStdLib/libswiftMetal.dylib; sourceTree = "<group>"; };
+		9E8E1F4320B20F9C00696E30 /* libswiftModelIO.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftModelIO.dylib; path = ../../../swiftStdLib/libswiftModelIO.dylib; sourceTree = "<group>"; };
+		9E8E1F4420B20F9C00696E30 /* libswiftIntents.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftIntents.dylib; path = ../../../swiftStdLib/libswiftIntents.dylib; sourceTree = "<group>"; };
+		9E8E1F4520B20F9C00696E30 /* libswiftContacts.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftContacts.dylib; path = ../../../swiftStdLib/libswiftContacts.dylib; sourceTree = "<group>"; };
+		9E8E1F4620B20F9D00696E30 /* libswiftCoreAudio.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftCoreAudio.dylib; path = ../../../swiftStdLib/libswiftCoreAudio.dylib; sourceTree = "<group>"; };
+		9E8E1F4720B20F9D00696E30 /* libswiftAssetsLibrary.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftAssetsLibrary.dylib; path = ../../../swiftStdLib/libswiftAssetsLibrary.dylib; sourceTree = "<group>"; };
+		9E8E1F4920B20F9D00696E30 /* libswiftsimd.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftsimd.dylib; path = ../../../swiftStdLib/libswiftsimd.dylib; sourceTree = "<group>"; };
+		9E8E1F4A20B20F9D00696E30 /* libswiftSwiftOnoneSupport.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftSwiftOnoneSupport.dylib; path = ../../../swiftStdLib/libswiftSwiftOnoneSupport.dylib; sourceTree = "<group>"; };
+		9E9E495520B1C4090078423E /* Images-3.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Images-3.xcassets"; path = "bibimpop/Images-3.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,9 +551,9 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				9E9E495520B1C4090078423E /* Images-3.xcassets */,
 			);
 			name = bibimpop;
 			sourceTree = "<group>";
@@ -482,8 +590,40 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				9E8E1F2320B20F9500696E30 /* libswiftARKit.dylib */,
+				9E8E1F4720B20F9D00696E30 /* libswiftAssetsLibrary.dylib */,
+				9E8E1F2D20B20F9700696E30 /* libswiftAVFoundation.dylib */,
+				9E8E1F3620B20F9900696E30 /* libswiftCallKit.dylib */,
+				9E8E1F4520B20F9C00696E30 /* libswiftContacts.dylib */,
+				9E8E1F4620B20F9D00696E30 /* libswiftCoreAudio.dylib */,
+				9E8E1F2820B20F9600696E30 /* libswiftCoreData.dylib */,
+				9E8E1F2720B20F9600696E30 /* libswiftCoreFoundation.dylib */,
+				9E8E1F4120B20F9B00696E30 /* libswiftCoreGraphics.dylib */,
+				9E8E1F3120B20F9800696E30 /* libswiftCoreImage.dylib */,
+				9E8E1F2B20B20F9700696E30 /* libswiftCoreLocation.dylib */,
+				9E8E1F4020B20F9B00696E30 /* libswiftCoreMedia.dylib */,
+				9E8E1F2A20B20F9700696E30 /* libswiftDispatch.dylib */,
+				9E8E1F2420B20F9600696E30 /* libswiftFoundation.dylib */,
+				9E8E1F3220B20F9800696E30 /* libswiftGameplayKit.dylib */,
+				9E8E1F3920B20F9900696E30 /* libswiftGLKit.dylib */,
+				9E8E1F2F20B20F9700696E30 /* libswiftHomeKit.dylib */,
+				9E8E1F4420B20F9C00696E30 /* libswiftIntents.dylib */,
+				9E8E1F3320B20F9800696E30 /* libswiftMapKit.dylib */,
+				9E8E1F4220B20F9C00696E30 /* libswiftMetal.dylib */,
+				9E8E1F3720B20F9900696E30 /* libswiftMetalKit.dylib */,
+				9E8E1F4320B20F9C00696E30 /* libswiftModelIO.dylib */,
+				9E8E1F2920B20F9600696E30 /* libswiftos.dylib */,
+				9E8E1F2E20B20F9700696E30 /* libswiftPhotos.dylib */,
+				9E8E1F3F20B20F9B00696E30 /* libswiftQuartzCore.dylib */,
+				9E8E1F3C20B20F9A00696E30 /* libswiftRemoteMirror.dylib */,
+				9E8E1F4920B20F9D00696E30 /* libswiftsimd.dylib */,
+				9E8E1F3820B20F9900696E30 /* libswiftSpriteKit.dylib */,
+				9E8E1F4A20B20F9D00696E30 /* libswiftSwiftOnoneSupport.dylib */,
+				9E8E1F3A20B20F9A00696E30 /* libswiftUIKit.dylib */,
+				9E8E1F3D20B20F9A00696E30 /* libswiftWatchKit.dylib */,
+				9E8E1F3E20B20F9B00696E30 /* libswiftXCTest.dylib */,
+				9E3F72A720B2011500F50529 /* dummy.swift */,
 				9E48B63C20B06C2400F2E0AC /* fonts */,
-				9E48B57020B0542F00F2E0AC /* dummy.swift */,
 				13B07FAE1A68108700A75B9A /* bibimpop */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* bibimpopTests */,
@@ -644,8 +784,9 @@
 				9E8093D020B1720C00393429 /* Proxima-Nova.ttf */,
 				9E8093A420B171DA00393429 /* Proxima-Nova-Bold.ttf */,
 			);
-			path = fonts;
-			sourceTree = "<group>";
+			name = fonts;
+			path = "/Users/Karan/Documents/music-app/ios/fonts";
+			sourceTree = "<absolute>";
 		};
 		E279A3D920A8CD89000AC2CD /* Recovered References */ = {
 			isa = PBXGroup;
@@ -654,7 +795,8 @@
 				9E392B90659C41FDA9DF6F91 /* libBVLinearGradient.a */,
 			);
 			name = "Recovered References";
-			sourceTree = "<group>";
+			path = "/Users/Karan/Documents/music-app/ios";
+			sourceTree = "<absolute>";
 		};
 /* End PBXGroup section */
 
@@ -685,6 +827,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				9E8E1F7320B20F9E00696E30 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -1133,8 +1276,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				9E8093D120B1720C00393429 /* Proxima-Nova.ttf in Resources */,
+				9E9E495620B1C4090078423E /* Images-3.xcassets in Resources */,
 				9E8093CD20B171DA00393429 /* Proxima-Nova-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1143,7 +1286,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1201,7 +1343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				9E48B57120B0542F00F2E0AC /* dummy.swift in Sources */,
+				9E3F72A820B2011500F50529 /* dummy.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1301,7 +1443,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -1330,7 +1471,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DDCF2FQ8BT;
@@ -1498,6 +1638,7 @@
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1539,6 +1680,7 @@
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

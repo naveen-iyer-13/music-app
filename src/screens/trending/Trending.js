@@ -217,12 +217,7 @@ class Trending extends Component {
         }
       })
     }
-    if(this.state.loading){
-      return (
-        <SplashScreen />
-      )
-    }
-    else {
+
       return (
         <View style={styles.container}>
         <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: Platform.os === 'android' ? 10 : 20, width: Dimensions.get('window').width}} />
@@ -237,7 +232,7 @@ class Trending extends Component {
              </ScrollView>
            </ImageBackground>
          </View>
-         <Text style={styles.heading}>TODAY{"'"}S TOP 100 SONGS</Text>
+         <Text style={styles.heading}>TODAYS TOP 100 SONGS</Text>
          <ScrollView>
           {List}
          </ScrollView>
@@ -256,7 +251,7 @@ class Trending extends Component {
         </View>
       )
     }
-  }
+
 }
 
 export default Trending;
@@ -268,7 +263,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     textAlign: 'center',
-    width: '100%',
+    width: Dimensions.get('window').width,
     marginBottom: 10,
     marginTop: 10,
     fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
