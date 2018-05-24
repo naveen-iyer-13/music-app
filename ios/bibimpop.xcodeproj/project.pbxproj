@@ -745,7 +745,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = DDCF2FQ8BT;
+						DevelopmentTeam = 26KBVBKNA3;
 						LastSwiftMigration = 0920;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -1301,11 +1301,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = DDCF2FQ8BT;
+				DEVELOPMENT_TEAM = 26KBVBKNA3;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-track-player/ios/RNTrackPlayer/**",
@@ -1318,6 +1318,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bibimpop.user;
 				PRODUCT_NAME = bibimpop;
 				SWIFT_OBJC_BRIDGING_HEADER = "bibimpop-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1330,10 +1331,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DDCF2FQ8BT;
+				DEVELOPMENT_TEAM = 26KBVBKNA3;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-track-player/ios/RNTrackPlayer/**",
@@ -1346,6 +1347,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bibimpop.user;
 				PRODUCT_NAME = bibimpop;
 				SWIFT_OBJC_BRIDGING_HEADER = "bibimpop-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
