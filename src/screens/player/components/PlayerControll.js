@@ -4,7 +4,7 @@ import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
 import { Image, StyleSheet, Text, TouchableOpacity, View, Platform,ViewPropTypes, Dimensions, AsyncStorage, Modal, ToastAndroid } from 'react-native';
 import PlayerModal from '../../../common/PlayerModal'
 import QueueList from './QueueList'
-import { addToLibrary, ifInLibrary, removeFromLibrary } from '../../../common/helpers'
+import { addToLibrary, ifInLibrary, removeFromLibrary, ifInPlaylists } from '../../../common/helpers'
 import {
   BarIndicator,
 } from 'react-native-indicators';
@@ -34,7 +34,7 @@ class Duration extends ProgressComponent {
     setInterval(() => {
       if (this.getProgress() > 0 && this.props.playbackState !== TrackPlayer.STATE_PAUSED)
         this.setState({
-          currentSecond: this.getDuration()*(this.getProgress())
+          currentSecond: 0
         })
       else if (this.getProgress() === 0)
         this.setState({
@@ -221,7 +221,7 @@ export default class PlayerControll extends Component {
   }
 
   addNewPlaylist = (playlistName, data) => {
-    console.log(playlistName, data)
+    // console.log(playlistName, data)
     AsyncStorage.getItem('playlists', (err, res) => {
       let playlists = res ? JSON.parse(res) : {}
       if(!Object.keys(playlists).includes(data)){
@@ -263,13 +263,13 @@ export default class PlayerControll extends Component {
   render() {
     const { style, onNext, onPrevious, onTogglePlayback, navigation, playlistNames, handleQueue, shuffleTracks, songs, storageKey } = this.props;
     const { playbackState, track } = this.props
-    console.log("Library", this.state.library)
+    // console.log("Library", this.state.library)
     var middleButtonText = 'Play'
     if (playbackState === TrackPlayer.STATE_PLAYING
       || playbackState === TrackPlayer.STATE_BUFFERING) {
       middleButtonText = 'Pause'
     }
-    console.log(songs, track, "List all")
+    // console.log(songs, track, "List all")
     let path = require('../../../images/nav-heart.png')
     if (this.state.library)
       path = require('../../../images/library-active.png')

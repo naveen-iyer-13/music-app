@@ -31,6 +31,8 @@
 		9E8093D120B1720C00393429 /* Proxima-Nova.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8093D020B1720C00393429 /* Proxima-Nova.ttf */; };
 		D77BCD848F044F3F918E51D3 /* libRNTrackPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 283B6CDBE9AC49CB81A2AECD /* libRNTrackPlayer.a */; };
 		E205D41520ACD62E007FADEC /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
+		E258843320BAF4860013F9E1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E258843220BAF4860013F9E1 /* AudioToolbox.framework */; };
+		E258843420BAF5A70013F9E1 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E48B62520B059A700F2E0AC /* libRCTAnimation.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,20 +218,6 @@
 			remoteGlobalIDString = 3D3CD9181DE5FBD800167DC4;
 			remoteInfo = "jschelpers-tvOS";
 		};
-		9E48B5FA20B057CA00F2E0AC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E48B5D720B057CA00F2E0AC /* React.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EBF21BDC1FC498900052F4D5;
-			remoteInfo = jsinspector;
-		};
-		9E48B5FC20B057CA00F2E0AC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E48B5D720B057CA00F2E0AC /* React.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EBF21BFA1FC4989A0052F4D5;
-			remoteInfo = "jsinspector-tvOS";
-		};
 		9E48B5FE20B057CA00F2E0AC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9E48B5D720B057CA00F2E0AC /* React.xcodeproj */;
@@ -364,6 +352,8 @@
 		9E48B62820B059B300F2E0AC /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
 		9E8093A420B171DA00393429 /* Proxima-Nova-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Proxima-Nova-Bold.ttf"; path = "../../android/app/src/main/assets/fonts/Proxima-Nova-Bold.ttf"; sourceTree = "<group>"; };
 		9E8093D020B1720C00393429 /* Proxima-Nova.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Proxima-Nova.ttf"; path = "../../android/app/src/main/assets/fonts/Proxima-Nova.ttf"; sourceTree = "<group>"; };
+		E258843120BAF4860013F9E1 /* bibimpop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = bibimpop.entitlements; path = bibimpop/bibimpop.entitlements; sourceTree = "<group>"; };
+		E258843220BAF4860013F9E1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,6 +368,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E258843420BAF5A70013F9E1 /* libRCTAnimation.a in Frameworks */,
 				9E48B63420B05BC800F2E0AC /* libRCTBlob.a in Frameworks */,
 				9E48B63520B05BC800F2E0AC /* libRCTImage.a in Frameworks */,
 				9E48B63620B05BC800F2E0AC /* libRCTNetwork.a in Frameworks */,
@@ -389,6 +380,7 @@
 				9E48B63120B05AF100F2E0AC /* libRCTWebSocket.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				E205D41520ACD62E007FADEC /* libReact.a in Frameworks */,
+				E258843320BAF4860013F9E1 /* AudioToolbox.framework in Frameworks */,
 				D77BCD848F044F3F918E51D3 /* libRNTrackPlayer.a in Frameworks */,
 				792ED132307345B5B30FB93B /* libBVLinearGradient.a in Frameworks */,
 			);
@@ -440,6 +432,7 @@
 		13B07FAE1A68108700A75B9A /* bibimpop */ = {
 			isa = PBXGroup;
 			children = (
+				E258843120BAF4860013F9E1 /* bibimpop.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -453,6 +446,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E258843220BAF4860013F9E1 /* AudioToolbox.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 			);
 			name = Frameworks;
@@ -590,8 +584,6 @@
 				9E48B5F520B057CA00F2E0AC /* libcxxreact.a */,
 				9E48B5F720B057CA00F2E0AC /* libjschelpers.a */,
 				9E48B5F920B057CA00F2E0AC /* libjschelpers.a */,
-				9E48B5FB20B057CA00F2E0AC /* libjsinspector.a */,
-				9E48B5FD20B057CA00F2E0AC /* libjsinspector-tvOS.a */,
 				9E48B5FF20B057CA00F2E0AC /* libthird-party.a */,
 				9E48B60120B057CA00F2E0AC /* libthird-party.a */,
 				9E48B60320B057CA00F2E0AC /* libdouble-conversion.a */,
@@ -747,6 +739,14 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 26KBVBKNA3;
 						LastSwiftMigration = 0920;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1005,20 +1005,6 @@
 			fileType = archive.ar;
 			path = libjschelpers.a;
 			remoteRef = 9E48B5F820B057CA00F2E0AC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9E48B5FB20B057CA00F2E0AC /* libjsinspector.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libjsinspector.a;
-			remoteRef = 9E48B5FA20B057CA00F2E0AC /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9E48B5FD20B057CA00F2E0AC /* libjsinspector-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libjsinspector-tvOS.a";
-			remoteRef = 9E48B5FC20B057CA00F2E0AC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9E48B5FF20B057CA00F2E0AC /* libthird-party.a */ = {
@@ -1303,6 +1289,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = bibimpop/bibimpop.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 26KBVBKNA3;
@@ -1333,6 +1320,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = bibimpop/bibimpop.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 26KBVBKNA3;
 				HEADER_SEARCH_PATHS = (

@@ -1,6 +1,17 @@
 import React, { Component } from 'react'
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
-import { StyleSheet, Text, TouchableOpacity, View, Dimensions, Image, ToastAndroid, AsyncStorage, AppRegistry, EventEmitter } from 'react-native';
+import {
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+	Dimensions,
+	Image,
+	ToastAndroid,
+	AsyncStorage,
+	AppRegistry,
+	EventEmitter
+} from 'react-native';
 import PlayerControll from './components/PlayerControll'
 import Footer from './../../common/Footer'
 // import data from '../../common/data.json'
@@ -23,7 +34,7 @@ export default class Player extends Component {
 			track: {},
 			trackList: [],
 			songs: [],
-			lastState: -1		
+			lastState: -1
 		}
 	}
 
@@ -32,7 +43,7 @@ export default class Player extends Component {
 			const { index, storageKey, name, search } = this.props.navigation.state.params
 			if (search) {
 				let songs = search
-				trackList = search	
+				trackList = search
 				let obj, list = []
 				let first =index
 				trackList.forEach((track, i) => {
@@ -41,7 +52,7 @@ export default class Player extends Component {
 					obj.artwork = track.cover
 					obj.title = track.title
 					obj.id = i.toString()
-					obj.bp_id = track.bp_id	
+					obj.bp_id = track.bp_id
 					obj.artist = track.artist
 					obj.thumbnail = track.thumbnail
 					list.push(obj)
@@ -62,7 +73,7 @@ export default class Player extends Component {
 				AsyncStorage.getItem(storageKey, (err, res) => {
 					if (name)
 						trackList = JSON.parse(res)[name]
-					else 
+					else
 						trackList = JSON.parse(res)
 					trackList = trackList ? trackList : []
 					let songs = trackList
@@ -77,7 +88,7 @@ export default class Player extends Component {
 						obj.artist = track.artist
 						obj.thumbnail = track.thumbnail
 						list.push(obj)
-						
+
 					})
 					trackList = list
 					this.setState({
@@ -131,7 +142,7 @@ export default class Player extends Component {
 		AsyncStorage.getItem('trendingSongs', (err,res) => {
 			if (name)
 				trackList = JSON.parse(res)[name]
-			else 
+			else
 				trackList = JSON.parse(res)
 			let songs = trackList
 			let obj, list = []
@@ -147,9 +158,6 @@ export default class Player extends Component {
 					obj.artist = track.artist
 					obj.thumbnail = track.thumbnail
 					list.push(obj)
-					
-					
-
 				})
 			}
 			trackList = list
@@ -168,6 +176,7 @@ export default class Player extends Component {
 
 	componentDidMount() {
 		TrackPlayer.setupPlayer();
+		console.log('player setup');
 	//	if (!TrackPlayer.STATE_PLAYING && !TrackPlayer.STATE_BUFFERING  && !TrackPlayer.STATE_NONE && !TrackPlayer.STATE_PAUSED && !TrackPlayer.STATE_STOPPED)
 			TrackPlayer.registerEventHandler(async (data) => {
 				if (data.type === 'playback-track-changed') {
@@ -193,7 +202,7 @@ export default class Player extends Component {
 					})
 				}
 			});
-		
+
 		TrackPlayer.updateOptions({
 			stopWithApp: true,
 			capabilities: [
@@ -209,11 +218,15 @@ export default class Player extends Component {
 	}
 
 	togglePlayback = async (first) => {
-		const { playbackState, trackList } = this.state
+		let { playbackState, trackList } = this.state
 		const currentTrack = await TrackPlayer.getCurrentTrack();
-		if (currentTrack == null) {
+		console.log(currentTrack);
+		if (!currentTrack) {
 			TrackPlayer.reset();
+			// trackList = [...trackList]
+			trackList = trackList.map(item => ({id: item.id, title: item.title, artist: item.artist, url: item.url ? item.url : 'http://s3.amazonaws.com/bibimpop-tracks/zywuerk9.mp3'}))
 			await TrackPlayer.add(trackList);
+			console.log(await TrackPlayer.getQueue())
 			if (first) {
 				let id = parseInt(first)
 		while(!trackList[id].url || trackList[id].url === 'processing')
@@ -233,8 +246,10 @@ export default class Player extends Component {
 			ToastAndroid.show("Song not available", ToastAndroid.SHORT)
 				await TrackPlayer.skip(id.toString())
 				}
+				console.log("Play")
 				TrackPlayer.play();
 			} else {
+				console.log("Pause")
 				TrackPlayer.pause();
 			}
 		}
@@ -249,13 +264,13 @@ export default class Player extends Component {
 			while (!trackList[id].url || trackList[id].url === "processing") {
 				//ToastAndroid.show("Song not available", ToastAndroid.SHORT)
 				id++
-				
+
 			}
 			if (j !== id)
 				ToastAndroid.show("Song not available", ToastAndroid.SHORT)
 			id = id.toString()
 			await TrackPlayer.skip(id)
-			
+
 		} catch (_) {
 			await TrackPlayer.skipToNext()
 		}
@@ -268,13 +283,13 @@ export default class Player extends Component {
 			id = (id === 0) ? 0 : id-1
 			let j = id
 			while (!trackList[id].url || trackList[id].url === "processing") {
-				//ToastAndroid.show("Song not available", ToastAndroid.SHORT)	
+				//ToastAndroid.show("Song not available", ToastAndroid.SHORT)
 				if(id === 0)
-					break	
+					break
 				id = (id === 0) ? 0 : id-1
 
 			}
-			if (j !== id) 
+			if (j !== id)
 				ToastAndroid.show("Song not available", ToastAndroid.SHORT)
 			id = id.toString()
 			await TrackPlayer.skip(id)
@@ -282,7 +297,7 @@ export default class Player extends Component {
 	}
 
 	handleQueue = async (index) => {
-		
+
 		//await TrackPlayer.skip(id.toString())
 		this.togglePlayback(index)
 	}
@@ -302,7 +317,7 @@ export default class Player extends Component {
 			TrackPlayer.reset()
 			this.togglePlayback(0)
 		})
-		
+
 	}
 
 
