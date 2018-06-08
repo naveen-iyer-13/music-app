@@ -209,7 +209,7 @@ class Trending extends Component {
                 source={item.cover ? {uri: item.cover} : defaultIcon}
               />
               </TouchableOpacity>
-              <View style={{height: 65, width: 100,backgroundColor: '#FFFFFF', opacity: 0.9}}>
+              <View style={{height: 40, width: 100,backgroundColor: '#FFFFFF', opacity: 0.5}}>
                <Text style={styles.trendingTitle}>{item.artist}</Text>
               </View>
             </View>
@@ -219,7 +219,7 @@ class Trending extends Component {
     }
     if(this.state.loading){
       return (
-        <SplashScreen />
+        <Text>Loading Screen</Text>
       )
     }
     else {
@@ -228,6 +228,7 @@ class Trending extends Component {
         <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: Platform.os === 'android' ? 10 : 20, width: Dimensions.get('window').width}} />
          <View style={{height: 210, width: Dimensions.get('window').width}}>
            <ImageBackground
+              resizeMode = {'cover'}
               source={{uri: trending[randomIndex] ? trending[randomIndex].cover : require('./../../images/default-icon.png')}}
               style={styles.backgroundImage}
               blurRadius={0.4}>
@@ -299,10 +300,10 @@ const styles = StyleSheet.create({
   },
   trendingArtist: {
     fontFamily: Platform.os === 'android' ? 'Proxima-Nova-Bold' : 'ProximaNova-Bold',
-    color: '#fff',
+    color: '#FFFFFF',
     fontSize: 22,
-    paddingTop: 15,
-    height: 50,
     textAlign: 'center',
+    backgroundColor: 'transparent',
+    paddingTop: 25
   }
 });
