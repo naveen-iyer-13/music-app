@@ -43,7 +43,7 @@ class Library extends Component{
     console.log(this.state)
     return (
       <View style={styles.container}>
-      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height:Platform.os === 'android' ? 10 : 20,width: Dimensions.get('window').width}} />
+      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height:Platform.OS === 'android' ? 10 : 20,width: Dimensions.get('window').width}} />
         <View style={styles.screenContainer} navigation={this.props.navigation}>
           <Header
             header={header}
@@ -54,12 +54,12 @@ class Library extends Component{
           <View style={styles.containerItem}>
             <View style={styles.headerItem}>
               <TouchableOpacity onPress={() => tab !== 'songs' ? this.handleTabPress('songs') : {}}>
-                <Text style={{fontSize: 16, color: tab == 'songs' ? '#6DEAD3' : '#C9C9C9', fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>SONGS</Text>
+                <Text style={{fontSize: 16, color: tab == 'songs' ? '#6DEAD3' : '#C9C9C9', fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>SONGS</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.headerItem2}>
               <TouchableOpacity onPress={() => tab === 'songs' ? this.handleTabPress('playlists') : {}}>
-                <Text style={{fontSize: 16, color: tab == 'songs' ? '#C9C9C9' : '#6DEAD3', fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>PLAYLISTS</Text>
+                <Text style={{fontSize: 16, color: tab == 'songs' ? '#C9C9C9' : '#6DEAD3', fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>PLAYLISTS</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').heights
   },
   screenContainer:{
-    height: Platform.os === 'android' ? height - 80 : height - 70,
+    height: Platform.OS === 'android' ? height - 85 : height - 70,
   },
   containerItem:{
     display: 'flex',

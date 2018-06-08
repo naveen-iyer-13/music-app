@@ -121,7 +121,7 @@ class PopupModal extends Component{
                     <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
                        marginLeft: '20%',marginTop: 15, justifyContent: 'center', borderRadius: 10, backgroundColor: '#f4f4f4', marginBottom: 15}}>
                        <TouchableOpacity onPress={() => createPlaylist()}>
-                         <Text style={{fontSize: 16, color: '#4A4A4A'}}>New Playlist</Text>
+                         <Text style={{fontSize: 16, color: '#4A4A4A', fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova"}}>New Playlist</Text>
                        </TouchableOpacity>
                      </LinearGradient>
                      <ScrollView>
@@ -171,20 +171,20 @@ const styles = StyleSheet.create({
   },
   subheading: {
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     marginBottom: 10,
     color: '#919191'
   },
   optionButton: {
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#FFFFFF'
   },
   optionButtonCreate: {
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#FFFFFF',
   },
@@ -197,11 +197,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
     //fontFamily: ''
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   playlistHeading: {
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 18,
     marginBottom: 10,
     color: '#1C1C1C'
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     color: '#2B2B2B',
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 17,
     marginBottom: 7
   },
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     color: '#2B2B2B',
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 15,
     margin: 5
   }
