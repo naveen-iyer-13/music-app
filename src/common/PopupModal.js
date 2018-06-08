@@ -119,9 +119,9 @@ class PopupModal extends Component{
                    :
                    <View style={{height: 250}}>
                     <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
-                       marginLeft: '20%',marginTop: 15, justifyContent: 'center', borderRadius: 10, backgroundColor: '#f4f4f4', marginBottom: 15}}>
+                       marginLeft: '20%',marginTop: 15, justifyContent: 'center', borderRadius: 10, marginBottom: 15}}>
                        <TouchableOpacity onPress={() => createPlaylist()}>
-                         <Text style={{fontSize: 16, color: '#4A4A4A', fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova"}}>New Playlist</Text>
+                         <Text style={{fontSize: 16, color: '#4A4A4A',backgroundColor: 'transparent', fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova"}}>New Playlist</Text>
                        </TouchableOpacity>
                      </LinearGradient>
                      <ScrollView>
