@@ -12,7 +12,7 @@ import {
   AlertIOS,
   TextInput,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
 } from 'react-native'
 import Modal from "react-native-modal";
 let { width, height } = Dimensions.get('window')
@@ -57,11 +57,13 @@ class PopupModal extends Component{
   render() {
     const { active, closeModal, song, openPlaylist, playlistName, addToPlaylist, createPlaylist, addPlaylistModal, onlyModal, isPlaylistPage } = this.props
     const { newPlaylistName, addSong } = this.state
-    console.log(this.state, this.props);
     return(
       <Modal
         isVisible={active}
         onBackButtonPress={() => closeModal()}
+        onStartShouldSetResponder={() => {
+           return closeModal();
+         }}
         onBackdropPress = {() => closeModal()}>
         <View style={{flex: 1, justifyContent: addPlaylistModal ? 'center' : 'flex-end'}}>
          {
@@ -75,7 +77,7 @@ class PopupModal extends Component{
                  onChangeText={(text) => this.setState({newPlaylistName: text})}
               />
              </View>
-             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row', backgroundColor:'#000', alignItems: 'center', height: 50, borderBottomLeftRadius: 8, borderBottomRightRadius: 8}}>
+             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row',alignItems: 'center', height: 50, borderRadius: 8}}>
                <TouchableOpacity style={styles.optionOverview} onPress={() => closeModal('Cancel Create')}>
                  <Text style={styles.optionButton}>CANCEL</Text>
                </TouchableOpacity>
@@ -119,7 +121,7 @@ class PopupModal extends Component{
                     <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
                        marginLeft: '20%',marginTop: 15, justifyContent: 'center', borderRadius: 10, backgroundColor: '#f4f4f4', marginBottom: 15}}>
                        <TouchableOpacity onPress={() => createPlaylist()}>
-                         <Text style={{fontFamily: 'Proxima-Nova-Bold', fontSize: 16, color: '#4A4A4A'}}>New Playlist</Text>
+                         <Text style={{fontSize: 16, color: '#4A4A4A'}}>New Playlist</Text>
                        </TouchableOpacity>
                      </LinearGradient>
                      <ScrollView>
@@ -153,31 +155,36 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     alignItems: 'center',
-    borderRightWidth: 1,
-    borderColor: '#FFFFFF',
     height: 50,
-    justifyContent:'center'
+    justifyContent:'center',
+    backgroundColor:'transparent',
+    borderRightWidth:1,
+    borderColor: '#FFFFFF'
   },
   optionOverview2: {
     display: 'flex',
     flex: 1,
     alignItems: 'center',
     height: 50,
-    justifyContent:'center'
+    justifyContent:'center',
+    backgroundColor:'transparent'
   },
   subheading: {
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     marginBottom: 10,
     color: '#919191'
   },
   optionButton: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#FFFFFF'
   },
   optionButtonCreate: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#FFFFFF',
   },
@@ -189,10 +196,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 15,
-    fontFamily: 'Proxima-Nova'
+    //fontFamily: ''
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   playlistHeading: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 18,
     marginBottom: 10,
     color: '#1C1C1C'
@@ -247,20 +256,22 @@ const styles = StyleSheet.create({
   TextStyle: {
     paddingLeft: 15,
     color: '#2B2B2B',
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
     fontSize: 15,
   },
   TextStylePlaylist:{
     paddingLeft: 15,
     color: '#2B2B2B',
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 17,
     marginBottom: 7
   },
   PlayTextStyle:{
     paddingLeft: 15,
     color: '#2B2B2B',
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 15,
     margin: 5
   }

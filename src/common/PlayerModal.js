@@ -32,9 +32,12 @@ class PlayerModal extends Component{
     return(
       <View>
       <Modal
-        isVisible={active}
-        onBackButtonPress={() => closeModal()}
-        onBackdropPress = {() => closeModal()}>
+      isVisible={active}
+      onBackButtonPress={() => closeModal()}
+      onStartShouldSetResponder={() => {
+         return closeModal();
+       }}
+      onBackdropPress = {() => closeModal()}>
           <View style={{flex: 1, justifyContent: addPlaylistModal ? 'center' : 'flex-end'}}>
          <View style={styles.modalView}>
         {
@@ -44,7 +47,7 @@ class PlayerModal extends Component{
                     <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
                        marginLeft: '20%',marginTop: 15, justifyContent: 'center', borderRadius: 10, backgroundColor: '#f4f4f4', marginBottom: 15}}>
                        <TouchableOpacity onPress={() => createPlaylist()}>
-                         <Text style={{fontFamily: 'Proxima-Nova-Bold', fontSize: 16, color: '#4A4A4A'}}>New Playlist</Text>
+                         <Text style={{fontSize: 16, color: '#4A4A4A'}}>New Playlist</Text>
                        </TouchableOpacity>
                      </LinearGradient>
                      <ScrollView>
@@ -71,13 +74,13 @@ class PlayerModal extends Component{
                  onChangeText={(text) => this.setState({newPlaylistName: text})}
               />
              </View>
-             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row', backgroundColor:'#000', alignItems: 'center', height: 50, borderBottomLeftRadius: 8, borderBottomRightRadius: 8}}>
-               <TouchableOpacity style={styles.optionOverview} onPress={() => closeModal('addPlaylist')}>
-                 <Text style={styles.optionButton}>CANCEL</Text>
-               </TouchableOpacity>
-               <TouchableOpacity style={styles.optionOverview2} onPress={() => this.state.newPlaylistName ? addNewPlaylist(playlistName, this.state.newPlaylistName) : {}}>
-                 <Text style={styles.optionButton}>CREATE</Text>
-               </TouchableOpacity>
+             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row',alignItems: 'center', height: 50, borderRadius: 8}}>
+             <TouchableOpacity style={styles.optionOverview} onPress={() => closeModal('addPlaylist')}>
+               <Text style={styles.optionButton}>CANCEL</Text>
+             </TouchableOpacity>
+             <TouchableOpacity style={styles.optionOverview2} onPress={() => this.state.newPlaylistName ? addNewPlaylist(playlistName, this.state.newPlaylistName) : {}}>
+               <Text style={styles.optionButton}>CREATE</Text>
+             </TouchableOpacity>
              </LinearGradient>
            </View>
            :
@@ -142,7 +145,8 @@ const styles = StyleSheet.create({
   TextStyle: {
     paddingLeft: 10,
     color: '#4B4B4B',
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 14
   },
   optionOverview: {
@@ -162,18 +166,21 @@ const styles = StyleSheet.create({
     justifyContent:'center'
   },
   subheading: {
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     marginBottom: 10,
     color: '#919191'
   },
   optionButton: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#FFFFFF'
   },
   optionButtonCreate: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#6DEAD3',
   },
@@ -185,10 +192,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 15,
-    fontFamily: 'Proxima-Nova'
+    //fontFamily: ''
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   playlistHeading: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 18,
     marginBottom: 10,
     color: '#1C1C1C'
@@ -244,20 +253,23 @@ const styles = StyleSheet.create({
   TextStyle: {
     paddingLeft: 15,
     color: '#2B2B2B',
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 15,
   },
   TextStylePlaylist:{
     paddingLeft: 15,
     color: '#2B2B2B',
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 17,
     marginBottom: 7
   },
   PlayTextStyle:{
     paddingLeft: 15,
     color: '#2B2B2B',
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 15,
     margin: 5
   }

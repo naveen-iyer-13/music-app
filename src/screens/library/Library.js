@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  Platform
 } from 'react-native'
 import Footer from './../../common/Footer'
 import Songs from './components/Songs'
@@ -39,9 +40,10 @@ class Library extends Component{
 
   render() {
     const { searchTerm, tab, header, closePlaylist, openCreatePlaylistModal } = this.state
+    console.log(this.state)
     return (
       <View style={styles.container}>
-      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height:Platform.os === 'android' ? 10 : 20,width: Dimensions.get('window').width}} />
         <View style={styles.screenContainer} navigation={this.props.navigation}>
           <Header
             header={header}
@@ -52,12 +54,12 @@ class Library extends Component{
           <View style={styles.containerItem}>
             <View style={styles.headerItem}>
               <TouchableOpacity onPress={() => tab !== 'songs' ? this.handleTabPress('songs') : {}}>
-                <Text style={{fontSize: 16, color: tab == 'songs' ? '#6DEAD3' : '#C9C9C9', fontFamily: 'Proxima-Nova'}}>SONGS</Text>
+                <Text style={{fontSize: 16, color: tab == 'songs' ? '#6DEAD3' : '#C9C9C9', fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>SONGS</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.headerItem2}>
               <TouchableOpacity onPress={() => tab === 'songs' ? this.handleTabPress('playlists') : {}}>
-                <Text style={{fontSize: 16, color: tab == 'songs' ? '#C9C9C9' : '#6DEAD3', fontFamily: 'Proxima-Nova'}}>PLAYLISTS</Text>
+                <Text style={{fontSize: 16, color: tab == 'songs' ? '#C9C9C9' : '#6DEAD3', fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>PLAYLISTS</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').heights
   },
   screenContainer:{
-    height: height - 85
+    height: Platform.os === 'android' ? height - 80 : height - 70,
   },
   containerItem:{
     display: 'flex',

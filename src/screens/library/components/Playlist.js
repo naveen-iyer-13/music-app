@@ -6,6 +6,7 @@ import {
   AsyncStorage,
   Dimensions,
   Image,
+  Platform
 } from 'react-native'
 import { ListView } from './../../../common/ListView'
 import Songs from './Songs'
@@ -144,8 +145,8 @@ class Playlists extends Component{
           :
           <View style={{ display: 'flex',height: (height * 50)/100, alignItems: 'center', justifyContent: 'center'}}>
                   <Image source={require('./../../../images/broken-heart.png')} style={{width: 50, height: 50}}/>
-                  <Text style={{ width: 150,fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', textAlign: 'center'}}>
-                    You don't have any playlist in your library!
+                  <Text style={{ width: 150,fontSize: 18, color: '#252525', opacity: 0.4, textAlign: 'center',fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>
+                    You don{"'"}t have any playlist in your library!
                   </Text>
                 </View>
           :

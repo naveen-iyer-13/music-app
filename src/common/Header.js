@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-  Image
+  Image,
+  Platform
 } from 'react-native'
 
 class Header extends Component{
@@ -60,17 +61,20 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     fontSize: 25,
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#4A4A4A',
   },
   plus: {
     fontSize: 25,
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#4A4A4A'
   },
   heading: {
     fontSize: 16,
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova-Bold' : "ProximaNova-Bold",
     color: '#4A4A4A',
     width: '90%',
     textAlign: 'center'

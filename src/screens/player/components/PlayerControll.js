@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
-import { Image, StyleSheet, Text, TouchableOpacity, View, ViewPropTypes, Dimensions, AsyncStorage, Modal, ToastAndroid } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View, Platform,ViewPropTypes, Dimensions, AsyncStorage, Modal, ToastAndroid } from 'react-native';
 import PlayerModal from '../../../common/PlayerModal'
 import QueueList from './QueueList'
-import { addToLibrary, ifInLibrary, removeFromLibrary } from '../../../common/helpers'
+import { addToLibrary, ifInLibrary, removeFromLibrary, ifInPlaylists } from '../../../common/helpers'
 import {
   BarIndicator,
 } from 'react-native-indicators';
@@ -34,7 +34,7 @@ class Duration extends ProgressComponent {
     setInterval(() => {
       if (this.getProgress() > 0 && this.props.playbackState !== TrackPlayer.STATE_PAUSED)
         this.setState({
-          currentSecond: this.getDuration()*(this.getProgress())
+          currentSecond: 0
         })
       else if (this.getProgress() === 0)
         this.setState({
@@ -140,8 +140,8 @@ export default class PlayerControll extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.initializeLibrary(nextProps.track.id)
-    this.initializePlaylists(nextProps.track.id)
+    this.initializeLibrary(nextProps.track)
+    this.initializePlaylists(nextProps.track)
 
   }
 
@@ -200,7 +200,7 @@ export default class PlayerControll extends Component {
       let playlists = res ? JSON.parse(res) : {}
       let flag = false
       for(let i = 0; i < playlists[playlistName].length; i++){
-        if(playlists[playlistName][i].title === target.title){
+        if(playlists[playlistName][i] && (playlists[playlistName][i].title === target.title)){
           flag = true
           break
         }
@@ -221,7 +221,7 @@ export default class PlayerControll extends Component {
   }
 
   addNewPlaylist = (playlistName, data) => {
-    console.log(playlistName, data)
+    // console.log(playlistName, data)
     AsyncStorage.getItem('playlists', (err, res) => {
       let playlists = res ? JSON.parse(res) : {}
       if(!Object.keys(playlists).includes(data)){
@@ -263,11 +263,13 @@ export default class PlayerControll extends Component {
   render() {
     const { style, onNext, onPrevious, onTogglePlayback, navigation, playlistNames, handleQueue, shuffleTracks, songs, storageKey } = this.props;
     const { playbackState, track } = this.props
+    // console.log("Library", this.state.library)
     var middleButtonText = 'Play'
     if (playbackState === TrackPlayer.STATE_PLAYING
       || playbackState === TrackPlayer.STATE_BUFFERING) {
       middleButtonText = 'Pause'
     }
+    // console.log(songs, track, "List all")
     let path = require('../../../images/nav-heart.png')
     if (this.state.library)
       path = require('../../../images/library-active.png')
@@ -305,7 +307,7 @@ export default class PlayerControll extends Component {
         <Text style={styles.songArtist}>{track.artist}</Text>
 
         <View style={styles.controls}>
-          <TouchableOpacity style={styles.sideSectionTopLeft} onPress={() => (this.state.library) ? removeFromLibrary(track, () => this.setState({library: false}) ) : addToLibrary(songs, track, () => this.setState({library: true}) )}>
+          <TouchableOpacity style={styles.sideSectionTopLeft} onPress={() => (this.state.library) ? removeFromLibrary(track, () => this.setState({library: false}) ) : addToLibrary(songs, track, (res) => this.setState({library: true}) )}>
             <Image source={path} style={styles.skipTrack} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.sideSectionTopRight} onPress={this.toggleModal}>
@@ -354,12 +356,14 @@ const styles = StyleSheet.create({
   },
   songTitle: {
     fontSize: 18,
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#FFFFFF',
     textAlign: 'center'
   },
   songArtist: {
     paddingTop: 5,
     fontSize: 18,
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: 'grey',
     textAlign: 'center'
 
@@ -398,7 +402,8 @@ const styles = StyleSheet.create({
   },
   time: {
     color: '#FFFFFF',
-    fontSize: 10
+    fontSize: 10,
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   cover: {
     width: 140,
@@ -417,6 +422,7 @@ const styles = StyleSheet.create({
   },
   artist: {
     fontWeight: 'bold',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   timeSecton: {
     marginTop: 10,
@@ -439,6 +445,7 @@ const styles = StyleSheet.create({
   },
   controlButtonText: {
     fontSize: 18,
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     textAlign: 'center',
   },
   playButton: {

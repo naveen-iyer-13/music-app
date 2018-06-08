@@ -6,7 +6,8 @@ import {
   ScrollView,
   Alert,
   Dimensions,
-  Image
+  Image,
+  Platform
 } from 'react-native'
 // import { getTrending } from './../../../common/helpers'
 import { ListView } from './../../../common/ListView'
@@ -37,7 +38,10 @@ class Songs extends Component{
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({list: nextProps.list})
+    if(nextProps.list)
+      this.setState({list: nextProps.list})
+    else
+      this.getSongs()
   }
 
   closeModal = (action, data, operation) => {
@@ -70,7 +74,7 @@ class Songs extends Component{
         })
       }
       else{
-        removeFromLibrary(data, res => {})
+        removeFromLibrary(data, res => {this.setState({list: res})})
       }
     }
     else if (action === 'Playlists') {
@@ -184,7 +188,7 @@ class Songs extends Component{
 
   render() {
     let { list, searchList, popupModal, selectedSong, searchTerm, loading } = this.state
-    // console.log(this.state);
+    //console.log(this.state);
     list = searchTerm? searchList : list
     return(
       <View>
@@ -217,8 +221,8 @@ class Songs extends Component{
                 :
                 <View style={{ display: 'flex',height: (height * 50)/100, alignItems: 'center', justifyContent: 'center'}}>
                   <Image source={require('./../../../images/broken-heart.png')} style={{width: 50, height: 50}}/>
-                  <Text style={{ width: 150,fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', textAlign: 'center'}}>
-                    You don't have songs in your {this.props.isPlaylistPage ? 'playlist' : 'library'}!
+                  <Text style={{ width: 150,fontSize: 18, color: '#252525', opacity: 0.4, textAlign: 'center',fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>
+                    You don{"'"}t have songs in your {this.props.isPlaylistPage ? 'playlist' : 'library'}!
                   </Text>
                 </View>
               }

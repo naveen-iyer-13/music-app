@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import {
   Text,
@@ -45,7 +46,6 @@ class Trending extends Component {
   getSongs(){
     this.setState({loading: true})
     AsyncStorage.getItem('trendingSongs', (err, res) => {
-      console.log(res);
       if(res)
         this.setState({trendingSongs: JSON.parse(res), loading: false})
       else
@@ -58,7 +58,7 @@ class Trending extends Component {
   randomNumber(){
     let randomArray = []
     while (randomArray.length < 10){
-        let num = Math.floor(Math.random()*100)
+        let num = Math.floor(Math.random()*50)
         if(!randomArray.includes(num)){
           randomArray.push(num)
         }
@@ -209,7 +209,7 @@ class Trending extends Component {
                 source={item.cover ? {uri: item.cover} : defaultIcon}
               />
               </TouchableOpacity>
-              <View style={{height: 65, width: 100,backgroundColor: '#FFFFFF'}}>
+              <View style={{height: 40, width: 100,backgroundColor: '#FFFFFF', opacity: 0.5}}>
                <Text style={styles.trendingTitle}>{item.artist}</Text>
               </View>
             </View>
@@ -219,15 +219,16 @@ class Trending extends Component {
     }
     if(this.state.loading){
       return (
-        <SplashScreen />
+        <Text>Loading Screen</Text>
       )
     }
     else {
       return (
         <View style={styles.container}>
-        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: Platform.os === 'android' ? 10 : 20, width: Dimensions.get('window').width}} />
          <View style={{height: 210, width: Dimensions.get('window').width}}>
            <ImageBackground
+              resizeMode = {'cover'}
               source={{uri: trending[randomIndex] ? trending[randomIndex].cover : require('./../../images/default-icon.png')}}
               style={styles.backgroundImage}
               blurRadius={0.4}>
@@ -271,14 +272,14 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     marginTop: 10,
-    fontFamily: 'Proxima-Nova',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#4A4A4A',
     fontSize: 20
   },
   trendingTitle: {
     textAlign: 'center',
     fontSize: 14,
-    fontFamily :'Proxima-Nova',
+    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#000',
     paddingTop: 10,
   },
@@ -286,7 +287,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     height: 80,
     width: 80,
-    borderRadius: 80
+    borderRadius:Platform.os === 'android' ? 80 : 40
   },
   trendingView: {
     paddingTop: 15,
@@ -298,11 +299,11 @@ const styles = StyleSheet.create({
     height: 210,
   },
   trendingArtist: {
-    fontFamily: 'Proxima-Nova-Bold',
-    color: '#fff',
+    fontFamily: Platform.os === 'android' ? 'Proxima-Nova-Bold' : 'ProximaNova-Bold',
+    color: '#FFFFFF',
     fontSize: 22,
-    paddingTop: 15,
-    height: 50,
     textAlign: 'center',
+    backgroundColor: 'transparent',
+    paddingTop: 25
   }
 });
