@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignItems: 'center',
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     padding: 5,
     color: '#000'
   }

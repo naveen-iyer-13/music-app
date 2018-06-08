@@ -203,16 +203,16 @@ class Trending extends Component {
         if(this.state.randomArray.includes(index)){
           return(
             <View key={index} style={styles.trendingView} >
-             <TouchableOpacity style={{height: 100, paddingLeft: 10, paddingTop: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
-              <Image
-                style={styles.trendingImage}
-                source={item.cover ? {uri: item.cover} : defaultIcon}
-              />
-              </TouchableOpacity>
-              <View style={{height: 40, width: 100,backgroundColor: '#FFFFFF', opacity: 0.5}}>
-               <Text style={styles.trendingTitle}>{item.artist}</Text>
-              </View>
+           <TouchableOpacity style={{height: 100, paddingLeft: 10, paddingTop: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
+            <Image
+              style={styles.trendingImage}
+              source={item.cover ? {uri: item.cover} : defaultIcon}
+            />
+            </TouchableOpacity>
+            <View style={{height: 180, width: 100,backgroundColor: '#FFFFFF'}}>
+             <Text style={styles.trendingTitle}>{item.artist}</Text>
             </View>
+          </View>
           )
         }
       })
@@ -225,8 +225,8 @@ class Trending extends Component {
     else {
       return (
         <View style={styles.container}>
-        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: Platform.os === 'android' ? 10 : 20, width: Dimensions.get('window').width}} />
-         <View style={{height: 210, width: Dimensions.get('window').width}}>
+        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: Platform.OS === 'android' ? 10 : 20, width: Dimensions.get('window').width}} />
+         <View style={{height: 225, width: Dimensions.get('window').width}}>
            <ImageBackground
               resizeMode = {'cover'}
               source={{uri: trending[randomIndex] ? trending[randomIndex].cover : require('./../../images/default-icon.png')}}
@@ -272,14 +272,14 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     marginTop: 10,
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#4A4A4A',
     fontSize: 20
   },
   trendingTitle: {
     textAlign: 'center',
     fontSize: 14,
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#000',
     paddingTop: 10,
   },
@@ -287,19 +287,19 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     height: 80,
     width: 80,
-    borderRadius:Platform.os === 'android' ? 80 : 40
+    borderRadius:Platform.OS === 'android' ? 80 : 40
   },
   trendingView: {
     paddingTop: 15,
     width: 100,
-    height: 160,
+    height: 180,
   },
   backgroundImage: {
     width: '100%',
-    height: 210,
+    height: 225,
   },
   trendingArtist: {
-    fontFamily: Platform.os === 'android' ? 'Proxima-Nova-Bold' : 'ProximaNova-Bold',
+    fontFamily: Platform.OS === 'android' ? 'Proxima-Nova-Bold' : 'ProximaNova-Bold',
     color: '#FFFFFF',
     fontSize: 22,
     textAlign: 'center',

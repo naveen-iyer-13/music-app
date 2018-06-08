@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: '#4B4B4B',
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 14
   },
   optionOverview: {
@@ -167,20 +167,20 @@ const styles = StyleSheet.create({
   },
   subheading: {
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     marginBottom: 10,
     color: '#919191'
   },
   optionButton: {
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#FFFFFF'
   },
   optionButtonCreate: {
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#6DEAD3',
   },
@@ -193,11 +193,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
     //fontFamily: ''
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   playlistHeading: {
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 18,
     marginBottom: 10,
     color: '#1C1C1C'
@@ -254,14 +254,14 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     color: '#2B2B2B',
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 15,
   },
   TextStylePlaylist:{
     paddingLeft: 15,
     color: '#2B2B2B',
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 17,
     marginBottom: 7
   },
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     color: '#2B2B2B',
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 15,
     margin: 5
   }

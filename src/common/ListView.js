@@ -55,11 +55,11 @@ const styles = StyleSheet.create({
     color: '#252525',
     paddingBottom: 5,
     flexWrap: 'wrap',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova-Bold' : "ProximaNova-Bold",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova-Bold' : "ProximaNova-Bold",
   },
   artistText: {
     //fontFamily: '',
-    fontFamily :Platform.os === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 14,
     color: '#252525',
     opacity: 0.5,
