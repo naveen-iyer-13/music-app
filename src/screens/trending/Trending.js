@@ -12,7 +12,8 @@ import {
   ScrollView,
   ImageBackground,
   Alert,
-  AlertIOS
+  AlertIOS,
+  StatusBar
 } from 'react-native'
 import { getTrending } from './../../common/helpers'
 import Footer from '../../common/Footer'
@@ -177,9 +178,14 @@ class Trending extends Component {
   }
 
   render () {
+    
     var trending = this.state.trendingSongs
     var List = <View />
     var artistView = <View />
+
+    const getArtistName = (name) => {
+      return name.length > 8 ? name.substring(0, 7).trim()+" ..." : name
+    }
 
     var randomIndex = this.state.randomArray[0]
     if(trending.length > 0){
@@ -209,8 +215,8 @@ class Trending extends Component {
               source={item.cover ? {uri: item.cover} : defaultIcon}
             />
             </TouchableOpacity>
-            <View style={{height: 180, width: 100,backgroundColor: '#FFFFFF'}}>
-             <Text style={styles.trendingTitle}>{item.artist}</Text>
+            <View style={{height: 180, width: 100, backgroundColor: 'transparent'}}>
+             <Text style={styles.trendingTitle}>{getArtistName(item.artist)}</Text>
             </View>
           </View>
           )
@@ -219,46 +225,25 @@ class Trending extends Component {
     }
     if(this.state.loading){
       return (
-        <Text>Loading Screen</Text>
+        <View style={styles.container}>
+          <SplashScreen />
+        </View>
       )
     }
     else {
       return (
         <View style={styles.container}>
-        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: Platform.OS === 'android' ? 10 : 20, width: Dimensions.get('window').width}} />
-         <View style={{height: 225, width: Dimensions.get('window').width}}>
-           <ImageBackground
-              resizeMode = {'cover'}
-              source={{uri: trending[randomIndex] ? trending[randomIndex].cover : require('./../../images/default-icon.png')}}
-              style={styles.backgroundImage}
-              blurRadius={0.4}>
-            <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
-             <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
-              {artistView}
-             </ScrollView>
-           </ImageBackground>
-         </View>
-         <Text style={styles.heading}>TODAY{"'"}S TOP 100 SONGS</Text>
-         <ScrollView>
-          {List}
-         </ScrollView>
-         <Footer screenName={'Trending'} navigation={this.props.navigation} />
-         <PopupModal
-           active={this.state.popupModal}
-           closeModal={this.closeModal}
-           navigation={this.props.navigation}
-           song={this.state.selectedSong}
-           openPlaylist={this.state.openPlaylist}
-           playlistName={this.state.playlistName}
-           addToPlaylist={this.addToPlaylist}
-           createPlaylist={this.createPlaylist}
-           addPlaylistModal={this.state.addPlaylistModal}
-          />
+
         </View>
       )
     }
   }
 }
+const MyStatusBar = ({backgroundColor, ...props}) => (
+  <View style={[styles.statusBar, { backgroundColor }]}>
+    <StatusBar backgroundColor={backgroundColor} {...props} />
+  </View>
+);
 
 export default Trending;
 
@@ -271,9 +256,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: '100%',
     marginBottom: 10,
-    marginTop: 10,
+    paddingTop: 20,
     fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
-    color: '#4A4A4A',
+    color: '#000000',
     fontSize: 20
   },
   trendingTitle: {
@@ -296,7 +281,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     width: '100%',
-    height: 225,
+    height: 170,
   },
   trendingArtist: {
     fontFamily: Platform.OS === 'android' ? 'Proxima-Nova-Bold' : 'ProximaNova-Bold',

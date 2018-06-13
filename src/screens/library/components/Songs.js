@@ -45,7 +45,7 @@ class Songs extends Component{
   }
 
   closeModal = (action, data, operation) => {
-    // console.log(action, operation);
+    console.log(action, operation);
     if(action === 'Search'){
       this.setState({popupModal: false})
       this.navigateTo('Search', data)
@@ -87,6 +87,7 @@ class Songs extends Component{
       else{
         AsyncStorage.getItem('playlists', (err, res) => {
           let playlists = res ? JSON.parse(res) : {}
+          this.setState({popupModal: false})
           playlists[this.props.selectedPlaylist] = playlists[this.props.selectedPlaylist].filter(item => data.title !== item.title)
           AsyncStorage.setItem('playlists', JSON.stringify(playlists), () => this.props.updatePlaylist(playlists))
         })
@@ -120,7 +121,6 @@ class Songs extends Component{
 
   addToPlaylist = (playlistName, operation) => {
     const { songToBeAdded } = this.state
-    this.setState({popupModal: false, openPlaylist: false})
     AsyncStorage.getItem('playlists', (err, res) => {
       let playlists = res ? JSON.parse(res) : {}
       let flag = false
@@ -132,6 +132,7 @@ class Songs extends Component{
       }
       if(!flag){
         playlists[playlistName].push(songToBeAdded)
+        this.setState({popupModal: false, openPlaylist: false})
         AsyncStorage.setItem('playlists', JSON.stringify(playlists))
       }
       else{
@@ -188,7 +189,7 @@ class Songs extends Component{
 
   render() {
     let { list, searchList, popupModal, selectedSong, searchTerm, loading } = this.state
-    //console.log(this.state);
+    console.log(this.state);
     list = searchTerm? searchList : list
     return(
       <View>
@@ -202,26 +203,32 @@ class Songs extends Component{
              ?
             <Text>Loading</Text>
              :
-            <ScrollView style={{ paddingTop: 20, paddingBottom:20}}>
+            <ScrollView>
               {
-                list && list.length > 0 ? list.map((song,index) => (
-                  <ListView
-                    key={song.title + index}
-                    thumbnail={song.thumbnail}
-                    title={song.title}
-                    artist={song.artist}
-                    song={song}
-                    index={index}
-                    openModal={this.openModal}
-                    playSong={this.playSong}
-                    onError={this.onError}
-                    fetchFailed={this.state.fetchFailed}
-                  />
-                ))
+                list && list.length > 0
+                ?
+                <View style={{paddingBottom:150}}>
+                  {
+                    list.map((song,index) => (
+                      <ListView
+                        key={song.title + index}
+                        thumbnail={song.thumbnail}
+                        title={song.title}
+                        artist={song.artist}
+                        song={song}
+                        index={index}
+                        openModal={this.openModal}
+                        playSong={this.playSong}
+                        onError={this.onError}
+                        fetchFailed={this.state.fetchFailed}
+                      />
+                    ))
+                  }
+                </View>
                 :
                 <View style={{ display: 'flex',height: (height * 50)/100, alignItems: 'center', justifyContent: 'center'}}>
-                  <Image source={require('./../../../images/broken-heart.png')} style={{width: 50, height: 50}}/>
-                  <Text style={{ width: 150,fontSize: 18, color: '#252525', opacity: 0.4, textAlign: 'center',fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>
+                  <Image source={require('./../../../images/broken-heart.png')} style={{width: 50, height: 50, marginBottom: 10}}/>
+                  <Text style={{ width: 225,fontSize: 18, color: '#252525', opacity: 0.4, textAlign: 'center',fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>
                     You don{"'"}t have songs in your {this.props.isPlaylistPage ? 'playlist' : 'library'}!
                   </Text>
                 </View>

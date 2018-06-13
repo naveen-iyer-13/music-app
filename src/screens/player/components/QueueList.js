@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   rowItem: {
   	height: 80,
-  	width: Dimensions.get('window').width,
+  	width: Dimensions.get('window').width - 40,
     borderColor: '#D8D8D8',
     flexDirection: 'row'
   },

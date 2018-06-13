@@ -11,7 +11,8 @@ import {
   AlertIOS,
   TextInput,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  KeyboardAvoidingView
 } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 import Modal from "react-native-modal";
@@ -44,12 +45,13 @@ class PlayerModal extends Component{
           viewPlaylists
           ?
            <View style={{height: 250}}>
-                    <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
+                  <TouchableOpacity onPress={() => createPlaylist()}>
+                    <LinearGradient start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}}  colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
                        marginLeft: '20%',marginTop: 15, justifyContent: 'center', borderRadius: 10, backgroundColor: '#f4f4f4', marginBottom: 15}}>
-                       <TouchableOpacity onPress={() => createPlaylist()}>
-                         <Text style={{fontSize: 16, color: '#4A4A4A'}}>New Playlist</Text>
-                       </TouchableOpacity>
+                         <Text style={{fontSize: 16, color: '#4A4A4A', backgroundColor: 'transparent',}}>New Playlist</Text>
                      </LinearGradient>
+                   </TouchableOpacity>
+
                      <ScrollView>
                        {
                          playlistName && playlistName.map((name, index) => {
@@ -65,7 +67,7 @@ class PlayerModal extends Component{
           :
           addPlaylistModal
             ?
-           <View style={styles.addPlaylist}>
+           <KeyboardAvoidingView style={styles.addPlaylist} behavior="position" enabled>
              <View style={{alignItems: 'center', height: 150, alignItems:'center', justifyContent :'center'}}>
                <Text style={styles.playlistHeading}>Create a new Playlist</Text>
                <Text style={styles.subheading}>Enter the name for this Playlist</Text>
@@ -74,7 +76,7 @@ class PlayerModal extends Component{
                  onChangeText={(text) => this.setState({newPlaylistName: text})}
               />
              </View>
-             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row',alignItems: 'center', height: 50, borderRadius: 8}}>
+             <LinearGradient colors={['#7AFFA0', '#62D8FF']}  start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}} style={{display: 'flex', flexDirection: 'row',alignItems: 'center', height: 50, borderRadius: 8}}>
              <TouchableOpacity style={styles.optionOverview} onPress={() => closeModal('addPlaylist')}>
                <Text style={styles.optionButton}>CANCEL</Text>
              </TouchableOpacity>
@@ -82,7 +84,7 @@ class PlayerModal extends Component{
                <Text style={styles.optionButton}>CREATE</Text>
              </TouchableOpacity>
              </LinearGradient>
-           </View>
+           </KeyboardAvoidingView>
            :
           <View>
           {
@@ -176,7 +178,8 @@ const styles = StyleSheet.create({
     //fontFamily: '',
     fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    backgroundColor: 'transparent',
   },
   optionButtonCreate: {
     //fontFamily: '',
@@ -192,6 +195,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 15,
+    paddingLeft: 5,
     //fontFamily: ''
     fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },

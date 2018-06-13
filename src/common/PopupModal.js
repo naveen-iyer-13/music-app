@@ -13,6 +13,7 @@ import {
   TextInput,
   ScrollView,
   AsyncStorage,
+  KeyboardAvoidingView
 } from 'react-native'
 import Modal from "react-native-modal";
 let { width, height } = Dimensions.get('window')
@@ -68,7 +69,7 @@ class PopupModal extends Component{
         <View style={{flex: 1, justifyContent: addPlaylistModal ? 'center' : 'flex-end'}}>
          {
           addPlaylistModal  ?
-           <View style={styles.addPlaylist}>
+           <KeyboardAvoidingView style={styles.addPlaylist} behavior="position" enabled>
              <View style={{alignItems: 'center', height: 150, alignItems:'center', justifyContent :'center'}}>
                <Text style={styles.playlistHeading}>Create a new Playlist</Text>
                <Text style={styles.subheading}>Enter the name for this Playlist</Text>
@@ -77,15 +78,17 @@ class PopupModal extends Component{
                  onChangeText={(text) => this.setState({newPlaylistName: text})}
               />
              </View>
-             <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row',alignItems: 'center', height: 50, borderRadius: 8}}>
+
+             <LinearGradient colors={['#7AFFA0', '#62D8FF']}  start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}} style={{display: 'flex', flexDirection: 'row',alignItems: 'center', height: 50, borderRadius: 8}}>
                <TouchableOpacity style={styles.optionOverview} onPress={() => closeModal('Cancel Create')}>
                  <Text style={styles.optionButton}>CANCEL</Text>
                </TouchableOpacity>
+
                <TouchableOpacity style={styles.optionOverview2} onPress={() => newPlaylistName ? closeModal('Create', newPlaylistName) : {}}>
                  <Text style={styles.optionButtonCreate}>CREATE</Text>
                </TouchableOpacity>
              </LinearGradient>
-           </View>
+           </KeyboardAvoidingView>
             :
             onlyModal ?
                <View />
@@ -101,7 +104,7 @@ class PopupModal extends Component{
                      <TouchableOpacity style={styles.selectView} onPress={() => closeModal('Playlists', song, isPlaylistPage ? 'remove' : 'add')}>
                      {isPlaylistPage ? <Image source={require('.././images/add-to-playlist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/> :
                                        <Image source={require('.././images/remove-from-playlist.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>}
-                     <Text style={styles.TextStyle}>{isPlaylistPage? 'Remove from playlist' : 'Add to playlist'}</Text>
+                     <Text style={styles.TextStyle}>{isPlaylistPage? 'Remove from playlist' : 'Add to Playlist'}</Text>
                      </TouchableOpacity>
                      <TouchableOpacity style={styles.selectView}>
                      <Image source={require('.././images/add-to-queue.png')} style={{resizeMode: 'contain', height: 20, width: 20, marginLeft: 15}}/>
@@ -118,12 +121,13 @@ class PopupModal extends Component{
                    </View>
                    :
                    <View style={{height: 250}}>
-                    <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
+                    <TouchableOpacity onPress={() => createPlaylist()}>
+                    <LinearGradient start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}}  colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
                        marginLeft: '20%',marginTop: 15, justifyContent: 'center', borderRadius: 10, marginBottom: 15}}>
-                       <TouchableOpacity onPress={() => createPlaylist()}>
                          <Text style={{fontSize: 16, color: '#4A4A4A',backgroundColor: 'transparent', fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova"}}>New Playlist</Text>
-                       </TouchableOpacity>
                      </LinearGradient>
+                    </TouchableOpacity>
+
                      <ScrollView>
                        {
                          playlistName && playlistName.map((name, index) => {
@@ -196,6 +200,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 15,
+    paddingLeft: 5,
     //fontFamily: ''
     fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },

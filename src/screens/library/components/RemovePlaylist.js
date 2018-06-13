@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
-  Platform
+  Platform,
+  KeyboardAvoidingView
 } from 'react-native'
 import Modal from 'react-native-modal'
 import LinearGradient from 'react-native-linear-gradient';
@@ -52,7 +53,7 @@ class RemovePlaylist extends Component{
           </View>
         </View>
         <Modal isVisible={this.state.renameModalOpen} onBackButtonPress={() => this.setState({renameModalOpen: false})}>
-          <View style={styles.addPlaylist}>
+          <KeyboardAvoidingView style={styles.addPlaylist} behavior="position" enabled>
             <View style={{alignItems: 'center', height: 150, alignItems:'center', justifyContent :'center'}}>
               <Text style={styles.playlistHeading}>Rename the Playlist</Text>
               <Text style={styles.subheading}>Enter the name for this Playlist</Text>
@@ -69,7 +70,7 @@ class RemovePlaylist extends Component{
               <Text style={styles.optionButton}>RENAME</Text>
             </TouchableOpacity>
             </LinearGradient>
-          </View>
+          </KeyboardAvoidingView>
         </Modal>
       </Modal>
     )
@@ -136,6 +137,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 15,
+    paddingLeft: 5,
     //fontFamily: '',
     fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
@@ -159,7 +161,8 @@ const styles = StyleSheet.create({
     //fontFamily: '',
     fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    backgroundColor: 'transparent'
   },
   optionButtonCreate: {
     //fontFamily: '',

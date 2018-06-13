@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  Platform
+  Platform,
+  ScrollView
 } from 'react-native'
 import Footer from './../../common/Footer'
 import Songs from './components/Songs'
@@ -43,8 +44,12 @@ class Library extends Component{
     console.log(this.state)
     return (
       <View style={styles.container}>
-      <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height:Platform.OS === 'android' ? 10 : 20,width: Dimensions.get('window').width}} />
-        <View style={styles.screenContainer} navigation={this.props.navigation}>
+        <LinearGradient
+          colors={['#7AFFA0', '#62D8FF']}
+          style={{height: Platform.OS === 'android' ? 10 : 20, width: Dimensions.get('window').width}}
+          start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}}
+        />
+       <View style={styles.screenContainer} navigation={this.props.navigation}>
           <Header
             header={header}
             tab={tab}
@@ -103,7 +108,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     height: 30,
-    marginTop: 10,
     marginBottom: 15
   },
   headerItem: {

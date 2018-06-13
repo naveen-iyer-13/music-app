@@ -13,7 +13,7 @@ export const ListView = props => {
   const { thumbnail, title, artist, song, openModal, openPlaylist, playSong, len, index, onError, fetchFailed, showDefault } = props
 	return(
 		<View style={styles.container}>
-     <TouchableOpacity>
+     <TouchableOpacity onPress={() => playSong ? playSong(index, title) : openPlaylist(song, title)}>
        <Image
          style={styles.imageView}
          onError={() => onError(song.bp_id)}
