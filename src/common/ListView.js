@@ -5,14 +5,15 @@ import {
   Dimensions,
   Text,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from 'react-native'
 
 export const ListView = props => {
   const { thumbnail, title, artist, song, openModal, openPlaylist, playSong, len, index, onError, fetchFailed, showDefault } = props
 	return(
 		<View style={styles.container}>
-     <TouchableOpacity>
+     <TouchableOpacity onPress={() => playSong ? playSong(index, title) : openPlaylist(song, title)}>
        <Image
          style={styles.imageView}
          onError={() => onError(song.bp_id)}
@@ -49,14 +50,16 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   titleText: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
     fontSize: 16,
     color: '#252525',
     paddingBottom: 5,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova-Bold' : "ProximaNova-Bold",
   },
   artistText: {
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 14,
     color: '#252525',
     opacity: 0.5,

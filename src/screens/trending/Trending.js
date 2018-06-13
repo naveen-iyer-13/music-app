@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import {
   Text,
@@ -11,7 +12,8 @@ import {
   ScrollView,
   ImageBackground,
   Alert,
-  AlertIOS
+  AlertIOS,
+  StatusBar
 } from 'react-native'
 import { getTrending } from './../../common/helpers'
 import Footer from '../../common/Footer'
@@ -57,7 +59,7 @@ class Trending extends Component {
   randomNumber(){
     let randomArray = []
     while (randomArray.length < 10){
-        let num = Math.floor(Math.random()*100)
+        let num = Math.floor(Math.random()*50)
         if(!randomArray.includes(num)){
           randomArray.push(num)
         }
@@ -176,9 +178,14 @@ class Trending extends Component {
   }
 
   render () {
+    
     var trending = this.state.trendingSongs
     var List = <View />
     var artistView = <View />
+
+    const getArtistName = (name) => {
+      return name.length > 8 ? name.substring(0, 7).trim()+" ..." : name
+    }
 
     var randomIndex = this.state.randomArray[0]
     if(trending.length > 0){
@@ -202,60 +209,41 @@ class Trending extends Component {
         if(this.state.randomArray.includes(index)){
           return(
             <View key={index} style={styles.trendingView} >
-             <TouchableOpacity style={{height: 110, paddingLeft: 10, paddingTop: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
-              <Image
-                style={styles.trendingImage}
-                source={item.cover ? {uri: item.cover} : defaultIcon}
-              />
-              </TouchableOpacity>
-              <View style={{backgroundColor: '#FFFFFF', height: 60, width: 100}}>
-               <Text style={styles.trendingTitle}>{item.artist}</Text>
-              </View>
+           <TouchableOpacity style={{height: 100, paddingLeft: 10, paddingTop: 10}} onPress={() => this.props.navigation.navigate('Search', {song: item})}>
+            <Image
+              style={styles.trendingImage}
+              source={item.cover ? {uri: item.cover} : defaultIcon}
+            />
+            </TouchableOpacity>
+            <View style={{height: 180, width: 100, backgroundColor: 'transparent'}}>
+             <Text style={styles.trendingTitle}>{getArtistName(item.artist)}</Text>
             </View>
+          </View>
           )
         }
       })
     }
     if(this.state.loading){
       return (
-        <SplashScreen />
+        <View style={styles.container}>
+          <SplashScreen />
+        </View>
       )
     }
     else {
       return (
         <View style={styles.container}>
-        <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
-         <View style={{height: 220, width: Dimensions.get('window').width, backgroundColor: '#000'}}>
-           <ImageBackground
-              source={{uri: trending[randomIndex] ? trending[randomIndex].cover : require('./../../images/default-icon.png')}}
-              style={styles.backgroundImage}>
-            <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
-             <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
-              {artistView}
-             </ScrollView>
-           </ImageBackground>
-         </View>
-         <Text style={styles.heading}>TODAY{"'"}S TOP 100 SONGS</Text>
-         <ScrollView>
-          {List}
-         </ScrollView>
-         <Footer screenName={'Trending'} navigation={this.props.navigation} />
-         <PopupModal
-           active={this.state.popupModal}
-           closeModal={this.closeModal}
-           navigation={this.props.navigation}
-           song={this.state.selectedSong}
-           openPlaylist={this.state.openPlaylist}
-           playlistName={this.state.playlistName}
-           addToPlaylist={this.addToPlaylist}
-           createPlaylist={this.createPlaylist}
-           addPlaylistModal={this.state.addPlaylistModal}
-          />
+
         </View>
       )
     }
   }
 }
+const MyStatusBar = ({backgroundColor, ...props}) => (
+  <View style={[styles.statusBar, { backgroundColor }]}>
+    <StatusBar backgroundColor={backgroundColor} {...props} />
+  </View>
+);
 
 export default Trending;
 
@@ -268,40 +256,39 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: '100%',
     marginBottom: 10,
-    marginTop: 10,
-    fontFamily: 'Proxima-Nova-Bold',
-    color: '#4A4A4A',
+    paddingTop: 20,
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    color: '#000000',
     fontSize: 20
   },
   trendingTitle: {
     textAlign: 'center',
     fontSize: 14,
-    fontFamily :'Proxima-Nova-Bold',
-    color: '#797979',
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
+    color: '#000',
     paddingTop: 10,
-    opacity: 0.6
   },
   trendingImage: {
     resizeMode: 'contain',
     height: 80,
     width: 80,
-    borderRadius: 80
+    borderRadius:Platform.OS === 'android' ? 80 : 40
   },
   trendingView: {
     paddingTop: 15,
     width: 100,
-    height: 160,
+    height: 180,
   },
   backgroundImage: {
     width: '100%',
-    height: 220,
+    height: 170,
   },
   trendingArtist: {
-    fontFamily: 'Proxima-Nova-Bold',
-    color: '#fff',
+    fontFamily: Platform.OS === 'android' ? 'Proxima-Nova-Bold' : 'ProximaNova-Bold',
+    color: '#FFFFFF',
     fontSize: 22,
-    paddingTop: 15,
-    height: 50,
     textAlign: 'center',
+    backgroundColor: 'transparent',
+    paddingTop: 25
   }
 });
