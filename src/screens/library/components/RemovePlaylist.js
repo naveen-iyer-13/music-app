@@ -5,7 +5,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  TextInput
+  TextInput,
+  Platform,
+  KeyboardAvoidingView
 } from 'react-native'
 import Modal from 'react-native-modal'
 import LinearGradient from 'react-native-linear-gradient';
@@ -28,10 +30,12 @@ class RemovePlaylist extends Component{
     const { newPlaylistName } = this.state
     return(
       <Modal
-        isVisible={active}
-        onBackdropPress = {() => closeModal()}
-        onBackButtonPress={() => closeModal()}
-      >
+      isVisible={active}
+      onBackButtonPress={() => closeModal()}
+      onStartShouldSetResponder={() => {
+         return closeModal();
+       }}
+      onBackdropPress = {() => closeModal()}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
             <TouchableOpacity style={styles.selectView} onPress={() => this.setState({renameModalOpen: true})}>
@@ -49,7 +53,7 @@ class RemovePlaylist extends Component{
           </View>
         </View>
         <Modal isVisible={this.state.renameModalOpen} onBackButtonPress={() => this.setState({renameModalOpen: false})}>
-          <View style={styles.addPlaylist}>
+          <KeyboardAvoidingView style={styles.addPlaylist} behavior="position" enabled>
             <View style={{alignItems: 'center', height: 150, alignItems:'center', justifyContent :'center'}}>
               <Text style={styles.playlistHeading}>Rename the Playlist</Text>
               <Text style={styles.subheading}>Enter the name for this Playlist</Text>
@@ -58,15 +62,15 @@ class RemovePlaylist extends Component{
                 onChangeText={(text) => this.setState({newPlaylistName: text})}
              />
             </View>
-            <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row', backgroundColor:'#000', alignItems: 'center', height: 50, borderBottomLeftRadius: 8, borderBottomRightRadius: 8}}>
-              <TouchableOpacity style={styles.optionOverview} onPress={() => this.setState({renameModalOpen: false})}>
-                <Text style={styles.optionButton}>CANCEL</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.optionOverview} onPress={() => newPlaylistName ? this.handleRename() : {}}>
-                <Text style={styles.optionButton}>RENAME</Text>
-              </TouchableOpacity>
+            <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{display: 'flex', flexDirection: 'row',alignItems: 'center', height: 50, borderRadius: 8}}>
+            <TouchableOpacity style={styles.optionOverview} onPress={() => this.setState({renameModalOpen: false})}>
+              <Text style={styles.optionButton}>CANCEL</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.optionOverview2} onPress={() => newPlaylistName ? this.handleRename() : {}}>
+              <Text style={styles.optionButton}>RENAME</Text>
+            </TouchableOpacity>
             </LinearGradient>
-          </View>
+          </KeyboardAvoidingView>
         </Modal>
       </Modal>
     )
@@ -100,7 +104,8 @@ const styles = StyleSheet.create({
   TextStyle: {
     paddingLeft: 15,
     color: '#4B4B4B',
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 14
   },
   addPlaylist: {
@@ -111,13 +116,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   playlistHeading: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 18,
     marginBottom: 10,
     color: '#1C1C1C'
   },
   subheading: {
-    fontFamily: 'Proxima-Nova',
+    //fontFamily: '',
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     marginBottom: 10,
     color: '#919191'
@@ -130,7 +137,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 15,
-    fontFamily: 'Proxima-Nova'
+    paddingLeft: 5,
+    //fontFamily: '',
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   optionOverview: {
     display: 'flex',
@@ -149,12 +158,15 @@ const styles = StyleSheet.create({
     justifyContent:'center'
   },
   optionButton: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    backgroundColor: 'transparent'
   },
   optionButtonCreate: {
-    fontFamily: 'Proxima-Nova-Bold',
+    //fontFamily: '',
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     fontSize: 16,
     color: '#6DEAD3',
   },

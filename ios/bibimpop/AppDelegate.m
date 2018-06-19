@@ -9,6 +9,8 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @implementation AppDelegate
 
@@ -17,6 +19,15 @@
   NSURL *jsCodeLocation;
 
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  [[AVAudioSession sharedInstance] setDelegate:self];
+  [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+  [[AVAudioSession sharedInstance] setActive:YES error:nil];
+  [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+
+  UInt32 size = sizeof(CFStringRef);
+  CFStringRef route;
+  AudioSessionGetProperty(kAudioSessionProperty_AudioRoute, &size, &route);
+  NSLog(@"route = %@", route);
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"bibimpop"

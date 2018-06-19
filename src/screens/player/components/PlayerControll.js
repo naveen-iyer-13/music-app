@@ -1,10 +1,23 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TrackPlayer, { ProgressComponent } from 'react-native-track-player';
-import { Image, StyleSheet, Text, TouchableOpacity, View, ViewPropTypes, Dimensions, AsyncStorage, Modal, ToastAndroid } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Platform,
+  ViewPropTypes,
+  Dimensions,
+  AsyncStorage,
+  Modal,
+  ToastAndroid,
+  AlertIOS
+} from 'react-native';
 import PlayerModal from '../../../common/PlayerModal'
 import QueueList from './QueueList'
-import { addToLibrary, ifInLibrary, removeFromLibrary } from '../../../common/helpers'
+import { addToLibrary, ifInLibrary, removeFromLibrary, ifInPlaylists } from '../../../common/helpers'
 import {
   BarIndicator,
 } from 'react-native-indicators';
@@ -34,7 +47,7 @@ class Duration extends ProgressComponent {
     setInterval(() => {
       if (this.getProgress() > 0 && this.props.playbackState !== TrackPlayer.STATE_PAUSED)
         this.setState({
-          currentSecond: this.getDuration()*(this.getProgress())
+          currentSecond: 0
         })
       else if (this.getProgress() === 0)
         this.setState({
@@ -207,32 +220,48 @@ export default class PlayerControll extends Component {
       }
       if(!flag){
         playlists[playlistName].push(target)
-        ToastAndroid.show('Song added to the playlist', ToastAndroid.SHORT)
+        if(Platform.OS === 'android')
+          ToastAndroid.show('Song added to the playlist', ToastAndroid.SHORT)
+        // else {
+        //   AlertIOS.alert('Song added to the playlist')
+        // }
         AsyncStorage.setItem('playlists', JSON.stringify(playlists))
         this.setState({
           popupModal: false
         })
       }
       else{
-        ToastAndroid.show('Song already exist in the playlist',ToastAndroid.SHORT)
+        if(Platform.OS === 'android')
+          ToastAndroid.show('Song already exist in the playlist',ToastAndroid.SHORT)
+        else {
+          AlertIOS.alert('Song already exist in the playlist')
+        }
       }
 
     })
   }
 
   addNewPlaylist = (playlistName, data) => {
-    console.log(playlistName, data)
+    // console.log(playlistName, data)
     AsyncStorage.getItem('playlists', (err, res) => {
       let playlists = res ? JSON.parse(res) : {}
       if(!Object.keys(playlists).includes(data)){
         playlists[data] = []
         playlistName.push(data)
-        this.setState({playlistName, addPlaylistModal: false, viewPlaylists: true})
+        this.setState({playlistName, addPlaylistModal: false, showPlaylists: true})
         AsyncStorage.setItem('playlists', JSON.stringify(playlists))
-        ToastAndroid.show('Playlist created', ToastAndroid.SHORT)
+        if(Platform.OS === 'android')
+          ToastAndroid.show('Playlist created',ToastAndroid.SHORT)
+        // else {
+        //   AlertIOS.alert('Playlist created')
+        // }
       }
       else{
-        ToastAndroid.show('Playlist already exists', ToastAndroid.SHORT)
+        if(Platform.OS === 'android')
+          ToastAndroid.show('Playlist already exists',ToastAndroid.SHORT)
+        else {
+          AlertIOS.alert('Playlist already exists')
+        }
       }
     })
   }
@@ -263,13 +292,11 @@ export default class PlayerControll extends Component {
   render() {
     const { style, onNext, onPrevious, onTogglePlayback, navigation, playlistNames, handleQueue, shuffleTracks, songs, storageKey } = this.props;
     const { playbackState, track } = this.props
-    console.log("Library", this.state.library)
     var middleButtonText = 'Play'
     if (playbackState === TrackPlayer.STATE_PLAYING
       || playbackState === TrackPlayer.STATE_BUFFERING) {
       middleButtonText = 'Pause'
     }
-    console.log(songs, track, "List all")
     let path = require('../../../images/nav-heart.png')
     if (this.state.library)
       path = require('../../../images/library-active.png')
@@ -356,12 +383,14 @@ const styles = StyleSheet.create({
   },
   songTitle: {
     fontSize: 18,
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#FFFFFF',
     textAlign: 'center'
   },
   songArtist: {
     paddingTop: 5,
     fontSize: 18,
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: 'grey',
     textAlign: 'center'
 
@@ -400,7 +429,8 @@ const styles = StyleSheet.create({
   },
   time: {
     color: '#FFFFFF',
-    fontSize: 10
+    fontSize: 10,
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   cover: {
     width: 140,
@@ -419,6 +449,7 @@ const styles = StyleSheet.create({
   },
   artist: {
     fontWeight: 'bold',
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
   },
   timeSecton: {
     marginTop: 10,
@@ -441,6 +472,7 @@ const styles = StyleSheet.create({
   },
   controlButtonText: {
     fontSize: 18,
+    fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     textAlign: 'center',
   },
   playButton: {

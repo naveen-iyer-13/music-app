@@ -6,6 +6,8 @@ import {
   AsyncStorage,
   Dimensions,
   Image,
+  Platform,
+  ScrollView
 } from 'react-native'
 import { ListView } from './../../../common/ListView'
 import Songs from './Songs'
@@ -113,44 +115,51 @@ class Playlists extends Component{
     console.log(this.state);
     return(
       <View>
-        {
-          loading
-          ?
-          <Text>Loading</Text>
-          :
-          !playlistOpen
-          ?
-          playlists && Object.keys(playlists).length
-          ?
-          Object.keys(playlists).map((key, index) => (
-            <View>
+        <ScrollView>
+          {
+            loading
+            ?
+            <Text>Loading</Text>
+            :
+            !playlistOpen
+            ?
+            playlists && Object.keys(playlists).length
+            ?
+            <View style={{paddingBottom:100}}>
               {
-                  <ListView
-                    thumbnail={playlists[key][0] ? playlists[key][0].thumbnail : '' }
-                    showDefault={!playlists[key][0]}
-                    title={key}
-                    key={index+key}
-                    len={playlists[key].length}
-                    song={playlists[key]}
-                    openPlaylist={this.openPlaylist}
-                    index={index}
-                    fetchFailed={[]}
-                    openModal={(song, title) => this.setState({openActionModal: true, selectedPlaylist: title})}
-                    onError={() => {}}
-                  />
+                Object.keys(playlists).map((key, index) => (
+                  <View>
+                    {
+                        <ListView
+                          thumbnail={playlists[key][0] ? playlists[key][0].thumbnail : '' }
+                          showDefault={!playlists[key][0]}
+                          title={key}
+                          key={index+key}
+                          len={playlists[key].length}
+                          song={playlists[key]}
+                          openPlaylist={this.openPlaylist}
+                          index={index}
+                          fetchFailed={[]}
+                          openModal={(song, title) => this.setState({openActionModal: true, selectedPlaylist: title})}
+                          onError={() => {}}
+                        />
+                    }
+                  </View>
+                ))
               }
             </View>
-          ))
-          :
-          <View style={{ display: 'flex',height: (height * 50)/100, alignItems: 'center', justifyContent: 'center'}}>
-                  <Image source={require('./../../../images/broken-heart.png')} style={{width: 50, height: 50}}/>
-                  <Text style={{ width: 150,fontSize: 18, color: '#252525', opacity: 0.4, fontFamily: 'Proxima-Nova-Bold', textAlign: 'center'}}>
-                    You don't have any playlist in your library!
-                  </Text>
-                </View>
-          :
-          <View/>
-        }
+            :
+            <View style={{ display: 'flex',height: (height * 50)/100, alignItems: 'center', justifyContent: 'center'}}>
+                    <Image source={require('./../../../images/broken-heart.png')} style={{width: 50, height: 50, marginBottom: 10}}/>
+                    <Text style={{ width: 225,fontSize: 18, color: '#252525', opacity: 0.4, textAlign: 'center',fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",}}>
+                      You don{"'"}t have any playlist in your library!
+                    </Text>
+                  </View>
+            :
+            <View/>
+          }
+        </ScrollView>
+
         {
           playlistOpen &&
           <Songs
