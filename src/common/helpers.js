@@ -12,12 +12,13 @@ let CancelToken = axios.CancelToken;
 let source = CancelToken.source();
 
 export const getTrending = (cb) => {
-  // console.log('getTrending');
   instance.get('/top100').then(res => {
+    console.log('Response', res.data)
     AsyncStorage.setItem('trendingSongs', JSON.stringify(res.data))
     cb(res.data)
   })
   .catch(err => {
+    console.log('Error', err)
     cb(false)
   })
 }
@@ -146,9 +147,6 @@ export const removeFromLibrary = async(song , cb) => {
         AsyncStorage.setItem('library', JSON.stringify(newTracks))
         if(Platform.OS === 'android')
           ToastAndroid.show('Song has been removed from library', ToastAndroid.SHORT)
-        // else{
-        //   AlertIOS.alert('Song has been removed from library')
-        // }
         cb(newTracks)
       }
 
@@ -187,11 +185,12 @@ export const ifInLibrary = async(track, cb) => {
   AsyncStorage.getItem('library', (err, res) => {
     if (res) {
       let target = JSON.parse(res).filter((obj, i) => obj && (obj.bp_id === track.bp_id))
-      if (target && target[0])
+
        cb(true)
+      }
       else
         cb(false)
-    }
+    
   })
 
 }

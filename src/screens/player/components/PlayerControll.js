@@ -57,7 +57,7 @@ class Duration extends ProgressComponent {
   }
 
   render() {
-    let duration = 0
+    let duration = this.getDuration()
     let secDur = Math.floor(duration % 60)
     let minDur = Math.floor(duration / 60)
     const { currentSecond } = this.state
@@ -292,14 +292,11 @@ export default class PlayerControll extends Component {
   render() {
     const { style, onNext, onPrevious, onTogglePlayback, navigation, playlistNames, handleQueue, shuffleTracks, songs, storageKey } = this.props;
     const { playbackState, track } = this.props
-    console.log(this.state);
-    // console.log("Library", this.state.library)
     var middleButtonText = 'Play'
     if (playbackState === TrackPlayer.STATE_PLAYING
       || playbackState === TrackPlayer.STATE_BUFFERING) {
       middleButtonText = 'Pause'
     }
-    // console.log(songs, track, "List all")
     let path = require('../../../images/nav-heart.png')
     if (this.state.library)
       path = require('../../../images/library-active.png')

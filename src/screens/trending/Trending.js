@@ -206,6 +206,7 @@ class Trending extends Component {
         );
       })
        artistView= trending.map((item, index)=> {
+        console.log("Cover", item.cover)
         if(this.state.randomArray.includes(index)){
           return(
             <View key={index} style={styles.trendingView} >
@@ -233,7 +234,34 @@ class Trending extends Component {
     else {
       return (
         <View style={styles.container}>
-
+          <LinearGradient colors={['#7AFFA0', '#62D8FF']} style={{height: 10, width: Dimensions.get('window').width}} />
+         <View style={{height: 210, width: Dimensions.get('window').width}}>
+           <ImageBackground
+              source={require('./../../images/default-icon.png')}
+              style={styles.backgroundImage}
+              blurRadius={0.4}>
+            <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
+             <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{width: this.state.datesLength*90}} showsHorizontalScrollIndicator={false}>
+              {artistView}
+             </ScrollView>
+           </ImageBackground>
+         </View>
+         <Text style={styles.heading}>TODAY{"'"}S TOP 100 SONGS</Text>
+         <ScrollView>
+          {List}
+         </ScrollView>
+         <Footer screenName={'Trending'} navigation={this.props.navigation} />
+         <PopupModal
+           active={this.state.popupModal}
+           closeModal={this.closeModal}
+           navigation={this.props.navigation}
+           song={this.state.selectedSong}
+           openPlaylist={this.state.openPlaylist}
+           playlistName={this.state.playlistName}
+           addToPlaylist={this.addToPlaylist}
+           createPlaylist={this.createPlaylist}
+           addPlaylistModal={this.state.addPlaylistModal}
+          />
         </View>
       )
     }

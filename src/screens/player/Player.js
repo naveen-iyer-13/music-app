@@ -37,6 +37,7 @@ export default class Player extends Component {
 			track: {},
 			trackList: [],
 			songs: [],
+
 			lastState: -1,
 			ifSearch: false
 
@@ -64,6 +65,7 @@ export default class Player extends Component {
 			const { index, storageKey, name, search } = props.navigation.state.params
 			if (search) {
 				let songs = search
+
 				trackList = search
 				let obj, list = []
 				let first = index
@@ -73,7 +75,7 @@ export default class Player extends Component {
 					obj.artwork = track.cover
 					obj.title = track.title
 					obj.id = i.toString()
-					obj.bp_id = track.bp_id
+					obj.bp_id = track.bp_id	
 					obj.artist = track.artist
 					obj.thumbnail = track.thumbnail
 					list.push(obj)
@@ -81,6 +83,7 @@ export default class Player extends Component {
 				})
 				trackList = list
 				this.setState({
+
 					ifSearch: true,
 					track: trackList[index],
 					trackList: trackList,
@@ -131,7 +134,7 @@ export default class Player extends Component {
 				AsyncStorage.getItem(storageKey, (err, res) => {
 					if (name)
 						trackList = JSON.parse(res)[name]
-					else
+					else 
 						trackList = JSON.parse(res)
 					trackList = trackList ? trackList : []
 					let songs = trackList
@@ -152,6 +155,7 @@ export default class Player extends Component {
 					this.setState({
 						track: trackList[index],
 						trackList: trackList,
+
 						songs: songs,
 						ifSearch: false
 					}, () =>{
@@ -202,7 +206,7 @@ export default class Player extends Component {
 		AsyncStorage.getItem('trendingSongs', (err,res) => {
 			if (name)
 				trackList = JSON.parse(res)[name]
-			else
+
 				trackList = JSON.parse(res)
 			let songs = trackList
 			let obj, list = []
@@ -210,6 +214,7 @@ export default class Player extends Component {
 			if(trackList){
 				trackList.forEach((track, i) => {
 					obj = {}
+
 					obj.url = track.streamlink.length > 0 ? track.streamlink : 'processing'
 					obj.artwork = track.cover
 					obj.title = track.title
@@ -218,12 +223,14 @@ export default class Player extends Component {
 					obj.artist = track.artist
 					obj.thumbnail = track.thumbnail
 					list.push(obj)
+
 				})
 			}
 			trackList = list
 			this.setState({
 				track: list[index],
 				trackList: trackList,
+
 				songs: songs,
 				ifSearch: false
 			}, () =>{
@@ -303,10 +310,12 @@ export default class Player extends Component {
 	}
 
 	togglePlayback = async (first) => {
+
 		let { playbackState, trackList , ifSearch} = this.state
 		const currentTrack = await TrackPlayer.getCurrentTrack();
 		if (!currentTrack || ifSearch) {
 			TrackPlayer.reset();
+
 			if (ifSearch && first)
 				trackList = this.getNewTrackList(first)
 			await TrackPlayer.add(trackList);
@@ -353,6 +362,7 @@ export default class Player extends Component {
 		try {
 			let trackId = await TrackPlayer.getCurrentTrack()
 			let id = parseInt(trackId)
+
 			id = id + 1
 			let j = id
 			while (!trackList[id-1].url || trackList[id-1].url === "processing") {
@@ -380,6 +390,7 @@ export default class Player extends Component {
 			let id = parseInt(trackId)
 			id = (id === 0) ? 0 : id-1
 			let j = id
+
 			while (!trackList[id-1].url || trackList[id-1].url === "processing") {
 				//ToastAndroid.show("Song not available", ToastAndroid.SHORT)
 				if(id === 0)
