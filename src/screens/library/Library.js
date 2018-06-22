@@ -49,7 +49,7 @@ class Library extends Component{
           style={{height: Platform.OS === 'android' ? 10 : 7, width: Dimensions.get('window').width}}
           start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}}
         />
-       <View navigation={this.props.navigation}>
+       <View style={styles.screenContainer} navigation={this.props.navigation}>
           <Header
             header={header}
             tab={tab}

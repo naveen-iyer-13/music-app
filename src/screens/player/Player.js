@@ -437,7 +437,7 @@ export default class Player extends Component {
 
 
 	render() {
-		console.log('Track: ',this.state.track);
+		console.log('Track: ', this.state.track);
 		const { backgroundImageBlur, playbackState, track } = this.state
 		let index, storageKey
 		if (this.props.navigation.state.params) {
@@ -460,7 +460,7 @@ export default class Player extends Component {
 				/>
 				<View style={styles.backgroundContainer}>
 					<Image
-						blurRadius = {imageBlur}
+						blurRadius={imageBlur}
 						style={styles.backgroundImage}
 						source={{ uri: (playbackState === TrackPlayer.STATE_BUFFERING) ? track.thumbnail : (track.artwork ? track.artwork : track.cover) }}
 					/>
@@ -514,7 +514,7 @@ const styles = StyleSheet.create({
 		height: Dimensions.get('window').height - 80,
 		alignItems: 'center',
 	},
-	footerContainer:{
+	footerContainer: {
 		position: 'absolute',
 		bottom: 0,
 		borderTopColor: 'rgba(255, 255, 255, 0.3)',
