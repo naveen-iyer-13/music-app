@@ -46,10 +46,10 @@ class Library extends Component{
       <View style={styles.container}>
         <LinearGradient
           colors={['#7AFFA0', '#62D8FF']}
-          style={{height: Platform.OS === 'android' ? 10 : 20, width: Dimensions.get('window').width}}
+          style={{height: Platform.OS === 'android' ? 10 : 7, width: Dimensions.get('window').width}}
           start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}}
         />
-       <View style={styles.screenContainer} navigation={this.props.navigation}>
+       <View navigation={this.props.navigation}>
           <Header
             header={header}
             tab={tab}
@@ -85,7 +85,9 @@ class Library extends Component{
               </View>
             }
         </View>
-        <Footer screenName={'Library'} navigation={this.props.navigation}/>
+        <View style={{bottom:0, position:'absolute'}}>
+          <Footer screenName={'Library'} navigation={this.props.navigation}/>
+        </View>
       </View>
     )
   }
@@ -96,6 +98,7 @@ export default Library
 const styles = StyleSheet.create({
   container:{
     display: 'flex',
+    flex:1,
     backgroundColor: '#FFFFFF',
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').heights

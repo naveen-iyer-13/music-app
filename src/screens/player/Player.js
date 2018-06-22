@@ -39,7 +39,8 @@ export default class Player extends Component {
 			songs: [],
 
 			lastState: -1,
-			ifSearch: false
+			ifSearch: false,
+			backgroundImageBlur: 1
 
 		}
 	}
@@ -49,11 +50,11 @@ export default class Player extends Component {
 
 	}
 
-	componentWillReceiveProps(nextProps){
+	componentWillReceiveProps(nextProps) {
 		this.handlePlayer(nextProps)
 	}
 
-	resetPlayer = async(cb) => {
+	resetPlayer = async (cb) => {
 		TrackPlayer.reset()
 		let currSong = await TrackPlayer.getCurrentTrack()
 		if (!currSong)
@@ -75,7 +76,7 @@ export default class Player extends Component {
 					obj.artwork = track.cover
 					obj.title = track.title
 					obj.id = i.toString()
-					obj.bp_id = track.bp_id	
+					obj.bp_id = track.bp_id
 					obj.artist = track.artist
 					obj.thumbnail = track.thumbnail
 					list.push(obj)
@@ -88,12 +89,12 @@ export default class Player extends Component {
 					track: trackList[index],
 					trackList: trackList,
 					songs: songs
-				}, () =>{
-				if (props.navigation.state.params) {
-					TrackPlayer.reset()
-					this.togglePlayback(index)
-				}
-			})
+				}, () => {
+					if (props.navigation.state.params) {
+						TrackPlayer.reset()
+						this.togglePlayback(index)
+					}
+				})
 				// obj = {}
 				// obj.url = track.url ? track.url : 'processing'
 				// obj.artwork = track.cover
@@ -134,7 +135,7 @@ export default class Player extends Component {
 				AsyncStorage.getItem(storageKey, (err, res) => {
 					if (name)
 						trackList = JSON.parse(res)[name]
-					else 
+					else
 						trackList = JSON.parse(res)
 					trackList = trackList ? trackList : []
 					let songs = trackList
@@ -158,60 +159,60 @@ export default class Player extends Component {
 
 						songs: songs,
 						ifSearch: false
-					}, () =>{
-					if (props.navigation.state.params) {
-						TrackPlayer.reset()
-						this.togglePlayback(index)
-					}
-				})
+					}, () => {
+						if (props.navigation.state.params) {
+							TrackPlayer.reset()
+							this.togglePlayback(index)
+						}
+					})
 
 				})
 		}
 		else {																									//Handle Now Playing
 			let queue = []
 			TrackPlayer.getQueue()
-			.then(results => {
-				if (results.length === 0)
-					this.fetchFromTrending()
-				else {
-					queue = results
-					TrackPlayer.getCurrentTrack()
-					.then(async(currTrackId) => {
-						let track = await TrackPlayer.getTrack(currTrackId)
-						let state = TrackPlayer.STATE_PLAYING
-						TrackPlayer.getState()
-						.then(state =>{
-							state = state
-							this.setState({
-								track: track,
-								playbackState: state,
-								ifSearch: false
+				.then(results => {
+					if (results.length === 0)
+						this.fetchFromTrending()
+					else {
+						queue = results
+						TrackPlayer.getCurrentTrack()
+							.then(async (currTrackId) => {
+								let track = await TrackPlayer.getTrack(currTrackId)
+								let state = TrackPlayer.STATE_PLAYING
+								TrackPlayer.getState()
+									.then(state => {
+										state = state
+										this.setState({
+											track: track,
+											playbackState: state,
+											ifSearch: false
+
+										})
+									})
 
 							})
-						})
+							.catch(err => console.log("Error"))
+					}
 
-					})
-					.catch(err => console.log("Error"))
-				}
-
-			})
-			.catch(err => {
-				this.fetchFromTrending()
-			})
+				})
+				.catch(err => {
+					this.fetchFromTrending()
+				})
 		}
 	}
 
 	fetchFromTrending() {
 		let index = 0, name = null
-		AsyncStorage.getItem('trendingSongs', (err,res) => {
+		AsyncStorage.getItem('trendingSongs', (err, res) => {
 			if (name)
 				trackList = JSON.parse(res)[name]
 
-				trackList = JSON.parse(res)
+			trackList = JSON.parse(res)
 			let songs = trackList
 			let obj, list = []
 			let first = index
-			if(trackList){
+			if (trackList) {
 				trackList.forEach((track, i) => {
 					obj = {}
 
@@ -233,42 +234,42 @@ export default class Player extends Component {
 
 				songs: songs,
 				ifSearch: false
-			}, () =>{
-					if (this.props.navigation.state.params) {
-						TrackPlayer.reset()
-						this.togglePlayback(index)
-					}
-				})
+			}, () => {
+				if (this.props.navigation.state.params) {
+					TrackPlayer.reset()
+					this.togglePlayback(index)
+				}
+			})
 		})
 	}
 
 	componentDidMount() {
 		TrackPlayer.setupPlayer();
-	//	if (!TrackPlayer.STATE_PLAYING && !TrackPlayer.STATE_BUFFERING  && !TrackPlayer.STATE_NONE && !TrackPlayer.STATE_PAUSED && !TrackPlayer.STATE_STOPPED)
-			TrackPlayer.registerEventHandler(async (data) => {
-				if (data.type === 'playback-track-changed') {
-					if (data.nextTrack) {
-						const track = await TrackPlayer.getTrack(data.nextTrack);
-						this.setState({
-							track: track
-						})
-					}
-				} else if (data.type == 'remote-play') {
-					TrackPlayer.play()
-				} else if (data.type == 'remote-pause') {
-					TrackPlayer.pause()
-				} else if (data.type == 'remote-next') {
-
-					TrackPlayer.skipToNext()
-				} else if (data.type == 'remote-previous') {
-
-					TrackPlayer.skipToPrevious()
-				} else if (data.type === 'playback-state') {
+		//	if (!TrackPlayer.STATE_PLAYING && !TrackPlayer.STATE_BUFFERING  && !TrackPlayer.STATE_NONE && !TrackPlayer.STATE_PAUSED && !TrackPlayer.STATE_STOPPED)
+		TrackPlayer.registerEventHandler(async (data) => {
+			if (data.type === 'playback-track-changed') {
+				if (data.nextTrack) {
+					const track = await TrackPlayer.getTrack(data.nextTrack);
 					this.setState({
-						playbackState: data.state
+						track: track
 					})
 				}
-			});
+			} else if (data.type == 'remote-play') {
+				TrackPlayer.play()
+			} else if (data.type == 'remote-pause') {
+				TrackPlayer.pause()
+			} else if (data.type == 'remote-next') {
+
+				TrackPlayer.skipToNext()
+			} else if (data.type == 'remote-previous') {
+
+				TrackPlayer.skipToPrevious()
+			} else if (data.type === 'playback-state') {
+				this.setState({
+					playbackState: data.state
+				})
+			}
+		});
 
 		TrackPlayer.updateOptions({
 			stopWithApp: true,
@@ -285,33 +286,33 @@ export default class Player extends Component {
 	// }
 
 	getNewTrackList = (index) => {
-			let { trackList } = this.state
-			let t = [{...trackList[index]}]
-			let obj = {}, track
-			getStreamingUrl(t, (data) => {
-				track = data[0]
-				if (track.url === 'processing')
-					if(Platform.OS === 'android')
-						ToastAndroid.show("Song not available", ToastAndroid.SHORT)
-					else{
-						AlertIOS.alert('Song not available')
-					}
-				obj.url = track.url && track.url.length > 0 ? track.url : 'processing'
-				obj.artwork = track.cover
-				obj.title = track.title
-				obj.id = index.toString()
-				obj.bp_id = track.bp_id
-				obj.artist = track.artist
-				obj.thumbnail = track.thumbnail
-				trackList[index] = obj
-			})
+		let { trackList } = this.state
+		let t = [{ ...trackList[index] }]
+		let obj = {}, track
+		getStreamingUrl(t, (data) => {
+			track = data[0]
+			if (track.url === 'processing')
+				if (Platform.OS === 'android')
+					ToastAndroid.show("Song not available", ToastAndroid.SHORT)
+				else {
+					AlertIOS.alert('Song not available')
+				}
+			obj.url = track.url && track.url.length > 0 ? track.url : 'processing'
+			obj.artwork = track.cover
+			obj.title = track.title
+			obj.id = index.toString()
+			obj.bp_id = track.bp_id
+			obj.artist = track.artist
+			obj.thumbnail = track.thumbnail
+			trackList[index] = obj
+		})
 
-			return trackList
+		return trackList
 	}
 
 	togglePlayback = async (first) => {
 
-		let { playbackState, trackList , ifSearch} = this.state
+		let { playbackState, trackList, ifSearch } = this.state
 		const currentTrack = await TrackPlayer.getCurrentTrack();
 		if (!currentTrack || ifSearch) {
 			TrackPlayer.reset();
@@ -321,41 +322,41 @@ export default class Player extends Component {
 			await TrackPlayer.add(trackList);
 			if (first) {
 				let id = parseInt(first)
-				while(!trackList[id].url || trackList[id].url === 'processing')
+				while (!trackList[id].url || trackList[id].url === 'processing')
 					id++
-				if (id !== parseInt(first)){
-					if(Platform.OS === 'android')
+				if (id !== parseInt(first)) {
+					if (Platform.OS === 'android')
 						ToastAndroid.show("Song not available", ToastAndroid.SHORT)
-					else{
+					else {
 						AlertIOS.alert('Song not available')
 					}
 				}
 				await TrackPlayer.skip(id.toString())
 			}
 			TrackPlayer.play();
-			} else {
-				if (playbackState === TrackPlayer.STATE_PAUSED || first) {
-					if (first) {
-						let id = parseInt(first)
-						while(!trackList[id].url || trackList[id].url === 'processing')
-							id++
-						if (id !== parseInt(first)){
-							if(Platform.OS === 'android')
-								ToastAndroid.show("Song not available", ToastAndroid.SHORT)
-							else{
-								AlertIOS.alert('Song not available')
-							}
-
+		} else {
+			if (playbackState === TrackPlayer.STATE_PAUSED || first) {
+				if (first) {
+					let id = parseInt(first)
+					while (!trackList[id].url || trackList[id].url === 'processing')
+						id++
+					if (id !== parseInt(first)) {
+						if (Platform.OS === 'android')
+							ToastAndroid.show("Song not available", ToastAndroid.SHORT)
+						else {
+							AlertIOS.alert('Song not available')
 						}
-						await TrackPlayer.skip(id.toString())
+
 					}
-					// console.log("Play")
-					TrackPlayer.play();
-				} else {
-					// console.log("Pause")
-					TrackPlayer.pause();
+					await TrackPlayer.skip(id.toString())
 				}
+				// console.log("Play")
+				TrackPlayer.play();
+			} else {
+				// console.log("Pause")
+				TrackPlayer.pause();
 			}
+		}
 	}
 
 	skipToNext = async () => {
@@ -365,15 +366,15 @@ export default class Player extends Component {
 
 			id = id + 1
 			let j = id
-			while (!trackList[id-1].url || trackList[id-1].url === "processing") {
+			while (!trackList[id - 1].url || trackList[id - 1].url === "processing") {
 				//ToastAndroid.show("Song not available", ToastAndroid.SHORT)
 				id++
 
 			}
 			if (j !== id)
-				if(Platform.OS === 'android')
+				if (Platform.OS === 'android')
 					ToastAndroid.show("Song not available", ToastAndroid.SHORT)
-				else{
+				else {
 					AlertIOS.alert("Song not available")
 				}
 			id = id.toString()
@@ -388,20 +389,20 @@ export default class Player extends Component {
 		try {
 			let trackId = await TrackPlayer.getCurrentTrack()
 			let id = parseInt(trackId)
-			id = (id === 0) ? 0 : id-1
+			id = (id === 0) ? 0 : id - 1
 			let j = id
 
-			while (!trackList[id-1].url || trackList[id-1].url === "processing") {
+			while (!trackList[id - 1].url || trackList[id - 1].url === "processing") {
 				//ToastAndroid.show("Song not available", ToastAndroid.SHORT)
-				if(id === 0)
+				if (id === 0)
 					break
-				id = (id === 0) ? 0 : id-1
+				id = (id === 0) ? 0 : id - 1
 
 			}
 			if (j !== id)
-				if(Platform.OS === 'android')
+				if (Platform.OS === 'android')
 					ToastAndroid.show("Song not available", ToastAndroid.SHORT)
-				else{
+				else {
 					AlertIOS.alert("Song not available")
 				}
 			id = id.toString()
@@ -436,7 +437,8 @@ export default class Player extends Component {
 
 
 	render() {
-		const { playbackState, track } = this.state
+		console.log('Track: ',this.state.track);
+		const { backgroundImageBlur, playbackState, track } = this.state
 		let index, storageKey
 		if (this.props.navigation.state.params) {
 			index = this.props.navigation.state.params.index
@@ -446,21 +448,24 @@ export default class Player extends Component {
 			index = 0
 			storageKey = 'trendingSongs'
 		}
+		let imageBlur = 1;
+		(playbackState === TrackPlayer.STATE_BUFFERING || playbackState === -1 || playbackState === 'stopped') ? imageBlur = 1 : imageBlur = 0
 		return (
 
 			<View style={styles.container}>
 				<LinearGradient
-          colors={['#7AFFA0', '#62D8FF']}
-          style={{height: Platform.OS === 'android' ? 10 : 20, width: Dimensions.get('window').width, zIndex: 2000}}
-          start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}}
-        />
+					colors={['#7AFFA0', '#62D8FF']}
+					style={{ height: 7, width: Dimensions.get('window').width, zIndex: 2000 }}
+					start={{ x: 0.0, y: 0.5 }} end={{ x: 0.5, y: 1.0 }}
+				/>
 				<View style={styles.backgroundContainer}>
 					<Image
+						blurRadius = {imageBlur}
 						style={styles.backgroundImage}
 						source={{ uri: (playbackState === TrackPlayer.STATE_BUFFERING) ? track.thumbnail : (track.artwork ? track.artwork : track.cover) }}
 					/>
 				</View>
-				<LinearGradient colors={['#FFFFFF','#D8D8D8', '#4A4A4A','#000000']} style={styles.playerContainer}>
+				<LinearGradient colors={['#FFFFFF', '#D8D8D8', '#000000']} style={styles.playerContainer}>
 					<PlayerControll
 						onNext={() => this.skipToNext()}
 						onPrevious={() => this.skipToPrevious()}
@@ -474,10 +479,10 @@ export default class Player extends Component {
 						songs={this.state.songs}
 						storageKey={storageKey}
 					/>
+					<View style={styles.footerContainer}>
+						<Footer screenName={'Player'} navigation={this.props.navigation} />
+					</View>
 				</LinearGradient>
-				<View style={{backgroundColor: '#000000', opacity: 0.7}}>
-					<Footer screenName={'Player'} navigation={this.props.navigation} />
-				</View>
 
 			</View>
 		)
@@ -503,11 +508,17 @@ const styles = StyleSheet.create({
 	playerContainer: {
 		flex: 1,
 		// backgroundColor: '#000000',
-		opacity: 0.6,
+		opacity: 0.7,
 		justifyContent: 'center',
 		width: '100%',
 		height: Dimensions.get('window').height - 80,
 		alignItems: 'center',
 	},
+	footerContainer:{
+		position: 'absolute',
+		bottom: 0,
+		borderTopColor: 'rgba(255, 255, 255, 0.3)',
+		borderTopWidth: 1
+	}
 
 });
