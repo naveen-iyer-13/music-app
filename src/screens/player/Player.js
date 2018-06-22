@@ -455,7 +455,7 @@ export default class Player extends Component {
 			<View style={styles.container}>
 				<LinearGradient
 					colors={['#7AFFA0', '#62D8FF']}
-					style={{ height: 7, width: Dimensions.get('window').width, zIndex: 2000 }}
+					style={{ height: 5, width: Dimensions.get('window').width, zIndex: 2000 }}
 					start={{ x: 0.0, y: 0.5 }} end={{ x: 0.5, y: 1.0 }}
 				/>
 				<View style={styles.backgroundContainer}>

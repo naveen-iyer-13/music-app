@@ -178,7 +178,6 @@ class Trending extends Component {
   }
 
   render() {
-
     var trending = this.state.trendingSongs
     // console.log('Trendin covers', trending);
     var List = <View />
@@ -217,7 +216,7 @@ class Trending extends Component {
                   source={item.cover ? { uri: item.cover } : defaultIcon}
                 />
               </TouchableOpacity>
-              <View style={{ height: 180, width: 100, backgroundColor: 'transparent' }}>
+              <View style={{ height: 10, width: 100, backgroundColor: 'transparent' }}>
                 <Text style={styles.trendingTitle}>{getArtistName(item.artist)}</Text>
               </View>
             </View>
@@ -236,20 +235,21 @@ class Trending extends Component {
       return (
         <View style={styles.container}>
           <ScrollView>
-            <LinearGradient start={{x:0.0, y:0.0}} end={{x:0.9, y:0.0}}  colors={['#7AFFA0', '#62D8FF']} style={{ height: 7, width: Dimensions.get('window').width }} />
-
-            <View style={{ height: 210, width: Dimensions.get('window').width }}>
+            <LinearGradient start={{ x: 0.0, y: 0.0 }} end={{ x: 0.9, y: 0.0 }} colors={['#7AFFA0', '#62D8FF']} style={{ height: 5, width: Dimensions.get('window').width }} />
+            <View style={{ height: 190, width: Dimensions.get('window').width }}>
               <ImageBackground
                 source={{ uri: this.state.trendingSongs[0].cover }}
                 style={styles.backgroundImage}
-                blurRadius={2}>
-                <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
-                <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{ width: this.state.datesLength * 90 }} showsHorizontalScrollIndicator={false}>
-                  {artistView}
-                </ScrollView>
+                blurRadius={1}>
+                <LinearGradient start={{ x: 0.0, y: 0.7 }} end={{ x: 0.0, y: 0.0 }} colors={['rgba(255, 255, 255, 1)', 'rgba(0,0,0, 0.4)']} >
+                  <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
+                  <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{ width: this.state.datesLength * 90 }} showsHorizontalScrollIndicator={false}>
+                    {artistView}
+                  </ScrollView>
+                </LinearGradient>
               </ImageBackground>
             </View>
-            <Text style={styles.heading}>TODAY{"'"}S TOP 100 SONGS</Text>
+            <Text style={styles.heading}>TODAY{"'"}S TOP 100</Text>
             <ScrollView>
               {List}
             </ScrollView>
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     fontFamily: Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
-    color: '#000',
+    color: '#797979',
     paddingTop: 10,
   },
   trendingImage: {
@@ -307,13 +307,12 @@ const styles = StyleSheet.create({
     borderRadius: Platform.OS === 'android' ? 80 : 40
   },
   trendingView: {
-    paddingTop: 15,
     width: 100,
     height: 180,
   },
   backgroundImage: {
     width: '100%',
-    height: 170,
+    height: 190,
   },
   trendingArtist: {
     fontFamily: Platform.OS === 'android' ? 'Proxima-Nova-Bold' : 'ProximaNova-Bold',

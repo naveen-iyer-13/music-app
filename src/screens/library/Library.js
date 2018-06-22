@@ -46,7 +46,7 @@ class Library extends Component{
       <View style={styles.container}>
         <LinearGradient
           colors={['#7AFFA0', '#62D8FF']}
-          style={{height: Platform.OS === 'android' ? 10 : 7, width: Dimensions.get('window').width}}
+          style={{height: Platform.OS === 'android' ? 10 : 5, width: Dimensions.get('window').width}}
           start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}}
         />
        <View style={styles.screenContainer} navigation={this.props.navigation}>
