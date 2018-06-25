@@ -288,7 +288,6 @@ export default class PlayerControll extends Component {
     this.props.handleQueue(index)
   }
 
-
   render() {
     const { style, onNext, onPrevious, onTogglePlayback, navigation, playlistNames, handleQueue, shuffleTracks, songs, storageKey } = this.props;
     const { playbackState, track } = this.props
@@ -365,7 +364,7 @@ const styles = StyleSheet.create({
   controller: {
     height: 150,
     width: 350,
-    marginTop: Dimensions.get('window').height * 0.50,
+    marginTop: Dimensions.get('window').height * 0.60,
     alignItems: 'center'
   },
   skipTrack: {
@@ -382,18 +381,17 @@ const styles = StyleSheet.create({
 
   },
   songTitle: {
-    fontSize: 18,
+    fontSize: 19,
     fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
     color: '#FFFFFF',
     textAlign: 'center'
   },
   songArtist: {
     paddingTop: 5,
-    fontSize: 18,
+    fontSize: 15,
     fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova",
-    color: 'grey',
+    color: 'rgba(255,255,255,0.3)',
     textAlign: 'center'
-
   },
   sideSectionLeft: {
     flex: 1,

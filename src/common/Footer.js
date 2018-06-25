@@ -41,28 +41,31 @@ const SCREENICON = {
 
 }
 
-class Footer extends Component{
-  constructor(props){
+class Footer extends Component {
+  constructor(props) {
     super(props)
     this.state = {
       selectedScreen: 'Trending'
     }
   }
 
-  navigate(screenName){
+  navigate(screenName) {
     this.props.navigation.navigate(screenName)
   }
 
   render() {
     const { screenName } = this.props
     let sty = styles.container
+
     let imgStyle = styles.imageStyle
-    screenName === 'Player' ? imgStyle = [imgStyle, {tintColor: '#FFFFFF'}] : sty = [sty,{backgroundColor: '#FFFFFF', borderTopWidth: 1}]
-    return(
+    screenName === 'Player' ? imgStyle : sty = [sty, { backgroundColor: '#FFFFFF', borderTopWidth: 1 }]
+
+    return (
+      (screenName !== 'Player') ?
       <View style={sty}>
         {
           SCREENS.map((screen, index) => (
-            <TouchableOpacity key={screen+index} onPress={()=> screenName === screen ?  {} : this.navigate(screen)} style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <TouchableOpacity key={screen + index} onPress={() => screenName === screen ? {} : this.navigate(screen)} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <Image
                 source={screenName === screen ? SCREENICON[screen].active : SCREENICON[screen].inactive}
                 style={imgStyle}
@@ -71,15 +74,27 @@ class Footer extends Component{
             </TouchableOpacity>
           ))
         }
-
-      </View>
+      </View> :
+      <View style={sty}>
+      {
+        SCREENS.map((screen, index) => (
+          <TouchableOpacity key={screen + index} onPress={() => screenName === screen ? {} : this.navigate(screen)} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Image
+              source={screenName === screen ? SCREENICON[screen].active : SCREENICON[screen].inactive}
+              style={[imgStyle, index !== 3 ? {tintColor: '#FFFFFF'}: null ]}
+              resizeMode='contain'
+            />
+          </TouchableOpacity>
+        ))
+      }
+    </View>
     )
   }
 }
 export default Footer
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     height: 50,
     width,
     borderColor: '#EBEBEB',
@@ -87,7 +102,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
-  imageStyle:{
+  imageStyle: {
     width: 20,
     height: 20,
     padding: 5

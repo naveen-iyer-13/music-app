@@ -10,7 +10,7 @@ import {
 	ToastAndroid,
 	AsyncStorage,
 	AppRegistry,
-	EventEmitter,
+	EventEmitter,ImageBackground,
 	AlertIOS,
 	Platform
 } from 'react-native';
@@ -434,10 +434,8 @@ export default class Player extends Component {
 
 	}
 
-
-
 	render() {
-		console.log('Track: ', this.state.track);
+	console.log('Track: ', this.state.track);
 		const { backgroundImageBlur, playbackState, track } = this.state
 		let index, storageKey
 		if (this.props.navigation.state.params) {
@@ -458,32 +456,41 @@ export default class Player extends Component {
 					style={{ height: 5, width: Dimensions.get('window').width, zIndex: 2000 }}
 					start={{ x: 0.0, y: 0.5 }} end={{ x: 0.5, y: 1.0 }}
 				/>
-				<View style={styles.backgroundContainer}>
+
+				<ImageBackground
+					style={styles.backgroundContainer}
+					blurRadius={imageBlur}
+					source={{ uri: (playbackState === TrackPlayer.STATE_BUFFERING) ? track.thumbnail : (track.artwork ? track.artwork : track.cover) }}
+				>
+					<LinearGradient colors={['#FFFFFF', '#D8D8D8', '#000000']} style={styles.gradientOverImage} />
+				</ImageBackground> 
+
+				{/* <View style={styles.backgroundContainer}>
 					<Image
 						blurRadius={imageBlur}
 						style={styles.backgroundImage}
 						source={{ uri: (playbackState === TrackPlayer.STATE_BUFFERING) ? track.thumbnail : (track.artwork ? track.artwork : track.cover) }}
 					/>
-				</View>
-				<LinearGradient colors={['#FFFFFF', '#D8D8D8', '#000000']} style={styles.playerContainer}>
-					<PlayerControll
-						onNext={() => this.skipToNext()}
-						onPrevious={() => this.skipToPrevious()}
-						onTogglePlayback={() => this.togglePlayback()}
-						playbackState={playbackState}
-						track={track}
-						navigation={this.props.navigation}
-						trackList={trackList}
-						handleQueue={this.handleQueue}
-						shuffleTracks={this.shuffleArray}
-						songs={this.state.songs}
-						storageKey={storageKey}
-					/>
-					<View style={styles.footerContainer}>
-						<Footer screenName={'Player'} navigation={this.props.navigation} />
-					</View>
-				</LinearGradient>
+				</View>  */}
 
+				<View style={styles.playerContainer}>
+				<PlayerControll
+					onNext={() => this.skipToNext()}
+					onPrevious={() => this.skipToPrevious()}
+					onTogglePlayback={() => this.togglePlayback()}
+					playbackState={playbackState}
+					track={track}
+					navigation={this.props.navigation}
+					trackList={trackList}
+					handleQueue={this.handleQueue}
+					shuffleTracks={this.shuffleArray}
+					songs={this.state.songs}
+					storageKey={storageKey}
+				/>
+				<View style={styles.footerContainer}>
+					<Footer screenName={'Player'} navigation={this.props.navigation} />
+				</View>
+				</View>
 			</View>
 		)
 	}
@@ -507,18 +514,23 @@ const styles = StyleSheet.create({
 	},
 	playerContainer: {
 		flex: 1,
-		// backgroundColor: '#000000',
-		opacity: 0.7,
-		justifyContent: 'center',
 		width: '100%',
-		height: Dimensions.get('window').height - 80,
-		alignItems: 'center',
+		alignItems: 'center'
 	},
 	footerContainer: {
 		position: 'absolute',
 		bottom: 0,
 		borderTopColor: 'rgba(255, 255, 255, 0.3)',
 		borderTopWidth: 1
+	},
+	gradientOverImage: {
+		flex: 1,
+		// backgroundColor: '#000000',
+		opacity: 0.7,
+		justifyContent: 'center',
+		width: '100%',
+		height: Dimensions.get('window').height - 80,
+		alignItems: 'center'
 	}
 
 });

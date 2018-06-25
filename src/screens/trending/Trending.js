@@ -17,6 +17,7 @@ import {
 } from 'react-native'
 import { getTrending } from './../../common/helpers'
 import Footer from '../../common/Footer'
+import Header from './../../common/Header'
 import { ListView } from '../../common/ListView'
 import PopupModal from '../../common/PopupModal'
 import SplashScreen from '../../common/SplashScreen'
@@ -242,7 +243,7 @@ class Trending extends Component {
                 style={styles.backgroundImage}
                 blurRadius={1}>
                 <LinearGradient start={{ x: 0.0, y: 0.7 }} end={{ x: 0.0, y: 0.0 }} colors={['rgba(255, 255, 255, 1)', 'rgba(0,0,0, 0.4)']} >
-                  <Text style={styles.trendingArtist}>TRENDING ARTIST</Text>
+                  <Text style={styles.trendingArtist}>TRENDING ARTISTS</Text>
                   <ScrollView horizontal={true} showsHorizontalScrollIndicator={true} contentContainerStyle={{ width: this.state.datesLength * 90 }} showsHorizontalScrollIndicator={false}>
                     {artistView}
                   </ScrollView>
@@ -315,11 +316,12 @@ const styles = StyleSheet.create({
     height: 190,
   },
   trendingArtist: {
+    paddingTop: 17,
     fontFamily: Platform.OS === 'android' ? 'Proxima-Nova-Bold' : 'ProximaNova-Bold',
     color: '#FFFFFF',
-    fontSize: 22,
+    fontSize: 16,
     textAlign: 'center',
-    backgroundColor: 'transparent',
-    paddingTop: 25
+    backgroundColor: 'transparent'
+    // paddingTop: 25
   }
 });
