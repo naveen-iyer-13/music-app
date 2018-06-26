@@ -166,7 +166,7 @@ class SearchScreen extends Component{
       <View style={styles.container}>
         <LinearGradient
           colors={['#7AFFA0', '#62D8FF']}
-          style={{height: Platform.OS === 'android' ? 10 : 20, width: Dimensions.get('window').width}}
+          style={{height: Platform.OS === 'android' ? 10 : 5, width: Dimensions.get('window').width}}
           start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}}
         />
        <View style={{display: 'flex', alignItems: 'center', height: 50, justifyContent: 'center'}}>
@@ -238,7 +238,9 @@ class SearchScreen extends Component{
           createPlaylist={this.createPlaylist}
           addPlaylistModal={this.state.addPlaylistModal}
         />
-        <Footer screenName={'Search'} navigation={this.props.navigation}/>
+        <View style={{bottom:0, position:'absolute'}}>
+          <Footer screenName={'Search'} navigation={this.props.navigation}/>
+        </View>
       </View>
     )
   }

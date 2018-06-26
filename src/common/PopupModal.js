@@ -79,7 +79,7 @@ class PopupModal extends Component{
               />
              </View>
 
-             <LinearGradient colors={['#7AFFA0', '#62D8FF']}  start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}} style={{display: 'flex', flexDirection: 'row',alignItems: 'center', height: 50, borderRadius: 8}}>
+             <LinearGradient colors={['#7AFFA0', '#62D8FF']}  start={{x: 0.0, y: 0.0}} end={{x: 0.9, y: 0.0}} style={{display: 'flex', flexDirection: 'row',alignItems: 'center', height: 50, borderRadius: 8}}>
                <TouchableOpacity style={styles.optionOverview} onPress={() => closeModal('Cancel Create')}>
                  <Text style={styles.optionButton}>CANCEL</Text>
                </TouchableOpacity>
@@ -122,9 +122,9 @@ class PopupModal extends Component{
                    :
                    <View style={{height: 250}}>
                     <TouchableOpacity onPress={() => createPlaylist()}>
-                    <LinearGradient start={{x: 0.0, y: 0.5}} end={{x: 0.5, y: 1.0}}  colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
-                       marginLeft: '20%',marginTop: 15, justifyContent: 'center', borderRadius: 10, marginBottom: 15}}>
-                         <Text style={{fontSize: 16, color: '#4A4A4A',backgroundColor: 'transparent', fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova"}}>New Playlist</Text>
+                    <LinearGradient start={{x: 0.0, y: 0.0}} end={{x: 0.9, y: 0.0}}  colors={['#7AFFA0', '#62D8FF']} style={{width: '60%', height: 40,alignItems:'center',
+                       marginLeft: '20%',marginTop: 15, justifyContent: 'center', borderRadius: 20, marginBottom: 15}}>
+                         <Text style={{fontSize: 20, color: '#FFFFFF',backgroundColor: 'transparent', fontFamily :Platform.OS === 'android' ? 'Proxima-Nova' : "Proxima Nova"}}>New Playlist</Text>
                      </LinearGradient>
                     </TouchableOpacity>
 
@@ -193,12 +193,12 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   playlistInput: {
-    width: 300,
+    width: 280,
     height: 40,
     backgroundColor: '#F7F7F7',
     borderColor: '#EBEBEB',
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 0,
     marginBottom: 15,
     paddingLeft: 5,
     //fontFamily: ''
@@ -263,6 +263,7 @@ const styles = StyleSheet.create({
     color: '#2B2B2B',
     //fontFamily: '',
     fontSize: 15,
+    fontWeight: '600'
   },
   TextStylePlaylist:{
     paddingLeft: 15,

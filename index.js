@@ -7,6 +7,8 @@ import {
   Animated,
   AsyncStorage,
   Easing,
+  StatusBar,
+  YellowBox,
   AppState
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
@@ -36,6 +38,8 @@ class bibimpop extends Component{
 
   componentDidMount() {
     AppState.addEventListener('change', this._handleAppStateChange);
+    StatusBar.setHidden(true);
+    console.disableYellowBox = true;
   }
 
   _handleAppStateChange = (nextState) => {
